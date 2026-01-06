@@ -68,6 +68,18 @@ pnpm dev
 
 ## 🔧 发布流程
 
+### GitHub Packages（推荐）
+
+发布到 GitHub Packages（`npm.pkg.github.com`）并供主项目直接安装：
+
+```bash
+# 主项目或本地开发需要配置
+@napgram:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=<GITHUB_TOKEN or PAT>
+```
+
+CI 已包含发布流程（`Release` 工作流），推送到 `main` 后会按 Changesets 发布。
+
 ### 使用 Changesets
 ```bash
 # 1. 标记变更

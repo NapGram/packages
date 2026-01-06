@@ -14,15 +14,13 @@ jobs:
           version: 10.27.0
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 25
           cache: pnpm
       - name: Install
         run: pnpm install --frozen-lockfile
-      - name: Test
-        run: pnpm test
-      - name: Check
-        run: pnpm check
       - name: Lint
         run: pnpm lint
-      - name: Build
-        run: pnpm build
+      - name: Check
+        run: pnpm check
+      - name: Test
+        run: pnpm test

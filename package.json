@@ -11,7 +11,7 @@
     "build:utilities": "pnpm --filter './utilities/**' build",
     "build:plugins": "pnpm --filter './plugins/**' build",
     "dev": "pnpm -r dev",
-    "test": "pnpm -r --if-present build && pnpm -r test",
+    "test": "pnpm -r test",
     "lint": "pnpm -r lint",
     "check": "pnpm -r --if-present type-check",
     "changeset": "changeset",
