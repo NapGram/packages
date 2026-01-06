@@ -1,0 +1,39 @@
+{
+  "name": "@napgram/packages-monorepo",
+  "version": "0.1.4",
+  "private": true,
+  "description": "NapGram packages monorepo - Core kits and plugins",
+  "packageManager": "pnpm@10.27.0",
+  "scripts": {
+    "build": "pnpm -r --if-present build",
+    "build:sdk": "pnpm --filter '@napgram/sdk' --filter '@napgram/core' --filter '@napgram/utils' build",
+    "build:core": "pnpm --filter './core/**' --filter './clients/**' build",
+    "build:utilities": "pnpm --filter './utilities/**' build",
+    "build:plugins": "pnpm --filter './plugins/**' build",
+    "dev": "pnpm -r dev",
+    "test": "pnpm -r --if-present build && pnpm -r test",
+    "lint": "pnpm -r lint",
+    "check": "pnpm -r --if-present type-check",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "publish": "pnpm build && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@typescript-eslint/eslint-plugin": "^8.52.0",
+    "@typescript-eslint/parser": "^8.52.0",
+    "eslint": "^9.39.2",
+    "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "better-sqlite3",
+      "cpu-features",
+      "esbuild",
+      "protobufjs",
+      "sharp",
+      "silk-sdk",
+      "ssh2"
+    ]
+  }
+}

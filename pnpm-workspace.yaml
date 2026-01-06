@@ -1,0 +1,8 @@
+packages:
+  - 'sdk'
+  - 'sdk-core'
+  - 'sdk-utils'
+  - 'core/*'
+  - 'clients/*'
+  - 'utilities/*'
+  - 'plugins/**'
