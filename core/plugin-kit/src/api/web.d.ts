@@ -1,7 +1,7 @@
 /**
  * NapGram Web API (route registration)
  */
-import type { WebAPI } from '../core/interfaces';
+import type { WebAPI } from '../core/interfaces.js';
 type WebRouteRegistrar = (register: (app: any) => void, pluginId?: string) => void;
 export declare class WebAPIImpl implements WebAPI {
     private readonly registrar?;

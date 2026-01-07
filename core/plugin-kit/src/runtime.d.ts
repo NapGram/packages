@@ -4,7 +4,7 @@
  * 原生插件系统的统一入口
  */
 import { IPluginRuntime, IInstance } from '@napgram/runtime-kit';
-import { getGlobalRuntime } from './core/plugin-runtime';
+import { getGlobalRuntime } from './core/plugin-runtime.js';
 /**
  * 插件运行时公共 API
  */

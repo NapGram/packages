@@ -1,6 +1,6 @@
-import type { EventBus } from '../event-bus'
+import type { EventBus } from '../event-bus.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { PluginContextImpl } from '../plugin-context'
+import { PluginContextImpl } from '../plugin-context.js'
 
 const mockLogger = {
   debug: vi.fn(),

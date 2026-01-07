@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { db, env } from '@napgram/infra-kit'
-import { RichHeaderBuilder } from '../RichHeaderBuilder'
+import { RichHeaderBuilder } from '../RichHeaderBuilder.js'
 
 vi.mock('@napgram/infra-kit', () => ({
   db: {

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { createUserAPI, UserAPIImpl } from '../user'
+import { createUserAPI, UserAPIImpl } from '../user.js'
 
 describe('userAPI', () => {
   describe('userAPIImpl', () => {

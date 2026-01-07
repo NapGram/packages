@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { editFlags } from '../flagControl'
+import { editFlags } from '../flagControl.js'
 
 // Correct path from __tests__ to src/domain/constants/flags
 // src/shared/utils/__tests__ -> ../../../domain/constants/flags

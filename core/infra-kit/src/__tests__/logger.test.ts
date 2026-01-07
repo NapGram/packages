@@ -62,7 +62,7 @@ describe('logger', () => {
     vi.spyOn(fs, 'existsSync').mockReturnValue(false)
     vi.spyOn(fs, 'createWriteStream').mockReturnValue({ write: vi.fn(), end: vi.fn() } as any)
 
-    const { getLogger } = await import('../logger')
+    const { getLogger } = await import('../logger.js')
     const logger = getLogger('TestNormalize')
     logger.info('test message')
 
@@ -81,7 +81,7 @@ describe('logger', () => {
     vi.setSystemTime(day1)
 
     // We import logger AFTER setting time so initial date matches
-    const loggerModule = await import('../logger')
+    const loggerModule = await import('../logger.js')
     const logger = loggerModule.getLogger('RotationTest')
     logger.info('msg 1')
 
@@ -99,7 +99,7 @@ describe('logger', () => {
   })
 
   it('should handle setConsoleLogLevel and thresholds', async () => {
-    const { getLogger, setConsoleLogLevel } = await import('../logger')
+    const { getLogger, setConsoleLogLevel } = await import('../logger.js')
 
     setConsoleLogLevel('error')
     const logger = getLogger('ThresholdTest')
@@ -128,7 +128,7 @@ describe('logger', () => {
     vi.spyOn(fs, 'createWriteStream').mockReturnValue(mockStream as any)
     vi.spyOn(fs, 'existsSync').mockReturnValue(true)
 
-    const { getLogger } = await import('../logger')
+    const { getLogger } = await import('../logger.js')
     const logger = getLogger('FileThreshold')
 
     logger.info('skip file')
@@ -148,7 +148,7 @@ describe('logger', () => {
     }))
     vi.spyOn(fs, 'createWriteStream').mockReturnValue({ write: vi.fn(), end: vi.fn() } as any)
 
-    const { getLogger } = await import('../logger')
+    const { getLogger } = await import('../logger.js')
     const logger = getLogger('AllLevels')
 
     logger.trace('trace')
@@ -162,7 +162,7 @@ describe('logger', () => {
   })
 
   it('should handle fallback match for colors', async () => {
-    const { getLogger } = await import('../logger')
+    const { getLogger } = await import('../logger.js')
     const logger = getLogger('CheckColors')
 
     logger.info('test color')
@@ -180,7 +180,7 @@ describe('logger', () => {
   })
 
   it('should handle non-string args and empty messages (lines 75, 226)', async () => {
-    const { getLogger } = await import('../logger')
+    const { getLogger } = await import('../logger.js')
     const logger = getLogger('ArgTest')
 
     // Cover line 75: typeof arg === 'string' ? ... : inspect(...)
@@ -205,7 +205,7 @@ describe('logger', () => {
     }))
 
     // Re-import to trigger top-level const tz initialization
-    await import('../logger')
+    await import('../logger.js')
     // If no error thrown, it passed the fallback check
   })
 
@@ -220,7 +220,7 @@ describe('logger', () => {
       },
     }))
 
-    const { getLogger } = await import('../logger')
+    const { getLogger } = await import('../logger.js')
     const logger = getLogger('FallbackTest')
     logger.info('test')
     // Should default to 'info' and work
@@ -244,7 +244,7 @@ describe('logger', () => {
     })
 
     // This should trigger line 63: fileLoggingEnabled = false
-    const { getLogger } = await import('../logger')
+    const { getLogger } = await import('../logger.js')
     const logger = getLogger('ErrorTest')
     logger.info('test')
 
@@ -268,7 +268,7 @@ describe('logger', () => {
     })
 
     // This should trigger lines 78-79: catch block setting fileLoggingEnabled = false
-    const { getLogger } = await import('../logger')
+    const { getLogger } = await import('../logger.js')
     const logger = getLogger('StreamErrorTest')
     logger.info('test')
 
@@ -295,7 +295,7 @@ describe('logger', () => {
     const day1 = new Date('2023-01-01T10:00:00Z')
     vi.setSystemTime(day1)
 
-    const { getLogger } = await import('../logger')
+    const { getLogger } = await import('../logger.js')
     const logger = getLogger('RotationTest')
     logger.info('message on day 1')
     expect(mockStream1.write).toHaveBeenCalled()
@@ -324,7 +324,7 @@ describe('logger', () => {
       },
     }))
 
-    const { rotateIfNeeded } = await import('../logger')
+    const { rotateIfNeeded } = await import('../logger.js')
     // Reset any mocks to ensure we catch if it tries to do anything
     const createStreamSpy = vi.spyOn(fs, 'createWriteStream')
 

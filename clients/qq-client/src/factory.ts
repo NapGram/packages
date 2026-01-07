@@ -1,5 +1,5 @@
-import type { IQQClient, IQQClientFactory, QQClientCreateParams } from './interface'
-import { getQQClientDependencies, resolveLoggerFactory } from './deps'
+import type { IQQClient, IQQClientFactory, QQClientCreateParams } from './interface.js'
+import { getQQClientDependencies, resolveLoggerFactory } from './deps.js'
 
 function getFactoryLogger() {
   const { loggerFactory } = getQQClientDependencies()

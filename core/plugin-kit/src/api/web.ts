@@ -2,7 +2,7 @@
  * NapGram Web API (route registration)
  */
 
-import type { WebAPI } from '../core/interfaces'
+import type { WebAPI } from '../core/interfaces.js'
 import { getLogger } from '@napgram/infra-kit'
 
 const logger = getLogger('WebAPI')

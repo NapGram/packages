@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { getLogger } from '@napgram/infra-kit'
-import { EventBus } from '../event-bus'
+import { EventBus } from '../event-bus.js'
 
 vi.mock('@napgram/infra-kit', () => ({
   getLogger: vi.fn(() => ({
@@ -103,7 +103,7 @@ describe('eventBus', () => {
     }
     vi.mocked(getLogger).mockReturnValue(loggerInstance as any)
 
-    const { EventBus: FreshEventBus } = await import('../event-bus')
+    const { EventBus: FreshEventBus } = await import('../event-bus.js')
     const freshBus = new FreshEventBus()
     vi.spyOn(freshBus, 'publish').mockRejectedValueOnce(new Error('boom'))
 

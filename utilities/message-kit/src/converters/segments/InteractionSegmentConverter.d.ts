@@ -1,4 +1,4 @@
-import type { MessageContent } from '../../types';
+import type { MessageContent } from '../../types.js';
 /**
  * 交互类型消息段转换器（@、表情、骰子等）
  */

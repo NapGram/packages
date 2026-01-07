@@ -1,12 +1,12 @@
 import type { MessageEvent } from '@naplink/naplink'
 import type { Buffer } from 'node:buffer'
-import type { Chat, MessageReceipt, RecallEvent, Sender, UnifiedMessage } from './message'
-import type { NapCatCreateParams } from './interface'
-import type { ForwardMessage } from './types/index'
+import type { Chat, MessageReceipt, RecallEvent, Sender, UnifiedMessage } from './message.js'
+import type { NapCatCreateParams } from './interface.js'
+import type { ForwardMessage } from './types/index.js'
 import { EventEmitter } from 'node:events'
 import { NapLink } from '@naplink/naplink'
-import { getQQClientDependencies, resolveLoggerFactory } from './deps'
-import { napCatForwardMultiple } from './napcatConvert'
+import { getQQClientDependencies, resolveLoggerFactory } from './deps.js'
+import { napCatForwardMultiple } from './napcatConvert.js'
 
 function getLogger(name: string) {
   const { loggerFactory } = getQQClientDependencies()

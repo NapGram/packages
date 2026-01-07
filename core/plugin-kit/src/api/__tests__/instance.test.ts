@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { createInstanceAPI, InstanceAPIImpl } from '../instance'
+import { createInstanceAPI, InstanceAPIImpl } from '../instance.js'
 
 const loggerMocks = vi.hoisted(() => ({
   debug: vi.fn(),

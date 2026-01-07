@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getMimeType } from '../mime'
+import { getMimeType } from '../mime.js'
 
 describe('mime utility', () => {
   it('should resolve types', () => {

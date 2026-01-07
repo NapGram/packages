@@ -8,7 +8,7 @@ import type {
   GetUserParams,
   UserAPI,
   UserInfo,
-} from '../core/interfaces'
+} from '../core/interfaces.js'
 import { getLogger } from '@napgram/infra-kit'
 
 const logger = getLogger('UserAPI')

@@ -1,5 +1,5 @@
 import type { UnifiedMessage } from '@napgram/message-kit'
-import type { CommandContext } from './CommandContext'
+import type { CommandContext } from './CommandContext.js'
 import { db, schema, eq, and, desc, gte, sql, count, getLogger, env } from '@napgram/infra-kit'
 
 const logger = getLogger('RequestManagementCommandHandler')

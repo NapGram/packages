@@ -4,7 +4,7 @@ import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import YAML from 'yaml'
 import { env, getLogger } from '@napgram/infra-kit'
-import { readStringEnv } from './utils/env'
+import { readStringEnv } from './utils/env.js'
 
 const logger = getLogger('PluginStore')
 

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { readBoolEnv, readStringEnv } from '../env'
+import { readBoolEnv, readStringEnv } from '../env.js'
 
 const ENV_KEYS = [
   'TEST_BOOL_ENV_1',

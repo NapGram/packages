@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { createPluginLogger } from '../logger'
+import { createPluginLogger } from '../logger.js'
 
 const loggerMocks = vi.hoisted(() => ({
   debug: vi.fn(),

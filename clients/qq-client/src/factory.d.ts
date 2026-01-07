@@ -1,4 +1,4 @@
-import type { IQQClient, IQQClientFactory, QQClientCreateParams } from './interface';
+import type { IQQClient, IQQClientFactory, QQClientCreateParams } from './interface.js';
 export declare class QQClientFactory implements IQQClientFactory {
     private creators;
     create(params: QQClientCreateParams): Promise<IQQClient>;

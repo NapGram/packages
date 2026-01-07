@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { createPluginStorage } from '../storage'
+import { createPluginStorage } from '../storage.js'
 
 const fsMocks = vi.hoisted(() => ({
   mkdir: vi.fn(),

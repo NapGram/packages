@@ -1,7 +1,7 @@
 import type { Chat, InputPeerLike, InputText } from '@mtcute/core'
 import type { TelegramClient } from '@mtcute/node'
 import type { Buffer } from 'node:buffer'
-import type Telegram from './client'
+import type Telegram from './client.js'
 
 export default class TelegramChat {
   public readonly id: number

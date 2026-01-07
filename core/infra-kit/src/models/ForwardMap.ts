@@ -1,5 +1,5 @@
-import db, { schema, eq, and } from '../db'
-import getLogger from '../logger'
+import db, { schema, eq, and } from '../db.js'
+import getLogger from '../logger.js'
 
 const logger = getLogger('ForwardMap')
 

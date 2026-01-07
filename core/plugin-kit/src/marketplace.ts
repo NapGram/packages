@@ -7,6 +7,6 @@ export {
   writeMarketplaces,
   type MarketplaceIndexSpec,
   type MarketplacesConfigFile,
-} from './internal/marketplace'
+} from './internal/marketplace.js'
 
 export const __coverage_anchor__ = true

@@ -1,5 +1,5 @@
 import type { UnifiedMessage } from '@napgram/message-kit';
-import type { CommandContext } from './CommandContext';
+import type { CommandContext } from './CommandContext.js';
 /**
  * 帮助命令处理器
  */

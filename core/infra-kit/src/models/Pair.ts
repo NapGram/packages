@@ -1,12 +1,12 @@
 import type { Friend, Group, IQQClient } from '@napgram/qq-client'
 import { TelegramChat } from '@napgram/telegram-client'
 import { Buffer } from 'node:buffer'
-import db, { schema, eq } from '../db'
-import getLogger from '../logger'
-import * as hashingUtils from '../utils/hashing'
+import db, { schema, eq } from '../db.js'
+import getLogger from '../logger.js'
+import * as hashingUtils from '../utils/hashing.js'
 const { md5 } = hashingUtils
-import { getAvatar } from '../utils/urls'
-import flags from '../flags'
+import { getAvatar } from '../utils/urls.js'
+import flags from '../flags.js'
 
 const log = getLogger('ForwardPair')
 

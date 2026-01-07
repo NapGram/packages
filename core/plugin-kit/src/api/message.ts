@@ -14,7 +14,7 @@ import type {
   RecallMessageParams,
   SendMessageParams,
   SendMessageResult,
-} from '../core/interfaces'
+} from '../core/interfaces.js'
 import { getLogger } from '@napgram/infra-kit'
 
 const logger = getLogger('MessageAPI')

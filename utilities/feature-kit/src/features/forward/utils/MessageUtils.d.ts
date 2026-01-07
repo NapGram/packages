@@ -1,7 +1,7 @@
 import type { UnifiedMessage } from '@napgram/message-kit';
-import type { Instance } from '../../../shared-types';
-import type { IQQClient } from '../../../shared-types';
-import type { Telegram } from '../../../shared-types';
+import type { Instance } from '../../../shared-types.js';
+import type { IQQClient } from '../../../shared-types.js';
+import type { Telegram } from '../../../shared-types.js';
 /**
  * Utility functions for message processing
  */

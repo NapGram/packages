@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { CommandArgsParser } from '../CommandArgsParser'
+import { CommandArgsParser } from '../CommandArgsParser.js'
 
 describe('commandArgsParser', () => {
   const createMockMessage = (replyData?: any): any => ({

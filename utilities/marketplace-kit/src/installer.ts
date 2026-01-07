@@ -16,7 +16,7 @@ import {
   removePluginConfig,
   upsertPluginConfig,
 } from '@napgram/runtime-kit'
-import { readMarketplaceCache } from './marketplace'
+import { readMarketplaceCache } from './marketplace.js'
 
 const execFileAsync = promisify(execFile)
 const logger = getLogger('PluginInstaller')

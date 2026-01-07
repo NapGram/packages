@@ -1,6 +1,6 @@
 import type { Message } from '@mtcute/core'
-import type { MessageContent, UnifiedMessage } from '../types'
-import { BaseConverter } from './BaseConverter'
+import type { MessageContent, UnifiedMessage } from '../types.js'
+import { BaseConverter } from './BaseConverter.js'
 
 export class TelegramConverter extends BaseConverter {
   /**

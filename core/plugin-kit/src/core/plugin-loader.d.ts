@@ -7,7 +7,7 @@
  * - 插件类型检测
  * - 依赖解析
  */
-import type { NapGramPlugin, PluginSpec } from './interfaces';
+import type { NapGramPlugin, PluginSpec } from './interfaces.js';
 /**
  * 插件类型
  */

@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/node'
-import { env, getLogger } from './index'
+import { env, getLogger } from './index.js'
 
 const logger = getLogger('Sentry')
 const DSN = 'https://fac3173e13d1869f2aa4e906fcbe5dcf@o4505899284955136.ingest.us.sentry.io/4505901103185920'

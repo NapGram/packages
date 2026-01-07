@@ -3,7 +3,7 @@
  * MVP 仅支持 message.send
  */
 
-import type { Segment } from './events'
+import type { Segment } from './events.js'
 
 // ============= message.send 动作 =============
 export interface MessageSendAction {

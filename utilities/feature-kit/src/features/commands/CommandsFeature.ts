@@ -1,26 +1,26 @@
 import type { Message } from '@mtcute/core'
 import type { UnifiedMessage } from '@napgram/message-kit'
-import type { ForwardMap } from '../../shared-types'
-import type { Instance } from '../../shared-types'
-import type { IQQClient } from '../../shared-types'
-import type { Telegram } from '../../shared-types'
-import type { Command } from './services/CommandRegistry'
+import type { ForwardMap } from '../../shared-types.js'
+import type { Instance } from '../../shared-types.js'
+import type { IQQClient } from '../../shared-types.js'
+import type { Telegram } from '../../shared-types.js'
+import type { Command } from './services/CommandRegistry.js'
 import { md } from '@mtcute/markdown-parser'
 import { messageConverter } from '@napgram/message-kit'
-import { getEventPublisher } from '../../shared-types'
+import { getEventPublisher } from '../../shared-types.js'
 import { getLogger } from '@napgram/infra-kit'
-import { BindCommandHandler } from './handlers/BindCommandHandler'
-import { CommandContext } from './handlers/CommandContext'
-import { ForwardControlCommandHandler } from './handlers/ForwardControlCommandHandler'
-import { HelpCommandHandler } from './handlers/HelpCommandHandler'
-import { InfoCommandHandler } from './handlers/InfoCommandHandler'
-import { RecallCommandHandler } from './handlers/RecallCommandHandler'
-import { StatusCommandHandler } from './handlers/StatusCommandHandler'
-import { UnbindCommandHandler } from './handlers/UnbindCommandHandler'
-import { CommandRegistry } from './services/CommandRegistry'
-import { InteractiveStateManager } from './services/InteractiveStateManager'
-import { PermissionChecker } from './services/PermissionChecker'
-import { ThreadIdExtractor } from './services/ThreadIdExtractor'
+import { BindCommandHandler } from './handlers/BindCommandHandler.js'
+import { CommandContext } from './handlers/CommandContext.js'
+import { ForwardControlCommandHandler } from './handlers/ForwardControlCommandHandler.js'
+import { HelpCommandHandler } from './handlers/HelpCommandHandler.js'
+import { InfoCommandHandler } from './handlers/InfoCommandHandler.js'
+import { RecallCommandHandler } from './handlers/RecallCommandHandler.js'
+import { StatusCommandHandler } from './handlers/StatusCommandHandler.js'
+import { UnbindCommandHandler } from './handlers/UnbindCommandHandler.js'
+import { CommandRegistry } from './services/CommandRegistry.js'
+import { InteractiveStateManager } from './services/InteractiveStateManager.js'
+import { PermissionChecker } from './services/PermissionChecker.js'
+import { ThreadIdExtractor } from './services/ThreadIdExtractor.js'
 
 const logger = getLogger('CommandsFeature')
 
@@ -28,7 +28,7 @@ const logger = getLogger('CommandsFeature')
  * 命令类型
  */
 export type CommandHandler = (msg: UnifiedMessage, args: string[]) => Promise<void>
-export type { Command } from './services/CommandRegistry'
+export type { Command } from './services/CommandRegistry.js'
 
 /**
  * 命令处理功能

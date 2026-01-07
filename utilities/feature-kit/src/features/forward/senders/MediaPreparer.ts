@@ -1,6 +1,6 @@
 import type { AudioContent, FileContent, ImageContent, MessageContent, UnifiedMessage, VideoContent } from '@napgram/message-kit'
-import type { Instance } from '../../../shared-types'
-import type { MediaFeature } from '../../MediaFeature'
+import type { Instance } from '../../../shared-types.js'
+import type { MediaFeature } from '../../MediaFeature.js'
 import { Buffer } from 'node:buffer'
 import { execFile } from 'node:child_process'
 import fs from 'node:fs'
@@ -9,8 +9,8 @@ import { promisify } from 'node:util'
 import { fileTypeFromBuffer } from 'file-type'
 import { env } from '@napgram/infra-kit'
 import { getLogger } from '@napgram/infra-kit'
-import { silk } from '../../../shared-types'
-import { renderContent } from '../utils/render'
+import { silk } from '../../../shared-types.js'
+import { renderContent } from '../utils/render.js'
 
 const execFileAsync = promisify(execFile)
 

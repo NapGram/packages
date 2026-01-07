@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { env } from '@napgram/infra-kit'
-import { MediaSender } from '../MediaSender'
+import { MediaSender } from '../MediaSender.js'
 
 describe('mediaSender', () => {
   const fileNormalizer = {

@@ -1,5 +1,5 @@
-import { getInfraLogger } from './deps'
-import { performanceMonitor } from './PerformanceMonitor'
+import { getInfraLogger } from './deps.js'
+import { performanceMonitor } from './PerformanceMonitor.js'
 
 const logger = getInfraLogger('CacheManager')
 

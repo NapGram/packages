@@ -3,12 +3,12 @@
  *
  * 插件系统的核心引擎，管理所有插件的加载、运行和状态
  */
-import type { PluginSpec } from './interfaces';
-import type { PluginInstance } from './lifecycle';
+import type { PluginSpec } from './interfaces.js';
+import type { PluginInstance } from './lifecycle.js';
 import { IPluginRuntime } from '@napgram/runtime-kit';
-import { EventBus } from './event-bus';
-import { PluginLifecycleManager } from './lifecycle';
-import { PluginLoader, PluginType } from './plugin-loader';
+import { EventBus } from './event-bus.js';
+import { PluginLifecycleManager } from './lifecycle.js';
+import { PluginLoader, PluginType } from './plugin-loader.js';
 /**
  * 运行时配置
  */

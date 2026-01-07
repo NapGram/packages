@@ -1,4 +1,4 @@
-import type { PluginSpec } from '../core/interfaces';
+import type { PluginSpec } from '../core/interfaces.js';
 export declare function resolvePluginsEnabled(): boolean;
 export declare function resolveGatewayEndpoint(): string;
 export declare function resolvePluginsInstances(defaultInstances?: number[]): number[];

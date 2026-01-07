@@ -1,5 +1,5 @@
 import type { MessageContent } from '@napgram/message-kit';
-import type { MediaFeature } from '../../MediaFeature';
+import type { MediaFeature } from '../../MediaFeature.js';
 import { Buffer } from 'node:buffer';
 import { Readable } from 'node:stream';
 export interface NormalizedFile {

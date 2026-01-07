@@ -4,14 +4,14 @@
  * 插件系统的核心引擎，管理所有插件的加载、运行和状态
  */
 
-import type { PluginSpec } from './interfaces'
-import type { PluginInstance } from './lifecycle'
+import type { PluginSpec } from './interfaces.js'
+import type { PluginInstance } from './lifecycle.js'
 import { getLogger } from '@napgram/infra-kit'
 import { IPluginRuntime, setGlobalRuntime as setKitRuntime } from '@napgram/runtime-kit'
-import { EventBus, globalEventBus } from './event-bus'
-import { PluginLifecycleManager, PluginState } from './lifecycle'
-import { PluginContextImpl } from './plugin-context'
-import { PluginLoader, PluginType } from './plugin-loader'
+import { EventBus, globalEventBus } from './event-bus.js'
+import { PluginLifecycleManager, PluginState } from './lifecycle.js'
+import { PluginContextImpl } from './plugin-context.js'
+import { PluginLoader, PluginType } from './plugin-loader.js'
 
 const logger = getLogger('PluginRuntime')
 

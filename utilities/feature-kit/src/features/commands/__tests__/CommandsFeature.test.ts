@@ -190,7 +190,7 @@ describe('commandsFeature', () => {
     vi.resetModules() // Important to reload modules
 
     // Import module under test dynamically
-    const mod = await import('../CommandsFeature')
+    const mod = await import('../CommandsFeature.js')
     CommandsFeature = mod.CommandsFeature
 
     mockInstance = {
@@ -256,7 +256,7 @@ describe('commandsFeature', () => {
     const fromArgs = (commandsFeature as any).extractThreadId(msgWithRaw, ['cmd', '123'])
     expect(fromArgs).toBe(123)
 
-    const { ThreadIdExtractor } = await import('../services/ThreadIdExtractor')
+    const { ThreadIdExtractor } = await import('../services/ThreadIdExtractor.js')
     vi.mocked(ThreadIdExtractor).mockImplementationOnce(function ThreadIdExtractorMock() {
       return {
         extractFromRaw: vi.fn().mockReturnValue(456),
@@ -361,7 +361,7 @@ describe('commandsFeature', () => {
       const deleteMessages = vi.fn().mockResolvedValue(undefined)
       mockTgBot.getChat.mockResolvedValue({ sendMessage, deleteMessages })
 
-      const { ThreadIdExtractor } = await import('../services/ThreadIdExtractor')
+      const { ThreadIdExtractor } = await import('../services/ThreadIdExtractor.js')
       vi.mocked(ThreadIdExtractor).mockImplementationOnce(function ThreadIdExtractorMock() {
         return {
           extractFromRaw: vi.fn().mockReturnValue(888),

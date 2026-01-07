@@ -1,4 +1,4 @@
-import type { ForwardMode, NicknameMode } from '../types'
+import type { ForwardMode, NicknameMode } from '../types.js'
 import { env } from '@napgram/infra-kit'
 
 /**

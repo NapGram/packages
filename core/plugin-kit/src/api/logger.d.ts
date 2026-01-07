@@ -3,7 +3,7 @@
  *
  * 为每个插件提供独立的日志记录器，自动添加插件标识
  */
-import type { PluginLogger } from '../core/interfaces';
+import type { PluginLogger } from '../core/interfaces.js';
 /**
  * 创建插件日志记录器
  *

@@ -3,7 +3,7 @@
  *
  * 提供插件访问用户信息的能力
  */
-import type { GetUserParams, UserAPI, UserInfo } from '../core/interfaces';
+import type { GetUserParams, UserAPI, UserInfo } from '../core/interfaces.js';
 /**
  * 用户 API 实现
  */

@@ -7,7 +7,7 @@
  * - 错误隔离
  * - 订阅管理
  */
-import type { EventSubscription, FriendRequestEvent, GroupRequestEvent, InstanceStatusEvent, MessageEvent, NoticeEvent, PluginReloadEvent } from './interfaces';
+import type { EventSubscription, FriendRequestEvent, GroupRequestEvent, InstanceStatusEvent, MessageEvent, NoticeEvent, PluginReloadEvent } from './interfaces.js';
 /**
  * 事件类型映射
  */

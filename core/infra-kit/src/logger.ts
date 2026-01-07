@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 import { inspect } from 'node:util'
-import env from './env'
+import env from './env.js'
 
 type LogLevel = 'silly' | 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal'
 type EnvLogLevel = Exclude<LogLevel, 'silly'> | 'mark' | 'off'

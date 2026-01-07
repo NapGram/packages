@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { MessageAPIImpl } from '../../api/message'
+import { MessageAPIImpl } from '../../api/message.js'
 
 // Mock logger
 vi.mock('@napgram/infra-kit', () => ({
@@ -763,7 +763,7 @@ describe('message Conversion Coverage', () => {
       parseReplyToForPlatform,
       parseChannelId,
       parseMessageId,
-    } = await import('../message')
+    } = await import('../message.js')
 
     // segmentsToText
     expect(segmentsToText(undefined as any)).toBe('')

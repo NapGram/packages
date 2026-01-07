@@ -1,5 +1,5 @@
 import type { NapGramPlugin, PluginContext } from '@napgram/sdk';
-import { sendPoke, handleNick, sendLike, getGroupHonor } from './helpers/qq-helpers';
+import { sendPoke, handleNick, sendLike, getGroupHonor } from './helpers/qq-helpers.js';
 
 const plugin: NapGramPlugin = {
     id: 'qq-interaction',

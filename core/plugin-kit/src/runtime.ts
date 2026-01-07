@@ -6,13 +6,13 @@
 
 import { getLogger, drizzleDb } from '@napgram/infra-kit'
 import { IPluginRuntime, setGlobalRuntime, IInstance } from '@napgram/runtime-kit'
-import { createGroupAPI } from './api/group'
-import { createInstanceAPI } from './api/instance'
-import { createMessageAPI } from './api/message'
-import { createUserAPI } from './api/user'
-import { createWebAPI } from './api/web'
-import { getGlobalRuntime } from './core/plugin-runtime'
-import { loadPluginSpecs } from './internal/config' // Ensure config.ts exists in internal
+import { createGroupAPI } from './api/group.js'
+import { createInstanceAPI } from './api/instance.js'
+import { createMessageAPI } from './api/message.js'
+import { createUserAPI } from './api/user.js'
+import { createWebAPI } from './api/web.js'
+import { getGlobalRuntime } from './core/plugin-runtime.js'
+import { loadPluginSpecs } from './internal/config.js' // Ensure config.ts exists in internal
 
 const logger = getLogger('PluginRuntimeAPI')
 

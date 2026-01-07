@@ -10,19 +10,19 @@ import type {
   Frame,
   IdentifyFrame,
   PingFrame,
-} from '../protocol/frames'
-import type { Session } from './SessionManager'
-import type { GatewayPairRecord } from '../types'
+} from '../protocol/frames.js'
+import type { Session } from './SessionManager.js'
+import type { GatewayPairRecord } from '../types.js'
 import { WebSocket, WebSocketServer } from 'ws'
-import { getLogger } from '../logger'
+import { getLogger } from '../logger.js'
 import {
   createErrorFrame,
   createHelloFrame,
   createPongFrame,
   createReadyFrame,
-} from '../protocol/frames'
-import { AuthManager } from './AuthManager'
-import { SessionManager } from './SessionManager'
+} from '../protocol/frames.js'
+import { AuthManager } from './AuthManager.js'
+import { SessionManager } from './SessionManager.js'
 
 const logger = getLogger('GatewayServer')
 

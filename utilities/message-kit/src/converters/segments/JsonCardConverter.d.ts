@@ -1,4 +1,4 @@
-import type { MessageContent } from '../../types';
+import type { MessageContent } from '../../types.js';
 /**
  * JSON卡片消息转换器
  */

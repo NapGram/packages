@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { ApiResponse } from '../api-response'
+import { ApiResponse } from '../api-response.js'
 
 describe('apiResponse', () => {
   it('should create success response', () => {

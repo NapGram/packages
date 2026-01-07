@@ -1,8 +1,8 @@
 import type { Message } from '@mtcute/core';
 import type { UnifiedMessage } from '@napgram/message-kit';
-import type { IQQClient } from '../../../shared-types';
-import type { ReplyResolver } from '../services/ReplyResolver';
-import type { MediaGroupHandler } from './MediaGroupHandler';
+import type { IQQClient } from '../../../shared-types.js';
+import type { ReplyResolver } from '../services/ReplyResolver.js';
+import type { MediaGroupHandler } from './MediaGroupHandler.js';
 /**
  * Handles Telegram->QQ message forwarding
  */

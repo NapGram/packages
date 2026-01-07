@@ -1,1 +1,1 @@
-export { CommandsFeature, ForwardFeature, Instance, MediaFeature, RecallFeature, ThreadIdExtractor, } from './runtime';
+export { CommandsFeature, ForwardFeature, Instance, MediaFeature, RecallFeature, ThreadIdExtractor, } from './runtime.js';

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { TelegramConverter } from '../TelegramConverter'
+import { TelegramConverter } from '../TelegramConverter.js'
 
 vi.mock('@napgram/infra-kit', () => ({
   env: { DATA_DIR: '/tmp', CACHE_DIR: '/tmp/cache' },

@@ -1,10 +1,10 @@
 import type { UnifiedMessage } from '@napgram/message-kit'
 
-import type { IQQClient } from '../../../../shared-types'
-import type { CommandContext } from '../CommandContext'
+import type { IQQClient } from '../../../../shared-types.js'
+import type { CommandContext } from '../CommandContext.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { db, env } from '@napgram/infra-kit'
-import { GroupManagementCommandHandler } from '../GroupManagementCommandHandler'
+import { GroupManagementCommandHandler } from '../GroupManagementCommandHandler.js'
 
 vi.mock('@napgram/infra-kit', async (importOriginal) => {
   const actual = await importOriginal<any>()

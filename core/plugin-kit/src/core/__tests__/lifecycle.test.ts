@@ -1,6 +1,6 @@
-import type { PluginInstance } from '../../core/lifecycle'
+import type { PluginInstance } from '../../core/lifecycle.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { PluginLifecycleManager, PluginState } from '../../core/lifecycle'
+import { PluginLifecycleManager, PluginState } from '../../core/lifecycle.js'
 
 // Mock plugin for testing
 const mockPlugin = {

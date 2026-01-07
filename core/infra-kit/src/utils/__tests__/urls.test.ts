@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { fetchFile, getAvatar, getAvatarUrl, getBigFaceUrl, getImageUrlByMd5, hasSupportedImageExt, isContainsUrl, isValidQQ, isValidRoomId, isValidUrl } from '../urls'
+import { fetchFile, getAvatar, getAvatarUrl, getBigFaceUrl, getImageUrlByMd5, hasSupportedImageExt, isContainsUrl, isValidQQ, isValidRoomId, isValidUrl } from '../urls.js'
 
 // Mock global fetch
 const fetchMock = vi.fn()

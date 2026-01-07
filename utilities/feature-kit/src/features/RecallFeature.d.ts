@@ -1,6 +1,6 @@
-import type { Instance } from '../shared-types';
-import type { IQQClient } from '../shared-types';
-import type { Telegram } from '../shared-types';
+import type { Instance } from '../shared-types.js';
+import type { IQQClient } from '../shared-types.js';
+import type { Telegram } from '../shared-types.js';
 /**
  * 消息撤回功能
  * Phase 3: 处理双向消息撤回

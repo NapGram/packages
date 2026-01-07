@@ -3,7 +3,7 @@
  *
  * 提供插件访问实例信息的能力
  */
-import type { InstanceAPI, InstanceInfo, InstanceStatus } from '../core/interfaces';
+import type { InstanceAPI, InstanceInfo, InstanceStatus } from '../core/interfaces.js';
 /**
  * 实例 API 实现
  */

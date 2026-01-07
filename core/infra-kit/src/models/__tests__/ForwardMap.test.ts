@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { ForwardMap } from '../ForwardMap'
+import { ForwardMap } from '../ForwardMap.js'
 
 const dbMocks = vi.hoisted(() => ({
   forwardPair: {

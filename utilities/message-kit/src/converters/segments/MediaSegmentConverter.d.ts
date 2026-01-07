@@ -1,4 +1,4 @@
-import type { MessageContent } from '../../types';
+import type { MessageContent } from '../../types.js';
 /**
  * 媒体类型消息段转换器（图片、视频、音频）
  */

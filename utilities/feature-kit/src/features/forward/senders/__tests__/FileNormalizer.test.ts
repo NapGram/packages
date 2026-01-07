@@ -4,7 +4,7 @@ import { readdir } from 'node:fs/promises'
 import { Readable } from 'node:stream'
 import { fileTypeFromBuffer } from 'file-type'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { FileNormalizer } from '../FileNormalizer'
+import { FileNormalizer } from '../FileNormalizer.js'
 
 vi.mock('node:fs', async (importOriginal) => {
   const actual = await importOriginal() as any

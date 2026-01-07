@@ -2,9 +2,9 @@ import type { UnifiedMessage } from '@napgram/message-kit'
 import { EventEmitter } from 'node:events'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { db, env, schema } from '@napgram/infra-kit'
-import { getEventPublisher } from '../../../shared-types'
-import { ForwardFeature } from '../ForwardFeature'
-import { MessageUtils } from '../utils/MessageUtils'
+import { getEventPublisher } from '../../../shared-types.js'
+import { ForwardFeature } from '../ForwardFeature.js'
+import { MessageUtils } from '../utils/MessageUtils.js'
 
 vi.mock('@napgram/infra-kit', () => ({
   db: {

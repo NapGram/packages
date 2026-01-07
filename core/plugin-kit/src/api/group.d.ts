@@ -3,7 +3,7 @@
  *
  * 提供插件操作群组的能力
  */
-import type { GetGroupParams, GroupAPI, GroupInfo, GroupMember, KickUserParams, MuteUserParams, SetAdminParams } from '../core/interfaces';
+import type { GetGroupParams, GroupAPI, GroupInfo, GroupMember, KickUserParams, MuteUserParams, SetAdminParams } from '../core/interfaces.js';
 /**
  * 群组 API 实现
  */

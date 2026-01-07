@@ -1,9 +1,9 @@
-import type { MessageContent, UnifiedMessage } from '../types'
-import { BaseConverter } from './BaseConverter'
-import { InteractionSegmentConverter } from './segments/InteractionSegmentConverter'
-import { JsonCardConverter } from './segments/JsonCardConverter'
-import { MediaSegmentConverter } from './segments/MediaSegmentConverter'
-import { TextSegmentConverter } from './segments/TextSegmentConverter'
+import type { MessageContent, UnifiedMessage } from '../types.js'
+import { BaseConverter } from './BaseConverter.js'
+import { InteractionSegmentConverter } from './segments/InteractionSegmentConverter.js'
+import { JsonCardConverter } from './segments/JsonCardConverter.js'
+import { MediaSegmentConverter } from './segments/MediaSegmentConverter.js'
+import { TextSegmentConverter } from './segments/TextSegmentConverter.js'
 
 export class NapCatConverter extends BaseConverter {
   private textConverter = new TextSegmentConverter()

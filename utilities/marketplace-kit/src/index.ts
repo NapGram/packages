@@ -1,2 +1,2 @@
-export * from './installer'
-export * from './marketplace'
+export * from './installer.js'
+export * from './marketplace.js'

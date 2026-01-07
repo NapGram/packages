@@ -1,8 +1,8 @@
 import type { UnifiedMessage } from '@napgram/message-kit'
-import type { IQQClient } from '../../../../shared-types'
-import type { CommandContext } from '../CommandContext'
+import type { IQQClient } from '../../../../shared-types.js'
+import type { CommandContext } from '../CommandContext.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { RefreshCommandHandler } from '../RefreshCommandHandler'
+import { RefreshCommandHandler } from '../RefreshCommandHandler.js'
 
 // Mock TG Chat
 function createMockTgChat() {

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { db, env } from '@napgram/infra-kit'
 
-import { PermissionChecker } from '../PermissionChecker'
+import { PermissionChecker } from '../PermissionChecker.js'
 
 // Mock the env module
 vi.mock('@napgram/infra-kit', () => ({

@@ -1,8 +1,8 @@
 import type { UnifiedMessage } from '@napgram/message-kit'
-import type { CommandContext } from '../CommandContext'
+import type { CommandContext } from '../CommandContext.js'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { db, env, schema } from '@napgram/infra-kit'
-import { RequestManagementCommandHandler } from '../RequestManagementCommandHandler'
+import { RequestManagementCommandHandler } from '../RequestManagementCommandHandler.js'
 
 vi.mock('@napgram/infra-kit', () => {
   const mockSelect = {

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { db, env } from '@napgram/infra-kit'
-import { MessageUtils } from '../MessageUtils'
+import { MessageUtils } from '../MessageUtils.js'
 
 vi.mock('@napgram/infra-kit', () => ({
   db: {

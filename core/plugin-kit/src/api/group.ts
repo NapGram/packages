@@ -12,7 +12,7 @@ import type {
   KickUserParams,
   MuteUserParams,
   SetAdminParams,
-} from '../core/interfaces'
+} from '../core/interfaces.js'
 import { getLogger } from '@napgram/infra-kit'
 
 const logger = getLogger('GroupAPI')

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { createWebAPI, WebAPIImpl } from '../web'
+import { createWebAPI, WebAPIImpl } from '../web.js'
 
 const { warnMock, infoMock } = vi.hoisted(() => ({
   warnMock: vi.fn(),

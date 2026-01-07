@@ -1,5 +1,5 @@
 import type { UnifiedMessage } from '@napgram/message-kit'
-import type { ForwardMapper } from './MessageMapper'
+import type { ForwardMapper } from './MessageMapper.js'
 import { getLogger } from '@napgram/infra-kit'
 
 const logger = getLogger('ReplyResolver')

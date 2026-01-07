@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { getInfraLogger } from './deps'
+import { getInfraLogger } from './deps.js'
 
 const logger = getInfraLogger('PerformanceMonitor')
 

@@ -1,5 +1,5 @@
 import type { UnifiedMessage } from '@napgram/message-kit';
-import type { CommandContext } from './CommandContext';
+import type { CommandContext } from './CommandContext.js';
 /**
  * 转发控制命令处理器
  * 处理: forwardoff, forwardon, disable_qq_forward, enable_qq_forward, disable_tg_forward, enable_tg_forward

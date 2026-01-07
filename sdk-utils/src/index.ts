@@ -155,4 +155,4 @@ export function randomChoice<T>(array: T[]): T {
 }
 
 // QQ 交互 Helpers
-export * from './qq-helpers';
+export * from './qq-helpers.js';

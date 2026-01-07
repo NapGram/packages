@@ -5,7 +5,7 @@ import path from 'node:path'
 import { promisify } from 'node:util'
 import { env } from '@napgram/infra-kit'
 import { getLogger } from '@napgram/infra-kit'
-import { silk } from '../../../shared-types'
+import { silk } from '../../../shared-types.js'
 
 const execFileAsync = promisify(execFile)
 

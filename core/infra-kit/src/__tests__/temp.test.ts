@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import { writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { describe, expect, it, vi } from 'vitest'
-import { createTempFile, TEMP_PATH } from '../temp'
+import { createTempFile, TEMP_PATH } from '../temp.js'
 
 describe('temp utils', () => {
     it('creates a temp path under TEMP_PATH', async () => {
@@ -37,7 +37,7 @@ describe('temp utils', () => {
             default: { DATA_DIR: '/tmp/napgram' },
         }))
 
-        const module = await import('../temp')
+        const module = await import('../temp.js')
         await module.createTempFile()
 
         expect(existsSync).toHaveBeenCalledWith(module.TEMP_PATH)

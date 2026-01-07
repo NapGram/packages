@@ -4,9 +4,9 @@
  */
 
 import type { UnifiedMessage } from '@napgram/message-kit'
-import type { MessageCreatedEvent, Segment } from '../protocol/events'
-import type { GatewayServer } from '../server/GatewayServer'
-import { getLogger } from '../logger'
+import type { MessageCreatedEvent, Segment } from '../protocol/events.js'
+import type { GatewayServer } from '../server/GatewayServer.js'
+import { getLogger } from '../logger.js'
 
 const logger = getLogger('EventPublisher')
 

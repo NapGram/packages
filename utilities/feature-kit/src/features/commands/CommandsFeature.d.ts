@@ -1,13 +1,13 @@
 import type { UnifiedMessage } from '@napgram/message-kit';
-import type { Instance } from '../../shared-types';
-import type { IQQClient } from '../../shared-types';
-import type { Telegram } from '../../shared-types';
-import type { Command } from './services/CommandRegistry';
+import type { Instance } from '../../shared-types.js';
+import type { IQQClient } from '../../shared-types.js';
+import type { Telegram } from '../../shared-types.js';
+import type { Command } from './services/CommandRegistry.js';
 /**
  * 命令类型
  */
 export type CommandHandler = (msg: UnifiedMessage, args: string[]) => Promise<void>;
-export type { Command } from './services/CommandRegistry';
+export type { Command } from './services/CommandRegistry.js';
 /**
  * 命令处理功能
  * Phase 3: 统一的命令处理系统

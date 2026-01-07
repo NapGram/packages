@@ -1,8 +1,8 @@
-import type { PluginSpec } from '../interfaces'
+import type { PluginSpec } from '../interfaces.js'
 import fs from 'node:fs'
 import path from 'node:path'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { PluginLoader, PluginType } from '../plugin-loader'
+import { PluginLoader, PluginType } from '../plugin-loader.js'
 
 // Mock logger
 vi.mock('@napgram/infra-kit', () => ({
@@ -536,7 +536,7 @@ describe('pluginLoader', () => {
 
   describe('global Instance', () => {
     it('should export a global pluginLoader instance', async () => {
-      const { pluginLoader } = await import('../plugin-loader')
+      const { pluginLoader } = await import('../plugin-loader.js')
       expect(pluginLoader).toBeInstanceOf(PluginLoader)
     })
   })

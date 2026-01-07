@@ -1,4 +1,4 @@
-import { IInstance, IPluginRuntime } from './runtime-types'
+import { IInstance, IPluginRuntime } from './runtime-types.js'
 
 let globalRuntime: IPluginRuntime | null = null
 const globalInstances: IInstance[] = []

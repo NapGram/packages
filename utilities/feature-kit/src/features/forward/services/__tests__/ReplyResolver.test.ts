@@ -1,7 +1,7 @@
 import type { UnifiedMessage } from '@napgram/message-kit'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { db, env } from '@napgram/infra-kit'
-import { ReplyResolver } from '../ReplyResolver'
+import { ReplyResolver } from '../ReplyResolver.js'
 
 // Mock logger
 const { debugMock } = vi.hoisted(() => ({ debugMock: vi.fn() }))

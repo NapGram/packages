@@ -1,6 +1,6 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import type { } from '@fastify/cookie'
-import { AuthService, TokenManager } from './index'
+import { AuthService, TokenManager } from './index.js'
 
 /**
  * 认证中间件 - 验证请求是否携带有效 token

@@ -6,8 +6,8 @@ import type {
   RecallEvent,
   Sender,
   UnifiedMessage,
-} from './message'
-import type { ForwardMessage } from './types/index'
+} from './message.js'
+import type { ForwardMessage } from './types/index.js'
 
 
 export interface FriendRequestEvent {

@@ -1,5 +1,5 @@
 import type { UnifiedMessage } from '@napgram/message-kit';
-import type { CommandContext } from './CommandContext';
+import type { CommandContext } from './CommandContext.js';
 /**
  * Info 命令处理器
  * 显示当前聊天的绑定信息和消息详情

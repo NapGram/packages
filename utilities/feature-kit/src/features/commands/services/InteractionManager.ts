@@ -1,4 +1,4 @@
-import type { PendingAction } from '../types'
+import type { PendingAction } from '../types.js'
 
 /**
  * 交互式命令管理器

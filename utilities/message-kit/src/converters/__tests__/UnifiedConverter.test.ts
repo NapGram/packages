@@ -1,6 +1,6 @@
 import { Buffer } from 'node:buffer'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { UnifiedConverter } from '../UnifiedConverter'
+import { UnifiedConverter } from '../UnifiedConverter.js'
 
 const fsMocks = vi.hoisted(() => ({
   existsSync: vi.fn(),

@@ -1,4 +1,4 @@
-export { default } from './client'
-export { default as TelegramChat } from './chat'
-export * from './factory'
-export * from './deps'
+export { default } from './client.js'
+export { default as TelegramChat } from './chat.js'
+export * from './factory.js'
+export * from './deps.js'

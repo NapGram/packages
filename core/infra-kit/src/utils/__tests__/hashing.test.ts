@@ -1,6 +1,6 @@
 import { Buffer } from 'node:buffer'
 import { describe, expect, it } from 'vitest'
-import { md5, md5B64, md5Hex, sha256B64, sha256Hex } from '../hashing'
+import { md5, md5B64, md5Hex, sha256B64, sha256Hex } from '../hashing.js'
 
 describe('hashing utils', () => {
   it('computes md5 variants', () => {

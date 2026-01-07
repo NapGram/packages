@@ -4,7 +4,7 @@
  * 为每个插件创建独立的运行上下文
  */
 
-import type { EventBus } from './event-bus'
+import type { EventBus } from './event-bus.js'
 import type {
   CommandConfig,
   EventSubscription,
@@ -22,9 +22,9 @@ import type {
   PluginStorage,
   UserAPI,
   WebAPI,
-} from './interfaces'
-import { createPluginLogger } from '../api/logger'
-import { createPluginStorage } from '../api/storage'
+} from './interfaces.js'
+import { createPluginLogger } from '../api/logger.js'
+import { createPluginStorage } from '../api/storage.js'
 
 /**
  * 插件上下文实现

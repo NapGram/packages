@@ -5,7 +5,7 @@
 
 import type { WebSocket } from 'ws'
 import { randomUUID } from 'node:crypto'
-import { getLogger } from '../logger'
+import { getLogger } from '../logger.js'
 
 const logger = getLogger('SessionManager')
 

@@ -1,4 +1,4 @@
-import type Telegram from './client'
+import type Telegram from './client.js'
 
 export interface TelegramClientCreateParams {
   type: string

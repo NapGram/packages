@@ -1,4 +1,4 @@
-import type { Instance } from '../../../shared-types'
+import type { Instance } from '../../../shared-types.js'
 import { env } from '@napgram/infra-kit'
 
 /**

@@ -3,8 +3,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { db, env } from '@napgram/infra-kit'
-import { silk } from '../../../../shared-types'
-import { ForwardMediaPreparer } from '../MediaPreparer'
+import { silk } from '../../../../shared-types.js'
+import { ForwardMediaPreparer } from '../MediaPreparer.js'
 
 vi.mock('@napgram/media-kit', () => ({
   silk: {

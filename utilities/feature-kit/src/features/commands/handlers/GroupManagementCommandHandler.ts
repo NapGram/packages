@@ -1,10 +1,10 @@
 import type { UnifiedMessage } from '@napgram/message-kit'
-import type { ForwardMap } from '../../../shared-types'
-import type { CommandContext } from './CommandContext'
+import type { ForwardMap } from '../../../shared-types.js'
+import type { CommandContext } from './CommandContext.js'
 import { getLogger } from '@napgram/infra-kit'
-import { DurationParser } from '../../../shared-types'
-import { PermissionChecker } from '../../../shared-types'
-import { CommandArgsParser } from '../utils/CommandArgsParser'
+import { DurationParser } from '../../../shared-types.js'
+import { PermissionChecker } from '../../../shared-types.js'
+import { CommandArgsParser } from '../utils/CommandArgsParser.js'
 
 const logger = getLogger('GroupManagementCommandHandler')
 

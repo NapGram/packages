@@ -1,7 +1,7 @@
 import type { UnifiedMessage } from '@napgram/message-kit'
 import { getLogger } from '@napgram/infra-kit'
-import type { ForwardMap } from '../../../shared-types'
-import type { CommandContext } from './CommandContext'
+import type { ForwardMap } from '../../../shared-types.js'
+import type { CommandContext } from './CommandContext.js'
 
 const logger = getLogger('QQInteractionCommandHandler')
 

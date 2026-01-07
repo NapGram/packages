@@ -1,20 +1,20 @@
-export * from './core/interfaces'
-export * from './core/plugin-context'
-export * from './core/plugin-loader'
-export type { RuntimeConfig, RuntimeReport, ReloadPluginResult } from './core/plugin-runtime'
-export { PluginRuntime as CorePluginRuntime } from './core/plugin-runtime'
-export * from './core/lifecycle'
-export * from './core/event-bus'
-export * from './core/event-publisher'
-export * from './core/schema-helper'
-export * from './runtime'
+export * from './core/interfaces.js'
+export * from './core/plugin-context.js'
+export * from './core/plugin-loader.js'
+export type { RuntimeConfig, RuntimeReport, ReloadPluginResult } from './core/plugin-runtime.js'
+export { PluginRuntime as CorePluginRuntime } from './core/plugin-runtime.js'
+export * from './core/lifecycle.js'
+export * from './core/event-bus.js'
+export * from './core/event-publisher.js'
+export * from './core/schema-helper.js'
+export * from './runtime.js'
 export {
     getPluginVersions,
     installFromMarketplace,
     rollbackPlugin,
     uninstallPlugin,
     upgradePlugin
-} from './installer'
+} from './installer.js'
 export {
     readMarketplaceCache,
     readMarketplaces,
@@ -24,7 +24,7 @@ export {
     writeMarketplaces,
     type MarketplaceIndexSpec,
     type MarketplacesConfigFile
-} from './marketplace'
+} from './marketplace.js'
 export {
     normalizeModuleSpecifierForPluginsConfig,
     patchPluginConfig,
@@ -32,4 +32,4 @@ export {
     removePluginConfig,
     upsertPluginConfig,
     type PluginsConfigFile
-} from './store'
+} from './store.js'

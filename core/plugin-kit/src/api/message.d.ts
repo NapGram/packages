@@ -5,7 +5,7 @@
  */
 import type { MessageContent } from '@napgram/message-kit';
 import type { IInstance } from '@napgram/runtime-kit';
-import type { GetMessageParams, MessageAPI, MessageInfo, MessageSegment, RecallMessageParams, SendMessageParams, SendMessageResult } from '../core/interfaces';
+import type { GetMessageParams, MessageAPI, MessageInfo, MessageSegment, RecallMessageParams, SendMessageParams, SendMessageResult } from '../core/interfaces.js';
 type TargetPlatform = 'qq' | 'tg';
 type QqChannelType = 'group' | 'private';
 export declare function parseChannelId(raw: string): {

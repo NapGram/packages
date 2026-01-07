@@ -2,7 +2,7 @@ import type { MessageContent, UnifiedMessage } from '@napgram/message-kit'
 import process from 'node:process'
 import { db, schema, eq, and, desc } from '@napgram/infra-kit'
 import { getLogger } from '@napgram/infra-kit'
-import { renderContent } from '../utils/render'
+import { renderContent } from '../utils/render.js'
 
 export class ForwardMapper {
   private readonly logger = getLogger('ForwardFeature')

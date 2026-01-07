@@ -1,9 +1,9 @@
-import type { RuntimeReport } from '../../core/plugin-runtime'
+import type { RuntimeReport } from '../../core/plugin-runtime.js'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { EventBus } from '../../core/event-bus'
-import { PluginLifecycleManager } from '../../core/lifecycle'
-import { PluginLoader } from '../../core/plugin-loader'
-import { getGlobalRuntime, PluginRuntime, resetGlobalRuntime } from '../../core/plugin-runtime'
+import { EventBus } from '../../core/event-bus.js'
+import { PluginLifecycleManager } from '../../core/lifecycle.js'
+import { PluginLoader } from '../../core/plugin-loader.js'
+import { getGlobalRuntime, PluginRuntime, resetGlobalRuntime } from '../../core/plugin-runtime.js'
 
 // Mock plugin for testing
 const mockPlugin = {

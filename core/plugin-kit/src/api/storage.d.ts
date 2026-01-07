@@ -3,7 +3,7 @@
  *
  * 为每个插件提供独立的数据存储空间（基于文件系统）
  */
-import type { PluginStorage } from '../core/interfaces';
+import type { PluginStorage } from '../core/interfaces.js';
 /**
  * 创建插件存储
  *

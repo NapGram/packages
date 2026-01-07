@@ -1,4 +1,4 @@
-import type { Telegram } from '../../shared-types'
+import type { Telegram } from '../../shared-types.js'
 import { getLogger } from '@napgram/infra-kit'
 
 const logger = getLogger('TelegramReply')

@@ -1,7 +1,7 @@
 import type { AudioContent, ImageContent, VideoContent } from '@napgram/message-kit';
-import type { Instance } from '../shared-types';
-import type { IQQClient } from '../shared-types';
-import type { Telegram } from '../shared-types';
+import type { Instance } from '../shared-types.js';
+import type { IQQClient } from '../shared-types.js';
+import type { Telegram } from '../shared-types.js';
 import { Buffer } from 'node:buffer';
 /**
  * 媒体处理功能

@@ -5,4 +5,4 @@ export {
   MediaFeature,
   RecallFeature,
   ThreadIdExtractor,
-} from './runtime'
+} from './runtime.js'

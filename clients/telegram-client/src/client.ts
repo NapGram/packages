@@ -10,8 +10,8 @@ import {
   resolveLoggerFactory,
   resolveTelegramEnv,
   resolveTempPath,
-} from './deps'
-import type { LoggerLike, TelegramClientDependencies, TelegramEnv, TelegramSessionStore } from './deps'
+} from './deps.js'
+import type { LoggerLike, TelegramClientDependencies, TelegramEnv, TelegramSessionStore } from './deps.js'
 
 // Define types for handlers
 export type MessageHandler = (message: Message) => Promise<boolean | void>
@@ -212,7 +212,7 @@ export default class Telegram {
   }
 
   public async getChat(chatId: number | string) {
-    const { default: TelegramChat } = await import('./chat')
+    const { default: TelegramChat } = await import('./chat.js')
     const chat = await this.client.getChat(chatId)
     return new TelegramChat(this, this.client, chat)
   }

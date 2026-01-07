@@ -1,5 +1,5 @@
 import type { MessageContent } from '@napgram/message-kit'
-import type { MediaFeature } from '../../MediaFeature'
+import type { MediaFeature } from '../../MediaFeature.js'
 import { Buffer } from 'node:buffer'
 import fs from 'node:fs'
 import { readdir } from 'node:fs/promises'

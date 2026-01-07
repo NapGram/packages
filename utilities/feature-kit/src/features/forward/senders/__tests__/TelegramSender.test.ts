@@ -1,7 +1,7 @@
 import { Buffer } from 'node:buffer'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { db, env } from '@napgram/infra-kit'
-import { TelegramSender } from '../TelegramSender'
+import { TelegramSender } from '../TelegramSender.js'
 
 vi.mock('@napgram/infra-kit', () => ({
   db: {

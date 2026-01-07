@@ -1,4 +1,4 @@
-import type { MessageContent } from '../../types'
+import type { MessageContent } from '../../types.js'
 import { getLogger } from '@napgram/infra-kit'
 
 const logger = getLogger('JsonCardConverter')

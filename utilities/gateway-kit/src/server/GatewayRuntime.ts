@@ -7,11 +7,11 @@
 
 import type { IQQClient } from '@napgram/qq-client'
 import type Telegram from '@napgram/telegram-client'
-import type { GatewayPairsProvider } from '../types'
-import { getLogger } from '../logger'
-import { ActionExecutor } from '../adapters/ActionExecutor'
-import { EventPublisher } from '../adapters/EventPublisher'
-import { GatewayServer } from './GatewayServer'
+import type { GatewayPairsProvider } from '../types.js'
+import { getLogger } from '../logger.js'
+import { ActionExecutor } from '../adapters/ActionExecutor.js'
+import { EventPublisher } from '../adapters/EventPublisher.js'
+import { GatewayServer } from './GatewayServer.js'
 
 const logger = getLogger('GatewayRuntime')
 

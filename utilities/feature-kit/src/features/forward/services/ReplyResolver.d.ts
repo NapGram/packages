@@ -1,5 +1,5 @@
 import type { UnifiedMessage } from '@napgram/message-kit';
-import type { ForwardMapper } from './MessageMapper';
+import type { ForwardMapper } from './MessageMapper.js';
 /**
  * 回复消息解析服务
  * 负责解析和查找回复消息的映射关系

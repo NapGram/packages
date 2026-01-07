@@ -8,9 +8,9 @@ import type { tl } from '@mtcute/node'
 import type { MessageContent, UnifiedMessage } from '@napgram/message-kit'
 import type { IQQClient } from '@napgram/qq-client'
 import type Telegram from '@napgram/telegram-client'
-import type { MessageSendResult } from '../protocol/actions'
-import type { Segment } from '../protocol/events'
-import { getLogger } from '../logger'
+import type { MessageSendResult } from '../protocol/actions.js'
+import type { Segment } from '../protocol/events.js'
+import { getLogger } from '../logger.js'
 
 const logger = getLogger('ActionExecutor')
 

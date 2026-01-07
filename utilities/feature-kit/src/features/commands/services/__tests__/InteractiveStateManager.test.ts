@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { InteractiveStateManager } from '../InteractiveStateManager'
+import { InteractiveStateManager } from '../InteractiveStateManager.js'
 
 describe('interactiveStateManager', () => {
   let manager: InteractiveStateManager

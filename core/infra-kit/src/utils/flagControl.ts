@@ -1,4 +1,4 @@
-import flags from '../flags'
+import flags from '../flags.js'
 
 export interface Flagged {
     flags: number

@@ -1,5 +1,5 @@
-import type { MessageEvent } from './interfaces'
-import { globalEventBus } from './event-bus'
+import type { MessageEvent } from './interfaces.js'
+import { globalEventBus } from './event-bus.js'
 
 /**
  * 事件发布器

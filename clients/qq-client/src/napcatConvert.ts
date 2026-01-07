@@ -1,6 +1,6 @@
-import type { ForwardMessage } from './types/index'
-import type { Receive, WSSendReturn } from './types/onebot-types'
-import { getQQClientDependencies, resolveLoggerFactory } from './deps'
+import type { ForwardMessage } from './types/index.js'
+import type { Receive, WSSendReturn } from './types/onebot-types.js'
+import { getQQClientDependencies, resolveLoggerFactory } from './deps.js'
 
 function getLogger() {
   const { loggerFactory } = getQQClientDependencies()

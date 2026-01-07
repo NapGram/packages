@@ -1,7 +1,7 @@
 import type { UnifiedMessage } from '@napgram/message-kit'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { messageConverter } from '@napgram/message-kit'
-import { MediaGroupHandler } from '../MediaGroupHandler'
+import { MediaGroupHandler } from '../MediaGroupHandler.js'
 
 vi.mock('@napgram/message-kit', () => ({
   messageConverter: {

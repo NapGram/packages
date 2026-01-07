@@ -3,8 +3,8 @@ import { execFile } from 'node:child_process'
 import fs from 'node:fs'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { db, env } from '@napgram/infra-kit'
-import { silk } from '../../../../shared-types'
-import { AudioConverter } from '../AudioConverter'
+import { silk } from '../../../../shared-types.js'
+import { AudioConverter } from '../AudioConverter.js'
 
 vi.mock('node:child_process', () => ({
   execFile: vi.fn(),

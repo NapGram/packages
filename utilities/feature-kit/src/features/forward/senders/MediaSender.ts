@@ -1,6 +1,6 @@
 import type { MessageContent } from '@napgram/message-kit'
-import type { FileNormalizer } from './FileNormalizer'
-import type { RichHeaderBuilder } from './RichHeaderBuilder'
+import type { FileNormalizer } from './FileNormalizer.js'
+import type { RichHeaderBuilder } from './RichHeaderBuilder.js'
 import { env } from '@napgram/infra-kit'
 import { getLogger } from '@napgram/infra-kit'
 

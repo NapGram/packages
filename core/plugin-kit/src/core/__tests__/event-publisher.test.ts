@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
-import { EventPublisher } from '../event-publisher'
-import { globalEventBus } from '../event-bus'
+import { EventPublisher } from '../event-publisher.js'
+import { globalEventBus } from '../event-bus.js'
 
 describe('eventPublisher', () => {
   it('publishes message events', async () => {

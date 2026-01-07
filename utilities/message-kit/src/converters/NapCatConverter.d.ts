@@ -1,5 +1,5 @@
-import type { UnifiedMessage } from '../types';
-import { BaseConverter } from './BaseConverter';
+import type { UnifiedMessage } from '../types.js';
+import { BaseConverter } from './BaseConverter.js';
 export declare class NapCatConverter extends BaseConverter {
     private textConverter;
     private mediaConverter;

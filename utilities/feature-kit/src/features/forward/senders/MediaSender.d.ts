@@ -1,6 +1,6 @@
 import type { MessageContent } from '@napgram/message-kit';
-import type { FileNormalizer } from './FileNormalizer';
-import type { RichHeaderBuilder } from './RichHeaderBuilder';
+import type { FileNormalizer } from './FileNormalizer.js';
+import type { RichHeaderBuilder } from './RichHeaderBuilder.js';
 /**
  * Media-specific sending operations for Telegram
  * Handles media groups, locations, and dice messages

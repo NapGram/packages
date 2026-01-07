@@ -1,7 +1,7 @@
 import type { Buffer } from 'node:buffer';
-import type { Chat, MessageReceipt, Sender, UnifiedMessage } from './message';
-import type { NapCatCreateParams } from './interface';
-import type { ForwardMessage } from './types/index';
+import type { Chat, MessageReceipt, Sender, UnifiedMessage } from './message.js';
+import type { NapCatCreateParams } from './interface.js';
+import type { ForwardMessage } from './types/index.js';
 import { EventEmitter } from 'node:events';
 export declare class NapCatAdapter extends EventEmitter {
     private readonly params;

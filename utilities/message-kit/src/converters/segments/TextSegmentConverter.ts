@@ -1,4 +1,4 @@
-import type { MessageContent } from '../../types'
+import type { MessageContent } from '../../types.js'
 
 /**
  * 文本类型消息段转换器

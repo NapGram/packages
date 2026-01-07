@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import * as config from '../config'
+import * as config from '../config.js'
 
 vi.mock('node:fs/promises')
 const loggerMock = vi.hoisted(() => ({
@@ -270,7 +270,7 @@ describe('config', () => {
   it('loadModule constraints', async () => {
     // 1. Refuse TS if disabled
     process.env.PLUGINS_ALLOW_TS = 'false'
-    await import('../config') // ensure module is loaded
+    await import('../config.js') // ensure module is loaded
     // config.loadModule is not exported. But we can trigger it via a spec's load function.
     // We can simulate a loaded spec and call its load()
 

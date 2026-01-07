@@ -1,6 +1,6 @@
 import type { Message } from '@mtcute/core';
 import type { UnifiedMessage } from '@napgram/message-kit';
-import type { IQQClient } from '../../../shared-types';
+import type { IQQClient } from '../../../shared-types.js';
 /**
  * Handles Telegram Media Group batching for TG→QQ forwarding.
  *

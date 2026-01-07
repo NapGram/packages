@@ -1,10 +1,10 @@
-import type { MessageContent, UnifiedMessage } from '../types'
+import type { MessageContent, UnifiedMessage } from '../types.js'
 import { Buffer } from 'node:buffer'
 import fsSync from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { env } from '@napgram/infra-kit'
-import { BaseConverter } from './BaseConverter'
+import { BaseConverter } from './BaseConverter.js'
 
 export class UnifiedConverter extends BaseConverter {
   /**

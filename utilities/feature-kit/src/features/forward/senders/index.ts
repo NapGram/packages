@@ -1,2 +1,2 @@
-export { ForwardMediaPreparer } from './MediaPreparer'
-export { TelegramSender } from './TelegramSender'
+export { ForwardMediaPreparer } from './MediaPreparer.js'
+export { TelegramSender } from './TelegramSender.js'

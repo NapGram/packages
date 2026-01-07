@@ -3,8 +3,8 @@
  *
  * 为每个插件创建独立的运行上下文
  */
-import type { EventBus } from './event-bus';
-import type { CommandConfig, EventSubscription, FriendRequestEventHandler, GroupAPI, GroupRequestEventHandler, InstanceAPI, InstanceStatusEventHandler, MessageAPI, MessageEventHandler, NoticeEventHandler, PluginContext, PluginLogger, PluginReloadEventHandler, PluginStorage, UserAPI, WebAPI } from './interfaces';
+import type { EventBus } from './event-bus.js';
+import type { CommandConfig, EventSubscription, FriendRequestEventHandler, GroupAPI, GroupRequestEventHandler, InstanceAPI, InstanceStatusEventHandler, MessageAPI, MessageEventHandler, NoticeEventHandler, PluginContext, PluginLogger, PluginReloadEventHandler, PluginStorage, UserAPI, WebAPI } from './interfaces.js';
 /**
  * 插件上下文实现
  */

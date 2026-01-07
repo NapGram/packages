@@ -1,4 +1,4 @@
-import type { MessageContent } from '../../types'
+import type { MessageContent } from '../../types.js'
 import { qface } from '@napgram/infra-kit'
 
 /**

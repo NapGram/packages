@@ -2,7 +2,7 @@ import { randomBytes } from 'node:crypto'
 import fs from 'node:fs'
 import { rm } from 'node:fs/promises'
 import { join } from 'node:path'
-import env from './env'
+import env from './env.js'
 
 export const TEMP_PATH = join(env.DATA_DIR, 'temp')
 

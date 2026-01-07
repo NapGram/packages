@@ -1,6 +1,6 @@
 import type { UnifiedMessage } from '@napgram/message-kit'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { CommandContext } from '../CommandContext'
+import { CommandContext } from '../CommandContext.js'
 
 function createMessage(platform: 'telegram' | 'qq' = 'telegram'): UnifiedMessage {
   return {

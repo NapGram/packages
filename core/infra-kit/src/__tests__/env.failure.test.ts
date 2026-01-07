@@ -28,7 +28,7 @@ describe('env failure', () => {
 
     // Import env - this should trigger the validation logic
     try {
-      await import('../env')
+      await import('../env.js')
     }
     catch (e: any) {
       expect(e.message).toBe('PROCESS_EXIT')

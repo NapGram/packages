@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { db, env, schema } from '@napgram/infra-kit'
-import { ForwardMapper } from '../MessageMapper'
+import { ForwardMapper } from '../MessageMapper.js'
 
 // Mock the database
 vi.mock('@napgram/infra-kit', () => ({

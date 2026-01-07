@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { renderContent } from '../render'
+import { renderContent } from '../render.js'
 
 describe('renderContent', () => {
   it('renders text content with newline conversion', () => {

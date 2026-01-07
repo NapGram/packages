@@ -3,7 +3,7 @@ import z from 'zod'
 
 describe('env', () => {
   it('should export parsed environment config in test mode', async () => {
-    const env = (await import('../env')).default
+    const env = (await import('../env.js')).default
 
     expect(env.TG_API_ID).toBeDefined()
     expect(env.TG_API_HASH).toBeDefined()
@@ -14,7 +14,7 @@ describe('env', () => {
 
   it('should handle emptyStringToUndefined preprocessing', async () => {
     // Test the emptyString preprocessing logic by checking fields that use it
-    const env = (await import('../env')).default
+    const env = (await import('../env.js')).default
 
     // These fields use emptyStringToUndefined and should be undefined if not set
     expect(env.PROXY_IP).toBeUndefined()
@@ -168,7 +168,7 @@ describe('env', () => {
   })
 
   it('should use default values', async () => {
-    const env = (await import('../env')).default
+    const env = (await import('../env.js')).default
 
     expect(env.DATA_DIR).toBeDefined()
     expect(env.CACHE_DIR).toBeDefined()

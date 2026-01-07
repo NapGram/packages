@@ -4,8 +4,8 @@ import path from 'node:path'
 import process from 'node:process'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import YAML from 'yaml'
-import { readStringEnv } from '../env'
-import * as store from '../store'
+import { readStringEnv } from '../env.js'
+import * as store from '../store.js'
 
 // Mock modules before importing anything else
 vi.mock('node:process', () => ({

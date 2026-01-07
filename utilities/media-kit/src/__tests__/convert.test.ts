@@ -1,6 +1,6 @@
 import { Buffer } from 'node:buffer'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import convert from '../convert'
+import convert from '../convert.js'
 
 const fsMocks = vi.hoisted(() => ({
   mkdirSync: vi.fn(),

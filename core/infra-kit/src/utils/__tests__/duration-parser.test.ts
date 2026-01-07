@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { DurationParser } from '../duration-parser'
+import { DurationParser } from '../duration-parser.js'
 
 describe('durationParser', () => {
   describe('parse()', () => {

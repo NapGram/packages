@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { GroupAPIImpl } from '../../api/group'
+import { GroupAPIImpl } from '../../api/group.js'
 
 // Mock logger
 vi.mock('@napgram/infra-kit', () => ({

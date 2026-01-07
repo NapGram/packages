@@ -8,12 +8,12 @@
 export { env, getLogger, db, temp, schema, eq, and, or, gte, lte, count, sql, desc } from '@napgram/infra-kit'
 
 // New Runtime Abstraction
-export * from './runtime-types'
-export * from './config-store'
-export * from './runtime-holder'
-export { InstanceRegistry } from './runtime-holder'
-export { PermissionChecker } from './permission-checker'
-export { Instance } from './legacy'
+export * from './runtime-types.js'
+export * from './config-store.js'
+export * from './runtime-holder.js'
+export { InstanceRegistry } from './runtime-holder.js'
+export { PermissionChecker } from './permission-checker.js'
+export { Instance } from './legacy.js'
 
 // Re-exports of key store utilities that are safe to use
 // (We might want to move these fully to runtime-kit later)

@@ -1,8 +1,8 @@
-import type { Instance } from '../../shared-types';
-import type { IQQClient } from '../../shared-types';
-import type { Telegram } from '../../shared-types';
-import type { CommandsFeature } from '../commands/CommandsFeature';
-import type { MediaFeature } from '../MediaFeature';
+import type { Instance } from '../../shared-types.js';
+import type { IQQClient } from '../../shared-types.js';
+import type { Telegram } from '../../shared-types.js';
+import type { CommandsFeature } from '../commands/CommandsFeature.js';
+import type { MediaFeature } from '../MediaFeature.js';
 /**
  * 基于新架构的简化转发实现（NapCat <-> Telegram）。
  */

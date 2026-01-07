@@ -1,6 +1,6 @@
 export { env, db, schema, eq, and, or, lt, desc, count, like } from '@napgram/infra-kit'
-import { InstanceRegistry } from './runtime-holder'
-import type { IInstance } from './runtime-types'
+import { InstanceRegistry } from './runtime-holder.js'
+import type { IInstance } from './runtime-types.js'
 
 export const Instance = {
     get instances(): IInstance[] {
@@ -27,5 +27,5 @@ export type { default as TelegramClient } from '@napgram/telegram-client'
 export { hashing as hashingUtils, DurationParser } from '@napgram/infra-kit'
 
 // Re-export new runtime types for compatibility
-export * from './runtime-types'
-export { getGlobalRuntime, tryGetGlobalRuntime } from './runtime-holder'
+export * from './runtime-types.js'
+export { getGlobalRuntime, tryGetGlobalRuntime } from './runtime-holder.js'

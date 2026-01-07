@@ -1,6 +1,6 @@
 import type { UnifiedMessage } from '@napgram/message-kit'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { ModeCommandHandler } from '../ModeCommandHandler'
+import { ModeCommandHandler } from '../ModeCommandHandler.js'
 
 function createMessage(raw?: any): UnifiedMessage {
   return {

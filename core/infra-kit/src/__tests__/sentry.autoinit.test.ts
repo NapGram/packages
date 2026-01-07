@@ -28,7 +28,7 @@ describe('sentry Auto-Init', () => {
   })
 
   it('should auto-init when capturing exception if not initialized', async () => {
-    const sentry = (await import('../sentry')).default
+    const sentry = (await import('../sentry.js')).default
     sentry.captureException(new Error('oops'))
 
     expect(Sentry.init).toHaveBeenCalled()
@@ -36,7 +36,7 @@ describe('sentry Auto-Init', () => {
   })
 
   it('should auto-init when capturing message if not initialized', async () => {
-    const sentry = (await import('../sentry')).default
+    const sentry = (await import('../sentry.js')).default
     sentry.captureMessage('msg')
 
     expect(Sentry.init).toHaveBeenCalled()

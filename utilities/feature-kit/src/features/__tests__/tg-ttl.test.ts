@@ -37,9 +37,9 @@ describe('telegram media TTL', () => {
   it('adds ttlSeconds to media-group items when configured', async () => {
     envMock.TG_MEDIA_TTL_SECONDS = 10
 
-    const { MediaSender } = await import('../forward/senders/MediaSender')
-    const { FileNormalizer } = await import('../forward/senders/FileNormalizer')
-    const { RichHeaderBuilder } = await import('../forward/senders/RichHeaderBuilder')
+    const { MediaSender } = await import('../forward/senders/MediaSender.js')
+    const { FileNormalizer } = await import('../forward/senders/FileNormalizer.js')
+    const { RichHeaderBuilder } = await import('../forward/senders/RichHeaderBuilder.js')
 
     const chat: any = {
       id: 1001,

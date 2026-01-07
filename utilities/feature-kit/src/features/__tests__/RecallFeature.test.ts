@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { db, env, schema } from '@napgram/infra-kit'
-import { RecallFeature } from '../RecallFeature'
+import { RecallFeature } from '../RecallFeature.js'
 
 // Mock dependencies
 vi.mock('@napgram/infra-kit', () => {

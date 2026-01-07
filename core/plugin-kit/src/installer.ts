@@ -4,6 +4,6 @@ export {
   rollbackPlugin,
   uninstallPlugin,
   upgradePlugin,
-} from './internal/installer'
+} from './internal/installer.js'
 
 export const __coverage_anchor__ = true

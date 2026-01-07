@@ -1,4 +1,4 @@
-import type { UnifiedMessage } from './message';
+import type { UnifiedMessage } from './message.js';
 export interface LoggerLike {
     debug(message: any, ...args: any[]): void;
     info(message: any, ...args: any[]): void;

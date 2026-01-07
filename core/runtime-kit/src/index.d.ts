@@ -4,12 +4,12 @@
  * during builds of client packages.
  */
 export { env, getLogger, db, temp } from '@napgram/infra-kit';
-export * from './runtime-types';
-export * from './config-store';
-export * from './runtime-holder';
-export { InstanceRegistry } from './runtime-holder';
-export { PermissionChecker } from './permission-checker';
-export { Instance } from './legacy';
+export * from './runtime-types.js';
+export * from './config-store.js';
+export * from './runtime-holder.js';
+export { InstanceRegistry } from './runtime-holder.js';
+export { PermissionChecker } from './permission-checker.js';
+export { Instance } from './legacy.js';
 export { ApiResponse } from '@napgram/infra-kit';
 export { convert } from '@napgram/media-kit';
 export { convert as default } from '@napgram/media-kit';

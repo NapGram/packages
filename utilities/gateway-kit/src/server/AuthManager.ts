@@ -4,7 +4,7 @@
  */
 
 import process from 'node:process'
-import { getLogger } from '../logger'
+import { getLogger } from '../logger.js'
 
 const logger = getLogger('AuthManager')
 

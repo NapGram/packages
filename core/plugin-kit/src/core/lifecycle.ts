@@ -4,8 +4,8 @@
  * 管理插件的安装、卸载、重载等生命周期
  */
 
-import type { NapGramPlugin } from './interfaces'
-import type { PluginContextImpl } from './plugin-context'
+import type { NapGramPlugin } from './interfaces.js'
+import type { PluginContextImpl } from './plugin-context.js'
 import { getLogger } from '@napgram/infra-kit'
 
 const logger = getLogger('PluginLifecycle')

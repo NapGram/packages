@@ -1,5 +1,5 @@
 export { env, db } from '@napgram/infra-kit';
-import type { IInstance } from './runtime-types';
+import type { IInstance } from './runtime-types.js';
 export declare const Instance: {
     readonly instances: IInstance[];
 };
@@ -17,5 +17,5 @@ export { formatDate } from '@napgram/infra-kit';
 export { groupInfoCache } from '@napgram/infra-kit';
 export type { default as TelegramClient } from '@napgram/telegram-client';
 export { hashing as hashingUtils, DurationParser } from '@napgram/infra-kit';
-export * from './runtime-types';
-export { getGlobalRuntime, tryGetGlobalRuntime } from './runtime-holder';
+export * from './runtime-types.js';
+export { getGlobalRuntime, tryGetGlobalRuntime } from './runtime-holder.js';

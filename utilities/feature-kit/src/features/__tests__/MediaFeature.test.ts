@@ -3,7 +3,7 @@ import fsP from 'node:fs/promises'
 import { fileTypeFromBuffer } from 'file-type'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { db, env } from '@napgram/infra-kit'
-import { MediaFeature } from '../MediaFeature'
+import { MediaFeature } from '../MediaFeature.js'
 
 // Mock dependencies
 vi.mock('node:fs/promises')

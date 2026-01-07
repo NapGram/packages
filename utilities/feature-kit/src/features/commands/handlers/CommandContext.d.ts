@@ -1,10 +1,10 @@
 import type { UnifiedMessage } from '@napgram/message-kit';
-import type { Instance } from '../../../shared-types';
-import type { IQQClient } from '../../../shared-types';
-import type { Telegram } from '../../../shared-types';
-import type { CommandRegistry } from '../services/CommandRegistry';
-import type { InteractiveStateManager } from '../services/InteractiveStateManager';
-import type { PermissionChecker } from '../services/PermissionChecker';
+import type { Instance } from '../../../shared-types.js';
+import type { IQQClient } from '../../../shared-types.js';
+import type { Telegram } from '../../../shared-types.js';
+import type { CommandRegistry } from '../services/CommandRegistry.js';
+import type { InteractiveStateManager } from '../services/InteractiveStateManager.js';
+import type { PermissionChecker } from '../services/PermissionChecker.js';
 /**
  * 命令处理器上下文 - 包含所有命令处理器需要的依赖
  */

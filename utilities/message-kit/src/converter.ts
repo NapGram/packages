@@ -1,6 +1,6 @@
 import type { Message } from '@mtcute/core'
 import type { IInstance as Instance } from '@napgram/runtime-kit'
-import type { MessageContent, UnifiedMessage } from './types'
+import type { MessageContent, UnifiedMessage } from './types.js'
 export type { UnifiedMessage }
 
 import { Buffer } from 'node:buffer'
@@ -12,7 +12,7 @@ import { decode, encode } from 'image-js'
 import { getLogger, env } from '@napgram/infra-kit'
 import convert from '@napgram/runtime-kit'
 
-import { NapCatConverter } from './converters'
+import { NapCatConverter } from './converters/index.js'
 
 const logger = getLogger('MessageConverter')
 

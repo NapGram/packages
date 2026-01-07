@@ -1,7 +1,7 @@
 import type { Buffer } from 'node:buffer';
 import type { EventEmitter } from 'node:events';
-import type { Chat, MessageReceipt, RecallEvent, Sender, UnifiedMessage } from './message';
-import type { ForwardMessage } from './types/index';
+import type { Chat, MessageReceipt, RecallEvent, Sender, UnifiedMessage } from './message.js';
+import type { ForwardMessage } from './types/index.js';
 export interface FriendRequestEvent {
     flag: string;
     userId: string;

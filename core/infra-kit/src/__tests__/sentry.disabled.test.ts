@@ -27,26 +27,26 @@ describe('sentry Disabled', () => {
   })
 
   it('should NOT init if disabled', async () => {
-    const sentry = (await import('../sentry')).default
+    const sentry = (await import('../sentry.js')).default
     sentry.init()
     expect(Sentry.init).not.toHaveBeenCalled()
   })
 
   it('should NOT capture exception if disabled', async () => {
-    const sentry = (await import('../sentry')).default
+    const sentry = (await import('../sentry.js')).default
     sentry.captureException(new Error('fail'))
     expect(Sentry.captureException).not.toHaveBeenCalled()
     expect(Sentry.init).not.toHaveBeenCalled()
   })
 
   it('should NOT capture message if disabled', async () => {
-    const sentry = (await import('../sentry')).default
+    const sentry = (await import('../sentry.js')).default
     sentry.captureMessage('fail')
     expect(Sentry.captureMessage).not.toHaveBeenCalled()
   })
 
   it('should return true immediately from flush if disabled', async () => {
-    const sentry = (await import('../sentry')).default
+    const sentry = (await import('../sentry.js')).default
     const result = await sentry.flush()
     expect(result).toBe(true)
     expect(Sentry.flush).not.toHaveBeenCalled()

@@ -1,10 +1,10 @@
 import type { UnifiedMessage } from '@napgram/message-kit'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { getEventPublisher } from '../../../../shared-types'
+import { getEventPublisher } from '../../../../shared-types.js'
 
 const publishMessageMock = vi.fn()
 
-let QQMessageHandler: typeof import('../QQMessageHandler').QQMessageHandler
+let QQMessageHandler: typeof import('../QQMessageHandler.js').QQMessageHandler
 
 function createMessage(): UnifiedMessage {
   return {
@@ -52,7 +52,7 @@ describe('qqMessageHandler', () => {
   beforeEach(async () => {
     vi.clearAllMocks()
     if (!QQMessageHandler) {
-      ({ QQMessageHandler } = await import('../QQMessageHandler'))
+      ({ QQMessageHandler } = await import('../QQMessageHandler.js'))
     }
   })
 

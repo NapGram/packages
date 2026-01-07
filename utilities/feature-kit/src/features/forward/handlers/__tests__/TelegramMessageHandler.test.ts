@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { db, env } from '@napgram/infra-kit'
 import { messageConverter } from '@napgram/message-kit'
-import { TelegramMessageHandler } from '../TelegramMessageHandler'
+import { TelegramMessageHandler } from '../TelegramMessageHandler.js'
 
 vi.mock('@napgram/message-kit', () => ({
   messageConverter: {

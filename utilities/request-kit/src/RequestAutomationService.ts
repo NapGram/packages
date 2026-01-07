@@ -1,5 +1,5 @@
-import type { IQQClient, Instance } from './runtime'
-import { db, schema, eq, and, or, lt, desc, sql, getLogger } from './runtime'
+import type { IQQClient, Instance } from './runtime.js'
+import { db, schema, eq, and, or, lt, desc, sql, getLogger } from './runtime.js'
 
 const logger = getLogger('RequestAutomationService')
 

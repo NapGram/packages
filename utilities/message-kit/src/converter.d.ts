@@ -1,6 +1,6 @@
 import type { Message } from '@mtcute/core';
 import type { IInstance as Instance } from '@napgram/runtime-kit';
-import type { UnifiedMessage } from './types';
+import type { UnifiedMessage } from './types.js';
 /**
  * 增强的消息转换器
  * Phase 2: 完整支持所有消息类型
