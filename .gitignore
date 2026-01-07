@@ -13,3 +13,5 @@ coverage/
 **/data/
 *.md
 !README.md
+!.changeset/
+!.changeset/*.md
