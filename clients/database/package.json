@@ -27,8 +27,7 @@
         "lint": "eslint . --ext .ts,.tsx",
         "test": "vitest --passWithNoTests",
         "type-check": "tsc --noEmit",
-        "db:sync": "node scripts/sync-plugin-schemas.mjs",
-        "db:generate": "pnpm db:sync && drizzle-kit generate",
+        "db:generate": "drizzle-kit generate",
         "db:migrate": "drizzle-kit migrate",
         "db:push": "drizzle-kit push"
     },
