@@ -1,6 +1,6 @@
 {
     "name": "@napgram/sdk",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "description": "SDK for building NapGram native plugins",
     "type": "module",
     "main": "./dist/index.js",

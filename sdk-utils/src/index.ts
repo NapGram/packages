@@ -4,7 +4,7 @@
  * Utility functions for NapGram native plugins
  */
 
-import type { MessageSegment } from '@napgram/core';
+import type { MessageSegment, ForwardMessage } from '@napgram/core';
 
 /**
  * 提取消息片段中的纯文本
@@ -93,6 +93,16 @@ export function makeFace(id: string): MessageSegment {
     return {
         type: 'face',
         data: { id }
+    };
+}
+
+/**
+ * 创建合并转发片段
+ */
+export function makeForward(messages: ForwardMessage[]): MessageSegment {
+    return {
+        type: 'forward',
+        data: { messages }
     };
 }
 

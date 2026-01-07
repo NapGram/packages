@@ -5,12 +5,14 @@
  */
 
 import type { MessageContent, UnifiedMessage } from '@napgram/message-kit'
+import { messageConverter } from '@napgram/message-kit'
 import type { IInstance } from '@napgram/runtime-kit'
 import type {
   GetMessageParams,
   MessageAPI,
   MessageInfo,
   MessageSegment,
+  ForwardSegment,
   RecallMessageParams,
   SendMessageParams,
   SendMessageResult,
@@ -134,6 +136,10 @@ export function pluginSegmentsToUnifiedContents(segments: MessageSegment[]): Mes
     }
   }
   return out
+}
+
+function isForwardSegment(seg: MessageSegment | undefined): seg is ForwardSegment {
+  return !!seg && seg.type === 'forward' && Array.isArray((seg as any).data?.messages)
 }
 
 /**
@@ -336,6 +342,43 @@ export class MessageAPIImpl implements MessageAPI {
     if (!instance?.qqClient)
       throw new Error('QQ client not available on instance')
     const qqClient = instance.qqClient
+    const forwardSegments = params.segments.filter(isForwardSegment)
+    if (forwardSegments.length) {
+      const nonForwardSegments = params.segments.filter(seg => !isForwardSegment(seg))
+      if (nonForwardSegments.length) {
+        await this.sendViaInstance(instance, {
+          channelId: params.channelId,
+          segments: nonForwardSegments,
+          threadId: params.threadId,
+          replyTo: params.replyTo,
+        })
+      }
+
+      const nodes = await this.buildForwardNodes(forwardSegments, target, qqClient)
+      if (!nodes.length) {
+        throw new Error('forward messages are empty')
+      }
+
+      if (target.qqType === 'private') {
+        const payload = { user_id: target.channelId, messages: nodes }
+        let result: any
+        if (typeof qqClient.sendPrivateForwardMessage === 'function') {
+          result = await qqClient.sendPrivateForwardMessage(payload)
+        }
+        else if (typeof qqClient.sendForwardMsg === 'function') {
+          result = await qqClient.sendForwardMsg(payload)
+        }
+        else {
+          throw new Error('QQ client does not support private forward messages')
+        }
+        const forwardMessageId = result?.message_id ?? result?.data?.message_id ?? ''
+        return { messageId: forwardMessageId ? `qq:${String(forwardMessageId)}` : `qq:forward:${timestamp}`, timestamp }
+      }
+
+      const receipt = await qqClient.sendGroupForwardMsg(String(target.channelId), nodes)
+      return { messageId: `qq:${String(receipt.messageId)}`, timestamp }
+    }
+
     let segments = params.segments
     if (params.replyTo && !segments.some(s => s?.type === 'reply')) {
       const { messageId } = parseReplyToForPlatform(params.replyTo, 'qq')
@@ -353,6 +396,47 @@ export class MessageAPIImpl implements MessageAPI {
     }
     const receipt = await qqClient.sendMessage(String(target.channelId), unified as any)
     return { messageId: `qq:${String(receipt.messageId)}`, timestamp }
+  }
+
+  private async buildForwardNodes(
+    forwardSegments: MessageSegment[],
+    target: { channelId: string, qqType?: QqChannelType },
+    qqClient: any,
+  ): Promise<any[]> {
+    const nodes: any[] = []
+    let counter = 0
+
+    for (const seg of forwardSegments) {
+      if (!isForwardSegment(seg))
+        continue
+      const messages = seg.data?.messages || []
+      for (const msg of messages) {
+        const name = String(msg?.userName || msg?.userId || 'Unknown')
+        const rawUin = String(msg?.userId || '')
+        const parsedUin = rawUin.match(/\d+/g)?.join('')
+        const uin = parsedUin ? Number(parsedUin) : Number(qqClient?.uin || 0)
+        const content = pluginSegmentsToUnifiedContents(msg?.segments || [])
+        const unified: UnifiedMessage = {
+          id: `forward-${Date.now()}-${counter++}`,
+          platform: 'qq',
+          sender: { id: rawUin, name },
+          chat: { id: String(target.channelId), type: target.qqType || 'group' },
+          content,
+          timestamp: Date.now(),
+        }
+        const napCatSegments = await messageConverter.toNapCat(unified)
+        nodes.push({
+          type: 'node',
+          data: {
+            name,
+            uin,
+            content: napCatSegments,
+          },
+        })
+      }
+    }
+
+    return nodes
   }
 
   /**
