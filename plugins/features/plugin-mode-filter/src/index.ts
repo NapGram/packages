@@ -64,7 +64,7 @@ const buildConfig = (
     rawConfig: ModeFilterPluginConfig | undefined,
     stored: ModeFilterStorage | undefined,
 ): ModeFilterPluginConfig => {
-    const config = rawConfig && typeof rawConfig === 'object' ? rawConfig : {};
+    const config = (rawConfig && typeof rawConfig === 'object' ? rawConfig : {}) as Partial<ModeFilterPluginConfig>;
     return {
         ...base,
         ...config,
