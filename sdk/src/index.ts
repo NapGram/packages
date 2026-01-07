@@ -2,6 +2,7 @@ import type { CommandConfig, MessageEvent, NapGramPlugin, PluginContext, PluginL
 
 export * from '@napgram/core';
 export * from '@napgram/utils';
+export * from './guards';
 
 export type PluginWithConfig<TConfig = unknown> = Omit<NapGramPlugin, 'install'> & {
     install(ctx: PluginContext, config?: TConfig): void | Promise<void>;
