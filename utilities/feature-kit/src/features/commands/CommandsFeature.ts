@@ -1,5 +1,5 @@
 import type { Message } from '@mtcute/core'
-import type { UnifiedMessage } from '@napgram/message-kit'
+import type { MessageContent, UnifiedMessage } from '@napgram/message-kit'
 import type { ForwardMap } from '../../shared-types.js'
 import type { Instance } from '../../shared-types.js'
 import type { IQQClient } from '../../shared-types.js'
@@ -355,29 +355,27 @@ export class CommandsFeature {
       },
       // 便捷方法（使用 CommandContext 的方法）
       reply: async (content: string | any[]) => {
-        const text = typeof content === 'string' ? content : segmentsToText(content)
         if (msg.platform === 'telegram') {
           const chatId = msg.chat.id
           const threadId = commandContext.extractThreadId(msg, [])
+          const text = typeof content === 'string' ? content : segmentsToText(content)
           await commandContext.replyTG(chatId, text, threadId)
         }
         else {
-          const chatId = msg.chat.id
-          await commandContext.replyQQ(chatId, text)
+          await this.sendQQCommandReply(msg, content, segmentsToText)
         }
         return { messageId: `qq:${msg.id}`, timestamp: Date.now() }
       },
       send: async (content: string | any[]) => {
         // send 与 reply 相同（暂时没有独立的 send API）
-        const text = typeof content === 'string' ? content : segmentsToText(content)
         if (msg.platform === 'telegram') {
           const chatId = msg.chat.id
           const threadId = commandContext.extractThreadId(msg, [])
+          const text = typeof content === 'string' ? content : segmentsToText(content)
           await commandContext.replyTG(chatId, text, threadId)
         }
         else {
-          const chatId = msg.chat.id
-          await commandContext.replyQQ(chatId, text)
+          await this.sendQQCommandReply(msg, content, segmentsToText)
         }
         return { messageId: `qq:${msg.id}`, timestamp: Date.now() }
       },
@@ -389,6 +387,125 @@ export class CommandsFeature {
       qq: this.qqClient,
       tg: this.tgBot,
       instance: this.instance,
+    }
+  }
+
+  private isForwardSegment(seg: any): seg is { type: 'forward'; data: { messages: any[] } } {
+    return !!seg && seg.type === 'forward' && Array.isArray(seg.data?.messages)
+  }
+
+  private resolveForwardUin(rawId: string | undefined, fallback: number): number {
+    if (!rawId)
+      return fallback
+    const numeric = rawId.match(/\d+/g)?.join('')
+    return numeric ? Number(numeric) : fallback
+  }
+
+  private pluginSegmentsToContents(segments: any[]): MessageContent[] {
+    const out: MessageContent[] = []
+    if (!Array.isArray(segments))
+      return out
+    for (const seg of segments) {
+      if (!seg || typeof seg !== 'object')
+        continue
+      switch (seg.type) {
+        case 'text':
+          out.push({ type: 'text', data: { text: String(seg.data?.text ?? '') } })
+          break
+        case 'at':
+          out.push({ type: 'at', data: { userId: String(seg.data?.userId ?? ''), userName: seg.data?.userName } })
+          break
+        case 'reply':
+          out.push({ type: 'reply', data: { messageId: String(seg.data?.messageId ?? ''), senderId: '', senderName: '' } })
+          break
+        case 'image':
+          out.push({ type: 'image', data: { url: seg.data?.url, file: seg.data?.file } })
+          break
+        case 'video':
+          out.push({ type: 'video', data: { url: seg.data?.url, file: seg.data?.file } })
+          break
+        case 'audio':
+          out.push({ type: 'audio', data: { url: seg.data?.url, file: seg.data?.file } })
+          break
+        case 'file':
+          out.push({ type: 'file', data: { url: seg.data?.url, file: seg.data?.file, filename: seg.data?.name || 'file' } })
+          break
+        default:
+          out.push({ type: 'text', data: { text: '' } })
+          break
+      }
+    }
+    return out
+  }
+
+  private async sendQQCommandReply(
+    msg: UnifiedMessage,
+    content: string | any[],
+    segmentsToText: (segments: any[]) => string,
+  ) {
+    const chatId = msg.chat.id
+    if (typeof content === 'string') {
+      await this.commandContext.replyQQ(chatId, content)
+      return
+    }
+
+    if (!Array.isArray(content) || content.length === 0) {
+      await this.commandContext.replyQQ(chatId, '')
+      return
+    }
+
+    const forwardSegments = content.filter(seg => this.isForwardSegment(seg))
+    const normalSegments = content.filter(seg => !this.isForwardSegment(seg))
+
+    if (normalSegments.length) {
+      const text = segmentsToText(normalSegments)
+      if (text)
+        await this.commandContext.replyQQ(chatId, text)
+    }
+
+    if (!forwardSegments.length)
+      return
+
+    if (msg.chat.type !== 'group') {
+      const fallbackText = segmentsToText(content)
+      if (fallbackText)
+        await this.commandContext.replyQQ(chatId, fallbackText)
+      return
+    }
+
+    const nodes: any[] = []
+    const botUin = Number(this.qqClient.uin || 0)
+    const botName = String(this.qqClient.nickname || this.qqClient.uin || 'Bot')
+    let index = 0
+    for (const seg of forwardSegments) {
+      for (const fwd of seg.data?.messages || []) {
+        const name = botName
+        const userId = String(fwd?.userId || '')
+        const parsedUin = this.resolveForwardUin(userId, botUin)
+        const uin = botUin || parsedUin
+        const contentSegments = this.pluginSegmentsToContents(fwd?.segments || [])
+        const unified: UnifiedMessage = {
+          id: `cmd-forward-${Date.now()}-${index++}`,
+          platform: 'qq',
+          sender: { id: userId || String(uin), name },
+          chat: { id: chatId, type: msg.chat.type as any },
+          content: contentSegments,
+          timestamp: Date.now(),
+        }
+        const napCatSegments = await messageConverter.toNapCat(unified)
+        nodes.push({
+          type: 'node',
+          data: {
+            name,
+            uin,
+            content: napCatSegments,
+          },
+        })
+      }
+    }
+
+    if (nodes.length) {
+      await this.qqClient.sendGroupForwardMsg(String(chatId), nodes)
     }
   }
 
