@@ -24,6 +24,20 @@ import {
 } from '@napgram/plugin-kit'
 const logger = getLogger('PluginAdmin')
 
+function sanitizeRuntimeReport(report: any) {
+  if (!report || typeof report !== 'object')
+    return report
+  if (!Array.isArray(report.loadedPlugins))
+    return report
+  return {
+    ...report,
+    loadedPlugins: report.loadedPlugins.map((p: any) => ({
+      id: p.id,
+      plugin: p.plugin,
+    })),
+  }
+}
+
 async function pathExists(p: string): Promise<boolean> {
   try {
     await fs.access(p)
@@ -127,7 +141,7 @@ export default async function (fastify: FastifyInstance) {
         return reply.code(400).send({ success: false, error: 'Invalid request', details: body.error.issues })
       }
       const result = await PluginRuntime.reload({ defaultInstances: body.data.instances })
-      return ApiResponse.success(result)
+      return ApiResponse.success(sanitizeRuntimeReport(result))
     }
     catch (error: any) {
       return reply.code(500).send(ApiResponse.error(error?.message || String(error)))
@@ -140,7 +154,7 @@ export default async function (fastify: FastifyInstance) {
       if (!pluginId)
         return reply.code(400).send(ApiResponse.error('Missing plugin id'))
       const result = await PluginRuntime.reloadPlugin(pluginId)
-      return ApiResponse.success(result)
+      return ApiResponse.success(sanitizeRuntimeReport(result))
     }
     catch (error: any) {
       return reply.code(500).send(ApiResponse.error(error?.message || String(error)))
