@@ -1,6 +1,6 @@
 {
     "name": "@napgram/database",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Database abstraction layer for NapGram with Drizzle ORM",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",

@@ -1,6 +1,6 @@
 {
     "name": "@napgram/plugin-kit",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "Plugin system core for NapGram",
     "main": "src/index.ts",
     "types": "./dist/index.d.ts",
@@ -38,7 +38,7 @@
         "@napgram/marketplace-kit": "workspace:^",
         "@napgram/message-kit": "workspace:*",
         "@napgram/runtime-kit": "workspace:*",
-        "@napgram/sdk": "^0.1.3",
+        "@napgram/sdk": "^0.1.5",
         "@sentry/node": "10.32.1",
         "axios": "^1.13.2",
         "semver": "^7.7.3",

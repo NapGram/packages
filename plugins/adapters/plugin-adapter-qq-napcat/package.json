@@ -1,6 +1,6 @@
 {
     "name": "@napgram/plugin-adapter-qq-napcat",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "NapGram QQ adapter for NapCat",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",

@@ -1,6 +1,6 @@
 {
     "name": "@napgram/auth-kit",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "Authentication utilities for NapGram",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
