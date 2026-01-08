@@ -175,51 +175,6 @@ function resolveRequestedPermissions(p?: MarketplacePluginVersion['permissions']
   }
 }
 
-function validatePermissions(permissions: Required<NonNullable<MarketplacePluginVersion['permissions']>>) {
-  const allowNetwork = String(process.env.PLUGIN_ALLOW_NETWORK || '').trim().toLowerCase()
-  const networkAllowed = allowNetwork === '1' || allowNetwork === 'true' || allowNetwork === 'yes' || allowNetwork === 'on'
-  const allowFs = String(process.env.PLUGIN_ALLOW_FS || '').trim().toLowerCase()
-  const fsAllowed = allowFs === '1' || allowFs === 'true' || allowFs === 'yes' || allowFs === 'on'
-
-  const allowlistRaw = String(process.env.PLUGIN_NETWORK_ALLOWLIST || '').trim()
-  const allowlist = allowlistRaw
-    ? allowlistRaw.split(',').map(s => s.trim()).filter(Boolean)
-    : []
-
-  if (permissions.network.length) {
-    if (!networkAllowed) {
-      throw new Error('Plugin requests network permission but PLUGIN_ALLOW_NETWORK is not enabled')
-    }
-    if (allowlist.length) {
-      for (const rule of permissions.network) {
-        const prefix = rule.endsWith('*') ? rule.slice(0, -1) : rule
-        const ok = allowlist.some(a => prefix.startsWith(a) || a.startsWith(prefix))
-        if (!ok)
-          throw new Error(`Network permission not allowed by PLUGIN_NETWORK_ALLOWLIST: ${rule}`)
-      }
-    }
-  }
-
-  if (permissions.fs.length && !fsAllowed) {
-    throw new Error('Plugin requests fs permission but PLUGIN_ALLOW_FS is not enabled')
-  }
-}
-
-function canInstallWithPnpm(): boolean {
-  const raw = String(process.env.PLUGIN_ALLOW_NPM_INSTALL || '').trim().toLowerCase()
-  return raw === '1' || raw === 'true' || raw === 'yes' || raw === 'on'
-}
-
-function canRunInstallScripts(): boolean {
-  const raw = String(process.env.PLUGIN_ALLOW_INSTALL_SCRIPTS || '').trim().toLowerCase()
-  return raw === '1' || raw === 'true' || raw === 'yes' || raw === 'on'
-}
-
-function isNetworkAllowedForInstall(): boolean {
-  const raw = String(process.env.PLUGIN_ALLOW_NETWORK || '').trim().toLowerCase()
-  return raw === '1' || raw === 'true' || raw === 'yes' || raw === 'on'
-}
-
 async function ensureDir(p: string) {
   await fs.mkdir(p, { recursive: true })
 }
@@ -421,16 +376,6 @@ async function findPnpmProjectDir(destDir: string): Promise<string | null> {
 
 async function runPnpmInstall(projectDir: string, opts: Required<NonNullable<MarketplacePluginVersion['install']>>) {
   logger.info({ projectDir }, 'Running pnpm install for plugin')
-  if (!canInstallWithPnpm()) {
-    throw new Error('Refusing to run pnpm install without PLUGIN_ALLOW_NPM_INSTALL=1')
-  }
-  if (!isNetworkAllowedForInstall()) {
-    throw new Error('pnpm install requires network; enable PLUGIN_ALLOW_NETWORK=1')
-  }
-  if (!opts.ignoreScripts && !canRunInstallScripts()) {
-    throw new Error('Refusing to run install scripts without PLUGIN_ALLOW_INSTALL_SCRIPTS=1')
-  }
-
   const args = ['install']
   if (opts.production)
     args.push('--prod')
@@ -615,20 +560,13 @@ async function installFromMarketplaceUnlocked(opts: InstallOptions): Promise<Plu
   const expected = normalizeHexSha256(target.dist?.sha256)
 
   const permissions = resolveRequestedPermissions(target.permissions)
-  validatePermissions(permissions)
 
   const install = {
     mode: (target.install?.mode || 'none') as 'none' | 'pnpm',
     production: target.install?.production !== false,
     ignoreScripts: target.install?.ignoreScripts !== false,
     frozenLockfile: target.install?.frozenLockfile === true,
-    registry: (target.install?.registry || String(process.env.PLUGIN_NPM_REGISTRY || '').trim() || undefined) as string | undefined,
-  }
-
-  if (install.mode === 'pnpm') {
-    if (!canInstallWithPnpm()) {
-      throw new Error('Plugin requires pnpm install; set PLUGIN_ALLOW_NPM_INSTALL=1 to enable')
-    }
+    registry: (target.install?.registry || undefined) as string | undefined,
   }
 
   const installDir = resolvePluginsRoot(pluginId, target.version)
