@@ -237,38 +237,43 @@ export class MessageConverter {
   private async saveBufferToTemp(buffer: Buffer, type: 'image' | 'video' | 'audio' | 'file', ext: string, filename?: string): Promise<string> {
     // 尝试使用 NapCat 共享目录 (假设 NapCat 容器内路径也是 /app/.config/QQ)
     const sharedRoot = '/app/.config/QQ'
+    const napcatTempDir = path.join(sharedRoot, 'NapCat', 'temp')
     const sharedDir = path.join(sharedRoot, 'temp_napgram_share')
-    // ... (preserving lines in between if match is exact block, but here asking for separate replacements if needed)
+    const sharedRootExists = fsSync.existsSync(sharedRoot)
+    const name = filename || `${type}-${Date.now()}-${Math.random().toString(16).slice(2)}${ext}`
+    logger.debug('Forward media buffer', {
+      type,
+      ext,
+      size: buffer.length,
+      sharedRootExists,
+      napcatTempDir,
+      sharedDir,
+    })
 
-    // Actually MultiReplace is better if they are far apart, but AllowMultiple=true with simple chunks is supported by replace_file_content?
-    // No, replace_file_content replaces a SINGLE contiguous block.
-    // I will use multi_replace for converter.ts to be safe.
-
-    if (fsSync.existsSync(sharedRoot)) {
-      try {
-        await fs.mkdir(sharedDir, { recursive: true })
-        const name = filename || `${type}-${Date.now()}-${Math.random().toString(16).slice(2)}${ext}`
-        const filePath = path.join(sharedDir, name)
-        await fs.writeFile(filePath, buffer)
-        logger.debug(`Saved buffer to shared path: ${filePath}`)
-        return filePath
-      }
-      catch (e) {
-        logger.warn(`Failed to write to shared dir ${sharedDir}:`, e)
+    if (sharedRootExists) {
+      const sharedDirs = [napcatTempDir, sharedDir]
+      for (const dir of sharedDirs) {
+        try {
+          await fs.mkdir(dir, { recursive: true })
+          const filePath = path.join(dir, name)
+          await fs.writeFile(filePath, buffer)
+          logger.debug('Saved forward media to shared path', { filePath })
+          return filePath
+        }
+        catch (e) {
+          logger.warn(`Failed to write to shared dir ${dir}:`, e)
+        }
       }
     }
 
-    // 回退到内部 HTTP 服务
+    // 回退到本地临时目录 (QQ 端可能无法访问)
     const tempDir = path.join(env.DATA_DIR, 'temp')
+    logger.warn('Forward media fallback to local temp dir', { tempDir })
     await fs.mkdir(tempDir, { recursive: true })
-    const name = filename || `${type}-${Date.now()}-${Math.random().toString(16).slice(2)}${ext}`
     const filePath = path.join(tempDir, name)
     await fs.writeFile(filePath, buffer)
-
-    const baseUrl = env.INTERNAL_WEB_ENDPOINT || 'http://napgram:8080'
-    const url = `${baseUrl}/temp/${name}`
-    logger.debug(`Saved buffer to local temp and returning URL: ${url}`)
-    return url
+    logger.warn('Saved forward media to local temp path', { filePath })
+    return filePath
   }
 
   async toNapCat(message: UnifiedMessage): Promise<any[]> {
@@ -398,13 +403,13 @@ export class MessageConverter {
               })
               file = await this.saveBufferToTemp(targetBuffer, 'image', targetExt)
             }
-            segments.push({
-              type: 'image',
-              data: {
-                file,
-                sub_type: content.data.isSpoiler ? '7' : '0',
-              },
-            })
+              segments.push({
+                type: 'image',
+                data: {
+                  file,
+                  sub_type: content.data.isSpoiler ? 7 : 0,
+                },
+              })
           }
           break
 

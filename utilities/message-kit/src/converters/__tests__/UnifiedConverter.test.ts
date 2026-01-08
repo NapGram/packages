@@ -116,7 +116,7 @@ describe('unifiedConverter', () => {
     ])
   })
 
-  it('saves buffer to shared dir when available', async () => {
+  it('saves buffer to napcat temp dir when available', async () => {
     fsMocks.existsSync.mockReturnValue(true)
     const expectedName = `image-${Date.now()}-${Math.random().toString(16).slice(2)}.jpg`
 
@@ -132,17 +132,17 @@ describe('unifiedConverter', () => {
       timestamp: 1,
     })
 
-    expect(fsMocks.mkdir).toHaveBeenCalledWith('/app/.config/QQ/temp_napgram_share', { recursive: true })
-    expect(fsMocks.writeFile).toHaveBeenCalledWith(`/app/.config/QQ/temp_napgram_share/${expectedName}`, expect.any(Buffer))
+    expect(fsMocks.mkdir).toHaveBeenCalledWith('/app/.config/QQ/NapCat/temp', { recursive: true })
+    expect(fsMocks.writeFile).toHaveBeenCalledWith(`/app/.config/QQ/NapCat/temp/${expectedName}`, expect.any(Buffer))
     expect(result).toEqual([
       {
         type: 'image',
-        data: { file: `/app/.config/QQ/temp_napgram_share/${expectedName}`, sub_type: '0' },
+        data: { file: `/app/.config/QQ/NapCat/temp/${expectedName}`, sub_type: 0 },
       },
     ])
   })
 
-  it('falls back to temp url when shared dir missing', async () => {
+  it('falls back to local temp path when shared dir missing', async () => {
     fsMocks.existsSync.mockReturnValue(false)
 
     const converter = new UnifiedConverter()
@@ -160,7 +160,7 @@ describe('unifiedConverter', () => {
     expect(fsMocks.mkdir).toHaveBeenCalledWith('/data/temp', { recursive: true })
     expect(fsMocks.writeFile).toHaveBeenCalledWith('/data/temp/doc.txt', expect.any(Buffer))
     expect(result).toEqual([
-      { type: 'file', data: { file: 'http://internal/temp/doc.txt', name: 'doc.txt' } },
+      { type: 'file', data: { file: '/data/temp/doc.txt', name: 'doc.txt' } },
     ])
   })
 
@@ -238,17 +238,10 @@ describe('unifiedConverter', () => {
       content: [{ type: 'image', data: { url: 'http://img', isSpoiler: true } }],
       timestamp: 1,
     })
-    expect(result[0].data.sub_type).toBe('7') // 7 = spoiler in NapCat logic? Reference implementation says yes.
+    expect(result[0].data.sub_type).toBe(7) // 7 = spoiler in NapCat logic? Reference implementation says yes.
   })
 
-  it('handles saveBufferToTemp error and returns undefined? No, it returns undefined implicitly on catch', async () => {
-    // If catch block is hit, function returns undefined (void) but type is Promise<string>.
-    // This might be a bug in implementation or implied.
-    // Let's check implementation: catch(e) { logger.warn... } - no return.
-    // So it returns undefined.
-    // But verify usage: file = await saveBufferToTemp...; segments.push({ data: { file } })
-    // If it returns undefined, file is undefined.
-
+  it('falls back to temp_napgram_share when napcat temp write fails', async () => {
     fsMocks.existsSync.mockReturnValue(true)
     fsMocks.mkdir.mockRejectedValueOnce(new Error('Permission denied'))
 
@@ -262,7 +255,6 @@ describe('unifiedConverter', () => {
       timestamp: 1,
     })
 
-    // It should recover and use fallback
-    expect(result[0].data.file).toEqual(expect.stringMatching(/^http:\/\/.*\/temp\//))
+    expect(result[0].data.file).toEqual(expect.stringMatching(/^\/app\/\.config\/QQ\/temp_napgram_share\//))
   })
 })

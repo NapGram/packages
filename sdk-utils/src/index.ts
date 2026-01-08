@@ -206,14 +206,13 @@ async function materializeMediaFile(
     type: string,
     data: Record<string, any>,
     options: ForwardMediaPrepareOptions,
-): Promise<string | undefined> {
+): Promise<string | Buffer | undefined> {
     const existingFile = data.file;
     if (typeof existingFile === 'string' && existingFile.startsWith('/')) {
         return existingFile;
     }
     if (Buffer.isBuffer(existingFile)) {
-        const ext = MEDIA_EXT_BY_TYPE[type] || '';
-        return writeBufferToTemp(existingFile, options, ext, `qq-${type}`);
+        return existingFile;
     }
 
     const url = isHttpUrl(existingFile) ? existingFile : isHttpUrl(data.url) ? data.url : undefined;
@@ -221,9 +220,8 @@ async function materializeMediaFile(
         return undefined;
     }
 
-    const { buffer, contentType } = await downloadToBuffer(url, options);
-    const ext = inferExtFromContentType(contentType) || inferExtFromUrl(url) || MEDIA_EXT_BY_TYPE[type] || '';
-    return writeBufferToTemp(buffer, options, ext, `qq-${type}`);
+    const { buffer } = await downloadToBuffer(url, options);
+    return buffer;
 }
 
 async function prepareForwardSegment(

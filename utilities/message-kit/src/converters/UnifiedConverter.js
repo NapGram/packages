@@ -24,13 +24,13 @@ export class UnifiedConverter extends BaseConverter {
                         if (Buffer.isBuffer(file)) {
                             file = await this.saveBufferToTemp(file, 'image', '.jpg');
                         }
-                        segments.push({
-                            type: 'image',
-                            data: {
-                                file,
-                                sub_type: content.data.isSpoiler ? '7' : '0',
-                            },
-                        });
+                            segments.push({
+                                type: 'image',
+                                data: {
+                                    file,
+                                    sub_type: content.data.isSpoiler ? 7 : 0,
+                                },
+                            });
                     }
                     break;
                 case 'video':
@@ -133,29 +133,40 @@ export class UnifiedConverter extends BaseConverter {
     async saveBufferToTemp(buffer, type, ext, filename) {
         // 尝试使用 NapCat 共享目录 (假设 NapCat 容器内路径也是 /app/.config/QQ)
         const sharedRoot = '/app/.config/QQ';
+        const napcatTempDir = path.join(sharedRoot, 'NapCat', 'temp');
         const sharedDir = path.join(sharedRoot, 'temp_napgram_share');
-        if (fsSync.existsSync(sharedRoot)) {
-            try {
-                await fs.mkdir(sharedDir, { recursive: true });
-                const name = filename || `${type}-${Date.now()}-${Math.random().toString(16).slice(2)}${ext}`;
-                const filePath = path.join(sharedDir, name);
-                await fs.writeFile(filePath, buffer);
-                this.logger.debug(`Saved buffer to shared path: ${filePath}`);
-                return filePath;
-            }
-            catch (e) {
-                this.logger.warn(e, `Failed to write to shared dir ${sharedDir}:`);
+        const sharedRootExists = fsSync.existsSync(sharedRoot);
+        const name = filename || `${type}-${Date.now()}-${Math.random().toString(16).slice(2)}${ext}`;
+        this.logger.debug('Forward media buffer', {
+            type,
+            ext,
+            size: buffer.length,
+            sharedRootExists,
+            napcatTempDir,
+            sharedDir,
+        });
+        if (sharedRootExists) {
+            const sharedDirs = [napcatTempDir, sharedDir];
+            for (const dir of sharedDirs) {
+                try {
+                    await fs.mkdir(dir, { recursive: true });
+                    const filePath = path.join(dir, name);
+                    await fs.writeFile(filePath, buffer);
+                    this.logger.debug('Saved forward media to shared path', { filePath });
+                    return filePath;
+                }
+                catch (e) {
+                    this.logger.warn(e, `Failed to write to shared dir ${dir}:`);
+                }
             }
         }
-        // 回退到内部 HTTP 服务
+        // 回退到本地临时目录 (QQ 端可能无法访问)
         const tempDir = path.join(env.DATA_DIR, 'temp');
+        this.logger.warn('Forward media fallback to local temp dir', { tempDir });
         await fs.mkdir(tempDir, { recursive: true });
-        const name = filename || `${type}-${Date.now()}-${Math.random().toString(16).slice(2)}${ext}`;
         const filePath = path.join(tempDir, name);
         await fs.writeFile(filePath, buffer);
-        const baseUrl = env.INTERNAL_WEB_ENDPOINT || 'http://napgram:8080';
-        const url = `${baseUrl}/temp/${name}`;
-        this.logger.debug(`Saved buffer to local temp and returning URL: ${url}`);
-        return url;
+        this.logger.warn('Saved forward media to local temp path', { filePath });
+        return filePath;
     }
 }

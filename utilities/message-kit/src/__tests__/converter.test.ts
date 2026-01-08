@@ -348,7 +348,7 @@ describe('messageConverter', () => {
     ])
   })
 
-  it('converts sticker buffer to png and saves to shared dir', async () => {
+  it('converts sticker buffer to png and saves to napcat temp dir', async () => {
     const converter = new MessageConverter()
     const pngBuffer = Buffer.from('png')
     fileTypeMock.fileTypeFromBuffer.mockResolvedValue({ ext: 'webp' })
@@ -377,17 +377,17 @@ describe('messageConverter', () => {
     })
 
     const expectedName = `image-${Date.now()}-${Math.random().toString(16).slice(2)}.png`
-    expect(fsMocks.mkdir).toHaveBeenCalledWith('/app/.config/QQ/temp_napgram_share', { recursive: true })
-    expect(fsMocks.writeFile).toHaveBeenCalledWith(`/app/.config/QQ/temp_napgram_share/${expectedName}`, pngBuffer)
+    expect(fsMocks.mkdir).toHaveBeenCalledWith('/app/.config/QQ/NapCat/temp', { recursive: true })
+    expect(fsMocks.writeFile).toHaveBeenCalledWith(`/app/.config/QQ/NapCat/temp/${expectedName}`, pngBuffer)
     expect(result).toEqual([
       {
         type: 'image',
-        data: { file: `/app/.config/QQ/temp_napgram_share/${expectedName}`, sub_type: '0' },
+        data: { file: `/app/.config/QQ/NapCat/temp/${expectedName}`, sub_type: 0 },
       },
     ])
   })
 
-  it('falls back to internal url when shared dir missing', async () => {
+  it('falls back to local temp path when shared dir missing', async () => {
     const converter = new MessageConverter()
     fsMocks.existsSync.mockReturnValue(false)
     vi.spyOn(Date, 'now').mockReturnValue(1700000000000)
@@ -415,14 +415,17 @@ describe('messageConverter', () => {
     expect(result).toEqual([
       {
         type: 'record',
-        data: { file: `http://internal/temp/${expectedName}` },
+        data: { file: `/data/temp/${expectedName}` },
       },
     ])
   })
 
-  it('falls back to temp url when shared dir write fails', async () => {
+  it('falls back to local temp path when shared dir write fails', async () => {
     const converter = new MessageConverter()
-    fsMocks.mkdir.mockRejectedValueOnce(new Error('mkdir fail')).mockResolvedValueOnce(undefined)
+    fsMocks.mkdir
+      .mockRejectedValueOnce(new Error('mkdir fail'))
+      .mockRejectedValueOnce(new Error('mkdir fail'))
+      .mockResolvedValueOnce(undefined)
     vi.spyOn(Date, 'now').mockReturnValue(1700000000000)
     vi.spyOn(Math, 'random').mockReturnValue(0.4)
 
@@ -438,7 +441,7 @@ describe('messageConverter', () => {
     expect(result).toEqual([
       {
         type: 'record',
-        data: { file: `http://internal/temp/${expectedName}` },
+        data: { file: `/data/temp/${expectedName}` },
       },
     ])
   })
@@ -648,13 +651,13 @@ describe('messageConverter', () => {
       timestamp: 1,
     })
 
-    expect(fsMocks.mkdir).toHaveBeenCalledWith('/app/.config/QQ/temp_napgram_share', { recursive: true })
-    expect(fsMocks.writeFile).toHaveBeenCalledWith('/app/.config/QQ/temp_napgram_share/note.txt', buffer)
+    expect(fsMocks.mkdir).toHaveBeenCalledWith('/app/.config/QQ/NapCat/temp', { recursive: true })
+    expect(fsMocks.writeFile).toHaveBeenCalledWith('/app/.config/QQ/NapCat/temp/note.txt', buffer)
     expect(result).toEqual([
       {
         type: 'file',
         data: {
-          file: '/app/.config/QQ/temp_napgram_share/note.txt',
+          file: '/app/.config/QQ/NapCat/temp/note.txt',
           name: 'note.txt',
         },
       },
