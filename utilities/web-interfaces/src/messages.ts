@@ -51,7 +51,9 @@ const resolveTgSenderName = async (instanceId: number, senderId: string): Promis
       return null
     }
     try {
-      const chat = await bot.getChat(senderId)
+      const numericId = Number(senderId)
+      const chatId = Number.isNaN(numericId) ? senderId : numericId
+      const chat = await bot.getChat(chatId)
       const name = normalizeTgSenderName(chat)
       tgSenderNameCache.set(cacheKey, name)
       return name

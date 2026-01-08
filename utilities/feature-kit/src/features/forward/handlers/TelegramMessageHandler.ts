@@ -223,6 +223,7 @@ export class TelegramMessageHandler {
         if (msgId) {
           // Save mapping for reply lookup (QQ -> TG reply)
           try {
+            const tgSenderName = unified.sender?.name || tgMsg?.sender?.displayName || tgMsg?.sender?.username || null
             await db.insert(schema.message).values({
               qqRoomId: pair.qqRoomId,
               qqSenderId: BigInt(0), // Self sent
@@ -234,6 +235,7 @@ export class TelegramMessageHandler {
               tgMsgId: tgMsg.id,
               tgSenderId: BigInt(tgMsg.sender.id || 0),
               instanceId: pair.instanceId,
+              nick: tgSenderName,
               brief: unified.content.map(c => this.renderContent(c)).join(' ').slice(0, 50),
             })
             logger.debug(`Saved TG->QQ mapping: seq=${msgId} <-> tgMsgId=${tgMsg.id}`)
