@@ -316,9 +316,10 @@ export class TelegramSender {
 
       if (content.type === 'image') {
         const fileName = (content as any).data.fileName || (typeof (content as any).data.file === 'string' ? path.basename((content as any).data.file) : 'image.jpg')
-        const normalized = await this.fileNormalizer.normalizeInputFile(fileSrc, fileName || 'image.jpg')
+        let normalized = await this.fileNormalizer.normalizeInputFile(fileSrc, fileName || 'image.jpg')
         if (!normalized)
           throw new Error('Image source not available')
+        normalized = await this.fileNormalizer.ensureTelegramPhotoCompatible(normalized)
         const asGif = this.fileNormalizer.isGifMedia(normalized)
         mediaInput = {
           type: asGif ? 'animation' : 'photo',

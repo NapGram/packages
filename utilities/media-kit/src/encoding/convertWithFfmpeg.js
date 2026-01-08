@@ -14,10 +14,15 @@ export default async function (sourcePath, targetPath, format, srcFormat) {
         if (format === 'gif') {
             args.push('-filter_complex', '[0:v] palettegen=reserve_transparent=on [p]; [0:v][p] paletteuse=dither=floyd_steinberg');
         }
-        if (format === 'webm') {
-            args.push('-c:v', 'libvpx-vp9');
-        }
+    if (format === 'webm') {
+        args.push('-c:v', 'libvpx-vp9');
+    }
+    if (format === 'png') {
+        args.push('-frames:v', '1', '-c:v', 'png', '-f', 'image2', targetPath);
+    }
+    else {
         args.push('-f', format, targetPath);
+    }
         logger.debug(`正在启动 ffmpeg: ffmpeg ${args.join(' ')}`);
         await execFileAsync('ffmpeg', args);
     }

@@ -97,13 +97,16 @@ export class MediaSender {
 
         // This is a simplified version - in practice, you'd need to pass the resolved file
         const fileSrc = (media as any).data.file || (media as any).data.url
-        const normalized = await this.fileNormalizer.normalizeInputFile(fileSrc, fileName)
+        let normalized = await this.fileNormalizer.normalizeInputFile(fileSrc, fileName)
 
         if (!normalized) {
           this.logger.warn(`Skipping media in group: normalization failed`)
           continue
         }
 
+        if (media.type === 'image') {
+          normalized = await this.fileNormalizer.ensureTelegramPhotoCompatible(normalized)
+        }
         const isGif = this.fileNormalizer.isGifMedia(normalized)
         const inputType = media.type === 'video' ? 'video' : (isGif ? 'animation' : 'photo')
         const input: any = {

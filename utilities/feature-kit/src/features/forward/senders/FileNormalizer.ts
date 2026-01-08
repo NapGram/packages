@@ -6,6 +6,9 @@ import { readdir } from 'node:fs/promises'
 import path from 'node:path'
 import { Readable } from 'node:stream'
 import { fileTypeFromBuffer } from 'file-type'
+import { decode, encode } from 'image-js'
+import { convertWithFfmpeg } from '@napgram/media-kit'
+import { temp } from '@napgram/infra-kit'
 import { getLogger } from '@napgram/infra-kit'
 
 export interface NormalizedFile {
@@ -245,6 +248,55 @@ export class FileNormalizer {
    */
   isGifMedia(file: NormalizedFile): boolean {
     return file.fileMime === 'image/gif' || file.fileName.toLowerCase().endsWith('.gif')
+  }
+
+  /**
+   * Ensure Telegram photo compatibility (webp -> png)
+   */
+  async ensureTelegramPhotoCompatible(file: NormalizedFile): Promise<NormalizedFile> {
+    const isWebp = file.fileMime === 'image/webp' || file.fileName.toLowerCase().endsWith('.webp')
+    if (!isWebp) {
+      return file
+    }
+
+    try {
+      const image = decode(file.data)
+      const buffer = Buffer.from(encode(image, { format: 'png' }))
+      const base = path.parse(file.fileName).name || 'image'
+      return {
+        fileName: `${base}.png`,
+        data: buffer,
+        fileMime: 'image/png',
+      }
+    }
+    catch (err) {
+      this.logger.debug(err, 'Image-JS webp convert failed, try ffmpeg:')
+    }
+
+    const base = path.parse(file.fileName).name || 'image'
+    const input = await temp.createTempFile({ postfix: '.webp' })
+    const output = await temp.createTempFile({ postfix: '.png' })
+    try {
+      await fs.promises.writeFile(input.path, file.data)
+      await convertWithFfmpeg(input.path, output.path, 'png')
+      const buffer = await fs.promises.readFile(output.path)
+      if (buffer.length > 0) {
+        return {
+          fileName: `${base}.png`,
+          data: buffer,
+          fileMime: 'image/png',
+        }
+      }
+    }
+    catch (err) {
+      this.logger.warn(err, 'ffmpeg webp convert failed, keep original:')
+    }
+    finally {
+      await input.cleanup()
+      await output.cleanup()
+    }
+
+    return file
   }
 
   /**
