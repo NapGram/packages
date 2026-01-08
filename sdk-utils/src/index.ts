@@ -244,6 +244,9 @@ async function prepareForwardSegment(
     const file = await materializeMediaFile(mediaSegment.type, data, options);
     if (file) {
         data.file = file;
+        if (data.url) {
+            delete data.url;
+        }
     }
     return { ...mediaSegment, data } as MessageSegment;
 }
