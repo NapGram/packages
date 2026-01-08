@@ -26,6 +26,7 @@ export class ForwardMapper {
       return
     }
     try {
+      const nick = unified.sender?.name || tgMsg?.sender?.name || tgMsg?.sender?.username || tgMsg?.sender?.displayName || null
       await db.insert(schema.message).values({
         qqRoomId: pair.qqRoomId,
         qqSenderId: BigInt(0),
@@ -37,6 +38,7 @@ export class ForwardMapper {
         tgMsgId: tgMsg.id,
         tgSenderId: BigInt(tgMsg.sender?.id || 0),
         instanceId: pair.instanceId,
+        nick,
         brief: unified.content.map(c => this.contentRenderer(c)).join(' ').slice(0, 50),
       })
       this.logger.debug(`Saved TG->QQ mapping: seq=${msgId} <-> tgMsgId=${tgMsg.id}`)
@@ -52,6 +54,11 @@ export class ForwardMapper {
     }
     try {
       const raw = qqMsg.metadata?.raw || {}
+      const rawSender = raw?.sender || {}
+      const card = typeof rawSender.card === 'string' ? rawSender.card.trim() : ''
+      const nickname = typeof rawSender.nickname === 'string' ? rawSender.nickname.trim() : ''
+      const senderName = typeof qqMsg.sender?.name === 'string' ? qqMsg.sender.name.trim() : ''
+      const nick = card || nickname || senderName || null
       const seq = raw.message_id || raw.seq || 0
       const rand = raw.rand || 0
       const time = Math.floor(qqMsg.timestamp / 1000)
@@ -70,6 +77,7 @@ export class ForwardMapper {
         tgMsgId,
         tgSenderId,
         instanceId,
+        nick,
         brief: qqMsg.content.map(c => this.contentRenderer(c)).join(' ').slice(0, 50),
       })
     }
