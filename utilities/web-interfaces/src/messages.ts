@@ -18,7 +18,57 @@ import { authMiddleware } from '@napgram/auth-kit'
 import { processNestedForward } from '@napgram/message-kit'
 
 const forwardCache = new TTLCache<string, any>(60000) // 1 minute TTL
+const tgSenderNameCache = new TTLCache<string, string | null>(5 * 60 * 1000)
+const tgSenderNameInflight = new Map<string, Promise<string | null>>()
 const logger = getLogger('MessagesApi')
+
+const normalizeTgSenderName = (chat: any): string | null => {
+  const title = typeof chat?.title === 'string' ? chat.title.trim() : ''
+  const displayName = typeof chat?.displayName === 'string' ? chat.displayName.trim() : ''
+  const firstName = typeof chat?.firstName === 'string' ? chat.firstName.trim() : ''
+  const lastName = typeof chat?.lastName === 'string' ? chat.lastName.trim() : ''
+  const fullName = [firstName, lastName].filter(Boolean).join(' ').trim()
+  const username = typeof chat?.username === 'string' && chat.username ? `@${chat.username}` : ''
+  const name = title || displayName || fullName || username
+  return name || null
+}
+
+const resolveTgSenderName = async (instanceId: number, senderId: string): Promise<string | null> => {
+  const cacheKey = `${instanceId}:${senderId}`
+  const cached = tgSenderNameCache.get(cacheKey)
+  if (cached !== undefined)
+    return cached
+
+  const inflight = tgSenderNameInflight.get(cacheKey)
+  if (inflight)
+    return inflight
+
+  const task = (async () => {
+    const instance = Instance.instances.find((inst: any) => inst.id === instanceId)
+    const bot = (instance as any)?.tgBot
+    if (!bot?.getChat) {
+      tgSenderNameCache.set(cacheKey, null, 60000)
+      return null
+    }
+    try {
+      const chat = await bot.getChat(senderId)
+      const name = normalizeTgSenderName(chat)
+      tgSenderNameCache.set(cacheKey, name)
+      return name
+    }
+    catch (error) {
+      logger.debug({ error, senderId, instanceId }, 'Failed to resolve TG sender name')
+      tgSenderNameCache.set(cacheKey, null, 60000)
+      return null
+    }
+    finally {
+      tgSenderNameInflight.delete(cacheKey)
+    }
+  })()
+
+  tgSenderNameInflight.set(cacheKey, task)
+  return task
+}
 
 export default async function (fastify: FastifyInstance) {
   // 管理端 - 消息列表
@@ -59,19 +109,26 @@ export default async function (fastify: FastifyInstance) {
 
     const total = totalResult[0].value
 
+    const itemsWithNames = await Promise.all(items.map(async (item: any) => {
+      const tgSenderId = item.tgSenderId?.toString() || null
+      const tgSenderName = tgSenderId ? await resolveTgSenderName(item.instanceId, tgSenderId) : null
+      return {
+        ...item,
+        qqRoomId: item.qqRoomId.toString(),
+        qqSenderId: item.qqSenderId.toString(),
+        tgChatId: item.tgChatId.toString(),
+        rand: item.rand.toString(),
+        tgFileId: item.tgFileId?.toString() || null,
+        tgSenderId,
+        tgSenderName,
+      }
+    }))
+
     return {
       code: 0,
       data: {
         total,
-        items: items.map((item: any) => ({
-          ...item,
-          qqRoomId: item.qqRoomId.toString(),
-          qqSenderId: item.qqSenderId.toString(),
-          tgChatId: item.tgChatId.toString(),
-          rand: item.rand.toString(),
-          tgFileId: item.tgFileId?.toString() || null,
-          tgSenderId: item.tgSenderId?.toString() || null,
-        })),
+        items: itemsWithNames,
       },
     }
   })
