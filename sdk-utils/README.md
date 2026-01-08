@@ -17,6 +17,7 @@ import {
   makeAt,
   makeReply,
   makeImage,
+  prepareForwardMessagesForQQ,
   parseUserId,
   sleep,
   randomChoice
@@ -41,6 +42,10 @@ const { platform, id } = parseUserId('qq:u:123456');
 // Utilities
 await sleep(1000);
 const choice = randomChoice(['a', 'b', 'c']);
+
+// Prepare forward messages for QQ (download remote media to local temp files)
+const preparedForward = await prepareForwardMessagesForQQ(forwardMessages);
+await event.send([{ type: 'forward', data: { messages: preparedForward } }]);
 ```
 
 ## Subpath Exports
@@ -73,6 +78,10 @@ import { sendPoke } from '@napgram/utils/qq-helpers';
 - `sleep(ms)` - Delay function
 - `randomInt(min, max)` - Random integer
 - `randomChoice(array)` - Random array element
+
+### Forward Helpers
+
+- `prepareForwardMessagesForQQ(messages, options?)` - Download remote media in forward messages to local temp files for QQ compatibility
 
 ## License
 

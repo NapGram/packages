@@ -5,6 +5,9 @@
  */
 
 import type { MessageSegment, ForwardMessage } from '@napgram/core';
+import { Buffer } from 'node:buffer';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
 /**
  * 提取消息片段中的纯文本
@@ -104,6 +107,159 @@ export function makeForward(messages: ForwardMessage[]): MessageSegment {
         type: 'forward',
         data: { messages }
     };
+}
+
+export type ForwardMediaPrepareOptions = {
+    tempDir?: string;
+    timeoutMs?: number;
+    fetchFn?: typeof fetch;
+};
+
+type MediaSegment = Extract<MessageSegment, { type: 'image' | 'video' | 'audio' | 'file' }>;
+
+const DEFAULT_TIMEOUT_MS = 30000;
+const MEDIA_EXT_BY_TYPE: Record<string, string> = {
+    image: '.jpg',
+    video: '.mp4',
+    audio: '.ogg',
+    file: '',
+};
+
+function resolveTempDir(tempDir?: string): string {
+    const baseDir = tempDir || process.env.DATA_DIR || '/app/data';
+    return path.join(baseDir, 'temp');
+}
+
+function normalizeExt(value?: string): string {
+    if (!value) return '';
+    return value.startsWith('.') ? value : `.${value}`;
+}
+
+function inferExtFromContentType(contentType?: string): string {
+    if (!contentType) return '';
+    const normalized = contentType.split(';')[0].trim().toLowerCase();
+    switch (normalized) {
+        case 'image/jpeg':
+        case 'image/jpg':
+            return '.jpg';
+        case 'image/png':
+            return '.png';
+        case 'image/webp':
+            return '.webp';
+        case 'image/gif':
+            return '.gif';
+        case 'video/mp4':
+            return '.mp4';
+        case 'audio/ogg':
+            return '.ogg';
+        case 'audio/mpeg':
+            return '.mp3';
+        default:
+            return '';
+    }
+}
+
+function inferExtFromUrl(url: string): string {
+    try {
+        const parsed = new URL(url);
+        return normalizeExt(path.extname(parsed.pathname));
+    } catch {
+        return '';
+    }
+}
+
+function isHttpUrl(value?: string): boolean {
+    return typeof value === 'string' && /^https?:\/\//i.test(value);
+}
+
+function buildTempName(prefix: string, ext: string): string {
+    const suffix = Math.random().toString(16).slice(2);
+    return `${prefix}-${Date.now()}-${suffix}${ext}`;
+}
+
+async function downloadToBuffer(url: string, options: ForwardMediaPrepareOptions): Promise<{ buffer: Buffer; contentType?: string }> {
+    const fetchFn = options.fetchFn || fetch;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), options.timeoutMs ?? DEFAULT_TIMEOUT_MS);
+    try {
+        const response = await fetchFn(url, { signal: controller.signal });
+        if (!response.ok) {
+            throw new Error(`Download failed: ${response.status} ${response.statusText}`);
+        }
+        const arrayBuffer = await response.arrayBuffer();
+        return { buffer: Buffer.from(arrayBuffer), contentType: response.headers.get('content-type') || undefined };
+    } finally {
+        clearTimeout(timeout);
+    }
+}
+
+async function writeBufferToTemp(buffer: Buffer, options: ForwardMediaPrepareOptions, ext: string, prefix: string): Promise<string> {
+    const tempDir = resolveTempDir(options.tempDir);
+    await fs.mkdir(tempDir, { recursive: true });
+    const name = buildTempName(prefix, ext);
+    const filePath = path.join(tempDir, name);
+    await fs.writeFile(filePath, buffer);
+    return filePath;
+}
+
+async function materializeMediaFile(
+    type: string,
+    data: Record<string, any>,
+    options: ForwardMediaPrepareOptions,
+): Promise<string | undefined> {
+    const existingFile = data.file;
+    if (typeof existingFile === 'string' && existingFile.startsWith('/')) {
+        return existingFile;
+    }
+    if (Buffer.isBuffer(existingFile)) {
+        const ext = MEDIA_EXT_BY_TYPE[type] || '';
+        return writeBufferToTemp(existingFile, options, ext, `qq-${type}`);
+    }
+
+    const url = isHttpUrl(existingFile) ? existingFile : isHttpUrl(data.url) ? data.url : undefined;
+    if (!url) {
+        return undefined;
+    }
+
+    const { buffer, contentType } = await downloadToBuffer(url, options);
+    const ext = inferExtFromContentType(contentType) || inferExtFromUrl(url) || MEDIA_EXT_BY_TYPE[type] || '';
+    return writeBufferToTemp(buffer, options, ext, `qq-${type}`);
+}
+
+async function prepareForwardSegment(
+    segment: MessageSegment,
+    options: ForwardMediaPrepareOptions,
+): Promise<MessageSegment> {
+    if (!segment || typeof segment !== 'object') return segment;
+    if (segment.type === 'forward') {
+        const nested = Array.isArray(segment.data?.messages) ? segment.data.messages : [];
+        const prepared = await prepareForwardMessagesForQQ(nested, options);
+        return { ...segment, data: { ...segment.data, messages: prepared } };
+    }
+    if (!['image', 'video', 'audio', 'file'].includes(segment.type)) {
+        return segment;
+    }
+    const mediaSegment = segment as MediaSegment;
+    const data = { ...(mediaSegment.data || {}) } as Record<string, any>;
+    const file = await materializeMediaFile(mediaSegment.type, data, options);
+    if (file) {
+        data.file = file;
+    }
+    return { ...mediaSegment, data } as MessageSegment;
+}
+
+/**
+ * 将转发消息中的远程媒体下载为本地文件，提升 QQ 合并转发兼容性。
+ */
+export async function prepareForwardMessagesForQQ(
+    messages: ForwardMessage[],
+    options: ForwardMediaPrepareOptions = {},
+): Promise<ForwardMessage[]> {
+    const prepared = await Promise.all((messages || []).map(async (message) => {
+        const segments = await Promise.all((message?.segments || []).map(seg => prepareForwardSegment(seg, options)));
+        return { ...message, segments };
+    }));
+    return prepared;
 }
 
 /**
