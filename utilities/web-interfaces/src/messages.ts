@@ -50,6 +50,13 @@ const resolveTgSenderName = async (instanceId: number, senderId: string): Promis
       tgSenderNameCache.set(cacheKey, null, 60000)
       return null
     }
+    const botMe = (bot as any)?.me
+    const botId = botMe?.id ? String(botMe.id) : ''
+    if (botId && botId === senderId) {
+      const name = normalizeTgSenderName(botMe)
+      tgSenderNameCache.set(cacheKey, name)
+      return name
+    }
     try {
       const numericId = Number(senderId)
       const chatId = Number.isNaN(numericId) ? senderId : numericId
@@ -70,6 +77,15 @@ const resolveTgSenderName = async (instanceId: number, senderId: string): Promis
 
   tgSenderNameInflight.set(cacheKey, task)
   return task
+}
+
+const resolveQqBotIdentity = (instanceId: number): { id: string | null, name: string | null } => {
+  const instance = Instance.instances.find((inst: any) => inst.id === instanceId)
+  const qqClient = (instance as any)?.qqClient
+  const rawId = qqClient?.uin
+  const id = rawId !== undefined && rawId !== null ? String(rawId) : null
+  const name = typeof qqClient?.nickname === 'string' ? qqClient.nickname : null
+  return { id, name }
 }
 
 export default async function (fastify: FastifyInstance) {
@@ -114,10 +130,14 @@ export default async function (fastify: FastifyInstance) {
     const itemsWithNames = await Promise.all(items.map(async (item: any) => {
       const tgSenderId = item.tgSenderId?.toString() || null
       const tgSenderName = tgSenderId ? await resolveTgSenderName(item.instanceId, tgSenderId) : null
+      const qqSenderId = item.qqSenderId.toString()
+      const botIdentity = qqSenderId === '0' ? resolveQqBotIdentity(item.instanceId) : { id: null, name: null }
       return {
         ...item,
         qqRoomId: item.qqRoomId.toString(),
-        qqSenderId: item.qqSenderId.toString(),
+        qqSenderId,
+        qqSenderIdResolved: botIdentity.id,
+        qqSenderName: botIdentity.name,
         tgChatId: item.tgChatId.toString(),
         rand: item.rand.toString(),
         tgFileId: item.tgFileId?.toString() || null,
