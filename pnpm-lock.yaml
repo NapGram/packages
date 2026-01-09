@@ -142,8 +142,8 @@ importers:
         specifier: workspace:*
         version: link:../runtime-kit
       '@napgram/sdk':
-        specifier: ^0.1.5
-        version: link:../../sdk
+        specifier: ^0.1.15
+        version: 0.1.15
       '@sentry/node':
         specifier: 10.32.1
         version: 10.32.1
@@ -1621,6 +1621,15 @@ packages:
 
   '@mtcute/wasm@0.27.0':
     resolution: {integrity: sha512-1v4eO1N1BVRQ8L+cyUsMAeLXs5suTGXyVv/tftkbd/mGGHxc+fvOWItp3Fmq+GIwN7m4VX7kztuMMLhHxv2i2Q==}
+
+  '@napgram/core@0.1.15':
+    resolution: {integrity: sha512-/k68POBVZL3APMipDPbWYF4ZSOtJh2HSb9Isq4DRThM+m3cNO/+YDza8yKs8PiPDiKrSfakT7RXaODtDI4dMmQ==, tarball: https://npm.pkg.github.com/download/@napgram/core/0.1.15/b313dc7f25fff04dad556019fa4f4f4f756c03da}
+
+  '@napgram/sdk@0.1.15':
+    resolution: {integrity: sha512-O5oObNYa7t+s3JJSS0JVWjoeCHSu7P6ZaYHVxhzCQ9vLfgsvDyspd8hWxV3HRLTosT1Waj6JbpjOFLvvgP3zuw==, tarball: https://npm.pkg.github.com/download/@napgram/sdk/0.1.15/4ca09b6621bc6e4320fbe89a8f7aea39417dfa91}
+
+  '@napgram/utils@0.1.15':
+    resolution: {integrity: sha512-ZBkNLNfHnfdDp6QuM7YosV1Unqh5U/hFIavFz9+Z59ZQvxh4Ic7W98Wz7w6pM1mmoakDIqcOPfO2seZFkjIRhA==, tarball: https://npm.pkg.github.com/download/@napgram/utils/0.1.15/7d474892db9d5e3f4f63342916b8cba367753def}
 
   '@naplink/naplink@0.0.3':
     resolution: {integrity: sha512-Kj9decWNurJyCOQgSMlMZLOYg0xJtdgMVZO+O8nHMDPND7rhwwqqbVX11M7CIRBmHO1mjl5NTuY3OaI2lUCvGw==}
@@ -4468,6 +4477,17 @@ snapshots:
       long: 5.2.3
 
   '@mtcute/wasm@0.27.0': {}
+
+  '@napgram/core@0.1.15': {}
+
+  '@napgram/sdk@0.1.15':
+    dependencies:
+      '@napgram/core': 0.1.15
+      '@napgram/utils': 0.1.15
+
+  '@napgram/utils@0.1.15':
+    dependencies:
+      '@napgram/core': 0.1.15
 
   '@naplink/naplink@0.0.3':
     dependencies:

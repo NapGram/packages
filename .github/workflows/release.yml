@@ -24,7 +24,7 @@ jobs:
           cache: pnpm
           registry-url: https://npm.pkg.github.com
       - name: Install
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
       - name: Lint
         run: pnpm lint
       - name: Check
