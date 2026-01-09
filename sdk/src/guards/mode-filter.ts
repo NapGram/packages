@@ -5,7 +5,7 @@
  */
 
 import type { MessageEvent, CommandConfig } from '@napgram/core';
-import type { ModeFilterConfig, ModeFilterFunction, ExtendedModeFilterConfig } from './types';
+import type { ModeFilterConfig, ModeFilterFunction, ExtendedModeFilterConfig } from './types.js';
 
 /**
  * 标准化列表为 Set，提高查询性能

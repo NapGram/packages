@@ -1,6 +1,6 @@
 {
     "name": "@napgram/utils",
-    "version": "0.1.9",
+    "version": "0.1.15",
     "description": "Utility functions for NapGram native plugins",
     "type": "module",
     "main": "./dist/index.js",
