@@ -19,6 +19,12 @@ jobs:
         with:
           node-version: 25
           cache: pnpm
+      - name: Configure npm auth
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${GH_PACKAGES_TOKEN}" >> ~/.npmrc
+          echo "@napgram:registry=https://npm.pkg.github.com" >> ~/.npmrc
+        env:
+          GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
       - name: Install
         run: pnpm install --no-frozen-lockfile
       - name: Lint
