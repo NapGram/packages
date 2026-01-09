@@ -30,6 +30,7 @@ export default defineConfig({
             ),
             '@napgram/qq-client': clientSrc('qq-client'),
             '@napgram/telegram-client': clientSrc('telegram-client'),
+            '@napgram/database': clientSrc('database'),
             '@napgram/web-interfaces': utilitySrc('web-interfaces'),
         },
     },
