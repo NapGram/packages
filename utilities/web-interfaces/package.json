@@ -18,6 +18,7 @@
         "dev": "tsc -p tsconfig.json --watch"
     },
     "dependencies": {
+        "@fastify/multipart": "^9.3.0",
         "@kitajs/html": "^4.2.11",
         "@napgram/auth-kit": "workspace:*",
         "@napgram/message-kit": "workspace:*",

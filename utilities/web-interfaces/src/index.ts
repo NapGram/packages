@@ -1,5 +1,6 @@
 export { default as authRoutes } from './auth.js'
 export { default as databaseRoutes } from './database.js'
+export { default as fileManagerRoutes } from './fileManager.js'
 export { default as instancesRoutes } from './instances.js'
 export { default as logsRoutes } from './logs.js'
 export { default as marketplacesRoutes } from './marketplaces.js'
