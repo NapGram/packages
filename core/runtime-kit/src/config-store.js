@@ -4,13 +4,16 @@ import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import YAML from 'yaml';
 import { env, getLogger } from '@napgram/infra-kit';
-import { readStringEnv } from './utils/env';
+import { readStringEnv } from './utils/env.js';
+
 const logger = getLogger('PluginStore');
 const legacyConfigExtensions = ['.yaml', '.yml', '.json'];
+
 function resolveDataDir() {
     const dataDir = String(env.DATA_DIR || process.env.DATA_DIR || '/app/data');
     return path.resolve(dataDir);
 }
+
 async function realpathSafe(p) {
     try {
         return await fs.realpath(p);
@@ -19,6 +22,7 @@ async function realpathSafe(p) {
         return p;
     }
 }
+
 async function ensureUnderDataDir(absolutePath) {
     const dataDir = resolveDataDir();
     const abs = path.resolve(absolutePath);
@@ -31,6 +35,7 @@ async function ensureUnderDataDir(absolutePath) {
     }
     return real;
 }
+
 async function exists(p) {
     try {
         await fs.access(p);
@@ -40,10 +45,31 @@ async function exists(p) {
         return false;
     }
 }
-async function writePluginsConfigFile(configPath, config) {
-    await fs.mkdir(path.dirname(configPath), { recursive: true });
-    await fs.writeFile(configPath, YAML.stringify({ plugins: config.plugins }), 'utf8');
+
+async function writeAtomic(filePath, content) {
+    const tmpPath = `${filePath}.tmp`;
+    await fs.mkdir(path.dirname(filePath), { recursive: true });
+    await fs.writeFile(tmpPath, content, 'utf8');
+    await fs.rename(tmpPath, filePath);
 }
+
+async function backupConfig(filePath) {
+    if (!await exists(filePath))
+        return;
+    try {
+        const backupPath = `${filePath}.bak`;
+        await fs.copyFile(filePath, backupPath);
+    }
+    catch (error) {
+        logger.warn({ error, filePath }, 'Failed to backup config file');
+    }
+}
+
+async function writePluginsConfigFile(configPath, config) {
+    await backupConfig(configPath);
+    await writeAtomic(configPath, YAML.stringify({ plugins: config.plugins }));
+}
+
 function parseConfig(raw, ext) {
     const data = (ext === '.yaml' || ext === '.yml') ? YAML.parse(raw) : JSON.parse(raw);
     const plugins = Array.isArray(data?.plugins) ? data.plugins : [];
@@ -58,6 +84,7 @@ function parseConfig(raw, ext) {
         .filter((p) => p.id && p.module);
     return { plugins: normalized };
 }
+
 function inferIdFromModule(modulePath) {
     const clean = modulePath.startsWith('file://') ? fileURLToPath(modulePath) : modulePath;
     const ext = path.extname(clean);
@@ -67,6 +94,7 @@ function inferIdFromModule(modulePath) {
     }
     return base || 'plugin';
 }
+
 function sanitizeId(id) {
     return String(id || '')
         .trim()
@@ -75,6 +103,7 @@ function sanitizeId(id) {
         .replace(/^[-_]+|[-_]+$/g, '')
         .slice(0, 64) || 'plugin';
 }
+
 function getLegacyConfigCandidates(configPath) {
     const ext = path.extname(configPath).toLowerCase();
     const base = path.join(path.dirname(configPath), path.basename(configPath, ext));
@@ -82,6 +111,7 @@ function getLegacyConfigCandidates(configPath) {
         .filter(candidate => candidate !== ext)
         .map(candidate => `${base}${candidate}`);
 }
+
 async function migrateLegacyPluginsConfig(configPath) {
     const candidates = getLegacyConfigCandidates(configPath);
     for (const candidate of candidates) {
@@ -102,6 +132,7 @@ async function migrateLegacyPluginsConfig(configPath) {
     }
     return null;
 }
+
 export async function getManagedPluginsConfigPath() {
     const override = readStringEnv(['PLUGINS_CONFIG_PATH']);
     if (override)
@@ -109,6 +140,7 @@ export async function getManagedPluginsConfigPath() {
     const baseDir = path.join(resolveDataDir(), 'plugins');
     return path.join(baseDir, 'plugins.yaml');
 }
+
 export async function normalizeModuleSpecifierForPluginsConfig(moduleRaw) {
     const configPath = await getManagedPluginsConfigPath();
     await ensureUnderDataDir(configPath);
@@ -127,9 +159,25 @@ export async function normalizeModuleSpecifierForPluginsConfig(moduleRaw) {
         : absolute;
     return { stored, absolute };
 }
+
 export async function readPluginsConfig() {
     const configPath = await getManagedPluginsConfigPath();
     await ensureUnderDataDir(configPath);
+
+    // Recovery attempt from backup if main file is missing
+    if (!await exists(configPath)) {
+        const backupPath = `${configPath}.bak`;
+        if (await exists(backupPath)) {
+            try {
+                await fs.copyFile(backupPath, configPath);
+                logger.warn({ backupPath, configPath }, 'Restored config from backup (main file missing)');
+            }
+            catch (error) {
+                logger.error({ error }, 'Failed to restore from backup');
+            }
+        }
+    }
+
     let ok = await exists(configPath);
     if (!ok) {
         const migrated = await migrateLegacyPluginsConfig(configPath);
@@ -137,12 +185,38 @@ export async function readPluginsConfig() {
             return { path: configPath, config: migrated, exists: true };
         ok = await exists(configPath);
     }
+
     if (!ok)
         return { path: configPath, config: { plugins: [] }, exists: false };
-    const raw = await fs.readFile(configPath, 'utf8');
-    const ext = path.extname(configPath).toLowerCase();
-    return { path: configPath, config: parseConfig(raw, ext), exists: true };
+
+    try {
+        const raw = await fs.readFile(configPath, 'utf8');
+        // Basic validation: if empty, try swap with backup if exists
+        if (!raw.trim()) {
+            throw new Error('Empty config file');
+        }
+        const ext = path.extname(configPath).toLowerCase();
+        return { path: configPath, config: parseConfig(raw, ext), exists: true };
+    }
+    catch (error) {
+        logger.error({ error, configPath }, 'Failed to read/parse config file, trying backup...');
+        const backupPath = `${configPath}.bak`;
+        if (await exists(backupPath)) {
+            try {
+                const rawBak = await fs.readFile(backupPath, 'utf8');
+                await fs.copyFile(backupPath, configPath);
+                logger.warn('Restored config from backup (main file corrupted)');
+                const ext = path.extname(configPath).toLowerCase();
+                return { path: configPath, config: parseConfig(rawBak, ext), exists: true };
+            }
+            catch (bakError) {
+                logger.error({ error: bakError }, 'Failed to restore from backup');
+            }
+        }
+        return { path: configPath, config: { plugins: [] }, exists: false };
+    }
 }
+
 export async function upsertPluginConfig(entry) {
     const { path: configPath, config } = await readPluginsConfig();
     const { stored, absolute } = await normalizeModuleSpecifierForPluginsConfig(entry.module);
@@ -164,6 +238,7 @@ export async function upsertPluginConfig(entry) {
     await writePluginsConfigFile(configPath, config);
     return { id: inferredId, path: configPath, record };
 }
+
 export async function patchPluginConfig(id, patch) {
     const pluginId = sanitizeId(id);
     const { path: configPath, config } = await readPluginsConfig();
@@ -200,6 +275,7 @@ export async function patchPluginConfig(id, patch) {
     await writePluginsConfigFile(configPath, config);
     return { id: pluginId, path: configPath, record: next };
 }
+
 export async function removePluginConfig(id) {
     const pluginId = sanitizeId(id);
     const { path: configPath, config } = await readPluginsConfig();
@@ -210,6 +286,7 @@ export async function removePluginConfig(id) {
     await writePluginsConfigFile(configPath, config);
     return { removed: true, id: pluginId, path: configPath };
 }
+
 export const __testing = {
     resolveDataDir,
     parseConfig,
