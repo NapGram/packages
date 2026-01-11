@@ -31,6 +31,18 @@ export interface MarketplaceIndexV1 {
     name?: string
     description?: string
     readme?: string
+    homepage?: string
+    tags?: string[]
+    categories?: string[]
+    commands?: Array<{
+      name: string
+      description?: string
+      usage?: string
+    }>
+    dependencies?: Array<{
+      name: string
+      type: 'required' | 'optional'
+    }>
     versions: Array<MarketplacePluginVersion>
   }>
 }
@@ -51,6 +63,7 @@ export interface MarketplacePluginVersion {
     fs?: string[]
     instances?: Array<number | string>
   }
+  configSchema?: any // JSON Schema or simplified config schema
 }
 
 export interface InstallOptions {

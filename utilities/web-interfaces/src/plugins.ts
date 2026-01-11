@@ -53,7 +53,13 @@ function resolvePluginRootFromModule(modulePath: string): string {
   return path.basename(dir) === 'dist' ? path.dirname(dir) : dir
 }
 
-async function readPackageMeta(rootDir: string): Promise<{ name?: string, description?: string, homepage?: string } | null> {
+async function readPackageMeta(rootDir: string): Promise<{
+  name?: string
+  description?: string
+  homepage?: string
+  keywords?: string[]
+  dependencies?: Record<string, string>
+} | null> {
   const pkgPath = path.join(rootDir, 'package.json')
   if (!await pathExists(pkgPath))
     return null
@@ -64,6 +70,8 @@ async function readPackageMeta(rootDir: string): Promise<{ name?: string, descri
       name: typeof pkg?.name === 'string' ? pkg.name : undefined,
       description: typeof pkg?.description === 'string' ? pkg.description : undefined,
       homepage: typeof pkg?.homepage === 'string' ? pkg.homepage : undefined,
+      keywords: Array.isArray(pkg?.keywords) ? pkg.keywords.filter((k: any) => typeof k === 'string') : undefined,
+      dependencies: typeof pkg?.dependencies === 'object' ? pkg.dependencies : undefined,
     }
   }
   catch {
@@ -96,6 +104,139 @@ async function loadPluginDefaultConfig(rootDir: string): Promise<any | null> {
     }
     catch (error) {
       logger.warn({ error, candidate }, 'Failed to load plugin default config')
+    }
+  }
+
+  return null
+}
+
+/**
+ * Infer tags and categories from plugin ID and keywords
+ */
+function inferPluginMetadata(pluginId: string, keywords?: string[]): { tags: string[], categories: string[] } {
+  const tags = new Set<string>()
+  const categories = new Set<string>()
+
+  // Use keywords as tags
+  if (keywords) {
+    keywords.forEach(k => tags.add(k))
+  }
+
+  // Infer from plugin ID patterns
+  const id = pluginId.toLowerCase()
+
+  if (id.includes('admin')) {
+    categories.add('管理')
+    tags.add('admin')
+  }
+  if (id.includes('analysis') || id.includes('analytics') || id.includes('statistics')) {
+    categories.add('分析')
+    tags.add('analytics')
+  }
+  if (id.includes('market')) {
+    categories.add('市场')
+    tags.add('marketplace')
+  }
+  if (id.includes('forward')) {
+    categories.add('核心')
+    tags.add('core')
+  }
+  if (id.includes('command')) {
+    categories.add('功能')
+    tags.add('commands')
+  }
+  if (id.includes('media') || id.includes('image') || id.includes('file')) {
+    categories.add('媒体')
+    tags.add('media')
+  }
+  if (id.includes('monitor') || id.includes('performance')) {
+    categories.add('监控')
+    tags.add('monitoring')
+  }
+  if (id.includes('web') || id.includes('ui')) {
+    categories.add('界面')
+    tags.add('ui')
+  }
+  if (id.includes('gateway') || id.includes('api')) {
+    categories.add('网关')
+    tags.add('api')
+  }
+  if (id.includes('database') || id.includes('db')) {
+    categories.add('数据')
+    tags.add('database')
+  }
+
+  // Default category if none matched
+  if (categories.size === 0) {
+    categories.add('其他')
+  }
+
+  return {
+    tags: Array.from(tags),
+    categories: Array.from(categories),
+  }
+}
+
+/**
+ * Extract commands from plugin metadata file
+ */
+async function extractPluginCommands(rootDir: string): Promise<Array<{ name: string, description?: string, usage?: string }>> {
+  const candidates = [
+    path.join(rootDir, 'metadata.json'),
+    path.join(rootDir, 'plugin.json'),
+    path.join(rootDir, 'napgram-plugin.json'),
+  ]
+
+  for (const candidate of candidates) {
+    if (!await pathExists(candidate))
+      continue
+    try {
+      const raw = await fs.readFile(candidate, 'utf8')
+      const meta = JSON.parse(raw)
+      if (Array.isArray(meta?.commands))
+        return meta.commands
+    }
+    catch {
+      // Ignore parse errors
+    }
+  }
+
+  return []
+}
+
+/**
+ * Extract dependencies from package.json
+ */
+function extractPluginDependencies(dependencies?: Record<string, string>): Array<{ name: string, type: 'required' | 'optional' }> {
+  if (!dependencies)
+    return []
+
+  return Object.entries(dependencies)
+    .filter(([name]) => name.startsWith('@napgram/') || name.startsWith('napgram-plugin-') || name.startsWith('plugin-'))
+    .map(([name]) => ({
+      name,
+      type: 'required' as const,
+    }))
+}
+
+/**
+ * Load plugin config schema
+ */
+async function loadPluginConfigSchema(rootDir: string): Promise<any | null> {
+  const candidates = [
+    path.join(rootDir, 'config.schema.json'),
+    path.join(rootDir, 'schema.json'),
+  ]
+
+  for (const candidate of candidates) {
+    if (!await pathExists(candidate))
+      continue
+    try {
+      const raw = await fs.readFile(candidate, 'utf8')
+      return JSON.parse(raw)
+    }
+    catch {
+      // Ignore parse errors
     }
   }
 
@@ -238,6 +379,12 @@ export default async function (fastify: FastifyInstance) {
       const name = runtimeMeta?.name || pkgMeta?.name
       const homepage = runtimeMeta?.homepage || pkgMeta?.homepage
 
+      // Extract extended metadata
+      const { tags, categories } = inferPluginMetadata(p.id, pkgMeta?.keywords)
+      const commands = rootDir ? await extractPluginCommands(rootDir) : []
+      const dependencies = extractPluginDependencies(pkgMeta?.dependencies)
+      const configSchema = rootDir ? await loadPluginConfigSchema(rootDir) : null
+
       return {
         ...p,
         absolute,
@@ -248,6 +395,11 @@ export default async function (fastify: FastifyInstance) {
         description,
         homepage,
         defaultConfig,
+        tags,
+        categories,
+        commands,
+        dependencies,
+        configSchema,
       }
     }))
 
