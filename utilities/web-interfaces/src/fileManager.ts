@@ -37,14 +37,14 @@ function sanitizePath(userPath: string): { allowed: boolean; fullPath: string; e
             return { allowed: false, fullPath: '', error: 'Access denied: path outside allowed root' }
         }
 
-        const relativePath = '/' + path.relative(DATA_ROOT, fullPath)
-        const isAllowed = ALLOWED_PATHS.some(prefix =>
-            relativePath === prefix || relativePath.startsWith(prefix + '/')
-        )
+        // const relativePath = '/' + path.relative(DATA_ROOT, fullPath)
+        // const isAllowed = ALLOWED_PATHS.some(prefix =>
+        //     relativePath === prefix || relativePath.startsWith(prefix + '/')
+        // )
 
-        if (!isAllowed) {
-            return { allowed: false, fullPath: '', error: `Access denied: path not in allowed list` }
-        }
+        // if (!isAllowed) {
+        //     return { allowed: false, fullPath: '', error: `Access denied: path not in allowed list` }
+        // }
 
         return { allowed: true, fullPath }
     } catch (error) {
