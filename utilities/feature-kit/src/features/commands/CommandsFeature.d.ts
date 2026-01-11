@@ -20,6 +20,7 @@ export declare class CommandsFeature {
     private readonly permissionChecker;
     private readonly stateManager;
     private readonly commandContext;
+    private permissionPlugin;
     private readonly helpHandler;
     private readonly statusHandler;
     private readonly bindHandler;
@@ -32,6 +33,18 @@ export declare class CommandsFeature {
      * 重新加载命令（用于插件重载后刷新命令处理器）
      */
     reloadCommands(): Promise<void>;
+    /**
+     * 初始化权限插件（延迟加载，避免循环依赖）
+     */
+    private initializePermissionPlugin;
+    /**
+     * 检查用户是否有执行命令的权限
+     */
+    private checkPermission;
+    /**
+     * 记录审计日志（如果权限插件可用）
+     */
+    private logAudit;
     /**
      * 注册默认命令
      */

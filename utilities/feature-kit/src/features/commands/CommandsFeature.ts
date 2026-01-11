@@ -4,7 +4,7 @@ import type { ForwardMap } from '../../shared-types.js'
 import type { Instance } from '../../shared-types.js'
 import type { IQQClient } from '../../shared-types.js'
 import type { Telegram } from '../../shared-types.js'
-import type { Command } from './services/CommandRegistry.js'
+import type { Command } from './types.js'
 import { md } from '@mtcute/markdown-parser'
 import { messageConverter } from '@napgram/message-kit'
 import { getEventPublisher } from '../../shared-types.js'
@@ -28,7 +28,7 @@ const logger = getLogger('CommandsFeature')
  * 命令类型
  */
 export type CommandHandler = (msg: UnifiedMessage, args: string[]) => Promise<void>
-export type { Command } from './services/CommandRegistry.js'
+export type { Command }
 
 /**
  * 命令处理功能
@@ -39,6 +39,7 @@ export class CommandsFeature {
   private readonly permissionChecker: PermissionChecker
   private readonly stateManager: InteractiveStateManager
   private readonly commandContext: CommandContext
+  private permissionPlugin: any | null = null
 
   // Command handlers
   private readonly helpHandler: HelpCommandHandler
@@ -83,6 +84,12 @@ export class CommandsFeature {
     this.registerDefaultCommands().catch((err) => {
       logger.error('Failed to register default commands:', err)
     })
+
+    // 尝试获取权限插件（延迟加载，避免循环依赖）
+    this.initializePermissionPlugin().catch((err) => {
+      logger.debug('Permission plugin not available:', err)
+    })
+
     this.setupListeners()
     logger.info('CommandsFeature ✓ 初始化完成')
   }
@@ -93,7 +100,115 @@ export class CommandsFeature {
   async reloadCommands() {
     this.registry.clear()
     await this.registerDefaultCommands()
+    // 重新获取权限插件
+    await this.initializePermissionPlugin().catch(() => {
+      // Ignore errors
+    })
     logger.info('CommandsFeature commands reloaded')
+  }
+
+  /**
+   * 初始化权限插件（延迟加载，避免循环依赖）
+   */
+  private async initializePermissionPlugin() {
+    try {
+      const { getGlobalRuntime } = await import('@napgram/plugin-kit')
+      const runtime = getGlobalRuntime()
+
+      if (!runtime) {
+        return
+      }
+
+      const report = runtime.getLastReport()
+      const loadedPlugins = report?.loadedPlugins || []
+
+      // 查找权限管理插件
+      const permPlugin = loadedPlugins.find((p: any) => p.id === 'permission-management')
+      const resolveExports = (entry: any) => {
+        if (!entry) return null
+        if (entry.context?.exports) return entry.context.exports
+        if (entry.plugin?.exports) return entry.plugin.exports
+        if (entry.context?.permissionService) {
+          return { permissionService: entry.context.permissionService }
+        }
+        return null
+      }
+
+      let permissionExports = resolveExports(permPlugin)
+
+      if (!permissionExports && typeof (runtime as any).getPlugin === 'function') {
+        permissionExports = resolveExports((runtime as any).getPlugin('permission-management'))
+      }
+
+      if (permissionExports?.permissionService) {
+        this.permissionPlugin = permissionExports
+        logger.info('✓ Permission plugin integrated')
+      }
+    } catch (error) {
+      // 插件系统不可用，使用降级模式
+      logger.debug('Plugin system not available, using fallback permission checker')
+    }
+  }
+
+  /**
+   * 检查用户是否有执行命令的权限
+   */
+  private async checkPermission(userId: string, command: Command): Promise<{ allowed: boolean, reason?: string }> {
+    // 1. 如果权限插件可用，使用新的权限系统
+    if (this.permissionPlugin?.permissionService) {
+      // 确定所需权限等级
+      const requiredLevel = command.permission?.level ?? (command.adminOnly ? 1 : 3)
+      const requireOwner = command.permission?.requireOwner ?? false
+
+      try {
+        return await this.permissionPlugin.permissionService.checkCommandPermission(
+          userId,
+          command.name,
+          requiredLevel,
+          requireOwner,
+          this.instance.id
+        )
+      } catch (error) {
+        logger.warn('Permission check failed, falling back to PermissionChecker:', error)
+      }
+    }
+
+    // 2. 降级：使用旧的 PermissionChecker
+    const fallbackLevel = command.permission?.level
+    if (command.adminOnly || (fallbackLevel !== undefined && fallbackLevel <= 1)) {
+      const isAdmin = this.permissionChecker.isAdmin(userId)
+      return {
+        allowed: isAdmin,
+        reason: isAdmin ? undefined : '此命令仅限管理员使用'
+      }
+    }
+
+    // 3. 默认：允许执行
+    return { allowed: true }
+  }
+
+  /**
+   * 记录审计日志（如果权限插件可用）
+   */
+  private async logAudit(event: {
+    eventType: string
+    userId: string
+    commandName: string
+    reason?: string
+  }): Promise<void> {
+    if (this.permissionPlugin?.permissionService) {
+      try {
+        await this.permissionPlugin.permissionService.logAudit({
+          eventType: event.eventType,
+          operatorId: event.userId,
+          commandName: event.commandName,
+          instanceId: this.instance.id,
+          details: event.reason ? { reason: event.reason } : {}
+        })
+      } catch (error) {
+        logger.debug('Failed to log audit:', error)
+      }
+    }
   }
 
   /**
@@ -111,6 +226,7 @@ export class CommandsFeature {
       name: 'help',
       aliases: ['h', '帮助'],
       description: '显示帮助信息',
+      permission: { level: 3 }, // USER
       handler: (msg, args) => this.helpHandler.execute(msg, args),
     })
 
@@ -119,6 +235,7 @@ export class CommandsFeature {
       name: 'status',
       aliases: ['状态'],
       description: '显示机器人状态',
+      permission: { level: 3 }, // USER
       handler: (msg, args) => this.statusHandler.execute(msg, args),
     })
 
@@ -128,71 +245,79 @@ export class CommandsFeature {
       aliases: ['绑定'],
       description: '绑定指定 QQ 群到当前 TG 聊天',
       usage: '/bind <qq_group_id> [thread_id]',
+      permission: { level: 1 }, // ADMIN
       handler: (msg, args) => this.bindHandler.execute(msg, args),
-      adminOnly: true,
+      adminOnly: true, // 保持向后兼容
     })
 
     // 解绑命令
     this.registerCommand({
       name: 'unbind',
       aliases: ['解绑'],
-      description: '解绑当前 TG 聊天关联的 QQ 群',
-      usage: '/unbind [qq_group_id] [thread_id]',
+      description: '解除当前 TG 聊天的绑定',
+      usage: '/unbind',
+      permission: { level: 1 }, // ADMIN
       handler: (msg, args) => this.unbindHandler.execute(msg, args),
-      adminOnly: true,
+      adminOnly: true, // 保持向后兼容
     })
 
-    // 撤回命令（支持双向同步和批量撤回）
+    // 撤回命令
     this.registerCommand({
       name: 'rm',
-      aliases: ['撤回'],
-      description: '撤回消息（双向同步）。回复消息撤回单条，或使用 /rm 数字 批量撤回',
-      usage: '/rm [数字] 或回复消息使用 /rm',
+      aliases: ['撤回', 'recall'],
+      description: '撤回消息',
+      usage: '/rm [count]',
+      permission: { level: 2 }, // MODERATOR
       handler: (msg, args) => this.recallHandler.execute(msg, args),
-      adminOnly: false,
     })
 
     // 转发控制命令
     this.registerCommand({
       name: 'forwardoff',
       description: '暂停双向转发',
+      permission: { level: 1 }, // ADMIN
       handler: (msg, args) => this.forwardControlHandler.execute(msg, args, 'forwardoff'),
-      adminOnly: true,
+      adminOnly: true, // 保持向后兼容
     })
 
     this.registerCommand({
       name: 'forwardon',
       description: '恢复双向转发',
+      permission: { level: 1 }, // ADMIN
       handler: (msg, args) => this.forwardControlHandler.execute(msg, args, 'forwardon'),
-      adminOnly: true,
+      adminOnly: true, // 保持向后兼容
     })
 
     this.registerCommand({
       name: 'disable_qq_forward',
       description: '停止 QQ → TG 的转发',
+      permission: { level: 1 }, // ADMIN
       handler: (msg, args) => this.forwardControlHandler.execute(msg, args, 'disable_qq_forward'),
-      adminOnly: true,
+      adminOnly: true, // 保持向后兼容
     })
 
     this.registerCommand({
       name: 'enable_qq_forward',
       description: '恢复 QQ → TG 的转发',
+      permission: { level: 1 }, // ADMIN
       handler: (msg, args) => this.forwardControlHandler.execute(msg, args, 'enable_qq_forward'),
-      adminOnly: true,
+      adminOnly: true, // 保持向后兼容
     })
 
     this.registerCommand({
       name: 'disable_tg_forward',
       description: '停止 TG → QQ 的转发',
+      permission: { level: 1 }, // ADMIN
       handler: (msg, args) => this.forwardControlHandler.execute(msg, args, 'disable_tg_forward'),
-      adminOnly: true,
+      adminOnly: true, // 保持向后兼容
     })
 
     this.registerCommand({
       name: 'enable_tg_forward',
       description: '恢复 TG → QQ 的转发',
+      permission: { level: 1 }, // ADMIN
       handler: (msg, args) => this.forwardControlHandler.execute(msg, args, 'enable_tg_forward'),
-      adminOnly: true,
+      adminOnly: true, // 保持向后兼容
     })
 
     // Info 命令
@@ -200,7 +325,9 @@ export class CommandsFeature {
       name: 'info',
       aliases: ['信息'],
       description: '查看本群或选定消息的详情',
+      permission: { level: 2 }, // MODERATOR
       handler: (msg, args) => this.infoHandler.execute(msg, args),
+      adminOnly: true, // 保持向后兼容
     })
 
     // 群组管理命令由 plugin-group-management 提供
@@ -260,6 +387,7 @@ export class CommandsFeature {
               aliases: config.aliases,
               description: config.description,
               usage: config.usage,
+              permission: (config as any).permission,
               adminOnly: config.adminOnly,
               handler: async (msg, args) => {
                 // 将 UnifiedMessage 转换为 MessageEvent
@@ -680,13 +808,35 @@ export class CommandsFeature {
         return false
       }
 
-      if (command.adminOnly && !this.permissionChecker.isAdmin(String(senderId))) {
-        logger.warn(`Non-admin user ${senderId} tried to use admin command: ${commandName}`)
-        await this.replyTG(chatId, '无权限执行该命令')
+
+      // 检查权限
+      const userId = `tg:u:${senderId}`
+      const permissionCheck = await this.checkPermission(userId, command)
+
+      if (!permissionCheck.allowed) {
+        logger.warn(`User ${senderId} denied access to command: ${commandName}`)
+        await this.replyTG(chatId, `❌ ${permissionCheck.reason || '权限不足'}`)
+
+        // 记录审计日志
+        await this.logAudit({
+          eventType: 'command_deny',
+          userId,
+          commandName,
+          reason: permissionCheck.reason
+        })
+
         return true
       }
 
       logger.info(`Executing command: ${commandName} by ${senderName}`)
+
+      // 记录命令执行审计日志
+      await this.logAudit({
+        eventType: 'command_execute',
+        userId,
+        commandName,
+      })
+
 
       // 如果有回复但回复对象不完整，尝试获取完整消息
       let replenishedReply: Message | undefined
@@ -825,9 +975,33 @@ export class CommandsFeature {
         return
       }
 
-      // QQ 侧不检查管理员权限（由 handleRecall 内部的 isSelf 检查控制）
+
+      // 检查权限
+      const userId = `qq:u:${senderId}`
+      const permissionCheck = await this.checkPermission(userId, command)
+
+      if (!permissionCheck.allowed) {
+        logger.warn(`QQ User ${senderId} denied access to command: ${commandName}`)
+        // QQ侧暂不回复权限错误，以免干扰正常聊天
+        // 记录审计日志
+        await this.logAudit({
+          eventType: 'command_deny',
+          userId,
+          commandName,
+          reason: permissionCheck.reason
+        })
+        return
+      }
 
       logger.info(`Executing QQ command: ${commandName} by ${senderName}`)
+
+      // 记录命令执行审计日志
+      await this.logAudit({
+        eventType: 'command_execute',
+        userId,
+        commandName,
+      })
+
 
       // 执行命令
       await command.handler(qqMsg, args)

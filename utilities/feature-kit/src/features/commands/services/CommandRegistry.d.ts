@@ -4,6 +4,11 @@ export interface Command {
     description: string;
     usage?: string;
     handler: (msg: any, args: string[]) => Promise<void>;
+    permission?: {
+        level: number;
+        requireOwner?: boolean;
+        customCheck?: (userId: string, instanceId: number) => Promise<boolean>;
+    };
     adminOnly?: boolean;
 }
 /**

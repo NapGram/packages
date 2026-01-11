@@ -1,15 +1,7 @@
 import { getLogger } from '@napgram/infra-kit'
+import type { Command } from '../types.js'
 
 const logger = getLogger('CommandRegistry')
-
-export interface Command {
-  name: string
-  aliases?: string[]
-  description: string
-  usage?: string
-  handler: (msg: any, args: string[]) => Promise<void>
-  adminOnly?: boolean
-}
 
 /**
  * 命令注册管理器
