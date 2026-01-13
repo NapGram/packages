@@ -75,8 +75,8 @@ function cleanupOldLogs() {
         const files = fs.readdirSync(logDir)
 
         for (const file of files) {
-            // Match format: YYYY-MM-DD.1.log
-            if (!file.endsWith('.log')) continue
+            // Match format: YYYY-MM-DD.1.log or .jsonl
+            if (!file.endsWith('.log') && !file.endsWith('.jsonl')) continue
 
             const filePath = path.join(logDir, file)
             try {
@@ -101,8 +101,8 @@ function cleanupOldLogs() {
 cleanupOldLogs()
 
 function buildDatedFile(dateStr: string) {
-    // Always name file as YYYY-MM-DD.1.log
-    return path.join(logDir, `${dateStr}.1.log`)
+    // Always name file as YYYY-MM-DD.1.jsonl
+    return path.join(logDir, `${dateStr}.1.jsonl`)
 }
 
 let currentDate = dateFormatter.format(new Date())

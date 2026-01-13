@@ -30,15 +30,19 @@ export default async function (fastify: FastifyInstance) {
       })
       const currentDate = dateFormatter.format(new Date())
       const todayLogFile = path.join(logDir, `${currentDate}.1.log`)
+      const todayJsonlFile = path.join(logDir, `${currentDate}.1.jsonl`)
 
       // 尝试读取今天和昨天的日志文件
       const yesterday = new Date()
       yesterday.setDate(yesterday.getDate() - 1)
       const yesterdayDate = dateFormatter.format(yesterday)
       const yesterdayLogFile = path.join(logDir, `${yesterdayDate}.1.log`)
+      const yesterdayJsonlFile = path.join(logDir, `${yesterdayDate}.1.jsonl`)
 
       const possibleFiles = [
+        todayJsonlFile,
         todayLogFile,
+        yesterdayJsonlFile,
         yesterdayLogFile,
         env.LOG_FILE, // 原始路径
       ].filter(Boolean)

@@ -1,6 +1,6 @@
 {
     "name": "@napgram/core",
-    "version": "0.1.15",
+    "version": "0.1.19",
     "description": "TypeScript type definitions for NapGram native plugins",
     "type": "module",
     "main": "./dist/index.js",
