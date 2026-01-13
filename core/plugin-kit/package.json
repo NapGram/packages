@@ -1,6 +1,6 @@
 {
     "name": "@napgram/plugin-kit",
-    "version": "0.1.16",
+    "version": "0.1.17",
     "description": "Plugin system core for NapGram",
     "main": "src/index.ts",
     "types": "./dist/index.d.ts",

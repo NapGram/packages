@@ -35,6 +35,7 @@ const configParsed = z.object({
     LOG_LEVEL: z.enum(['trace', 'debug', 'info', 'warn', 'error', 'fatal', 'mark', 'off']).default('info'),
     LOG_FILE_LEVEL: z.enum(['trace', 'debug', 'info', 'warn', 'error', 'fatal', 'mark', 'off']).default('debug'),
     LOG_FILE: z.string().default(path.join(process.env.DATA_DIR || path.resolve('./data'), 'logs', 'app.log')),
+    LOG_RETENTION_DAYS: z.string().regex(/^\d+$/).default('30').transform(Number),
     OICQ_LOG_LEVEL: z.enum(['trace', 'debug', 'info', 'warn', 'error', 'fatal', 'mark', 'off']).default('warn'),
     TG_LOG_LEVEL: z.enum(['none', 'error', 'warn', 'info', 'debug']).default('warn'),
 

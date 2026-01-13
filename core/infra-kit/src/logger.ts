@@ -64,6 +64,42 @@ if (fileLoggingRequested) {
     }
 }
 
+function cleanupOldLogs() {
+    if (!fileLoggingEnabled || !fs.existsSync(logDir)) return
+
+    try {
+        const retentionDays = env.LOG_RETENTION_DAYS
+        if (retentionDays <= 0) return
+
+        const now = Date.now()
+        const files = fs.readdirSync(logDir)
+
+        for (const file of files) {
+            // Match format: YYYY-MM-DD.1.log
+            if (!file.endsWith('.log')) continue
+
+            const filePath = path.join(logDir, file)
+            try {
+                const stat = fs.statSync(filePath)
+                const ageDays = (now - stat.mtimeMs) / (1000 * 60 * 60 * 24)
+
+                if (ageDays > retentionDays) {
+                    fs.unlinkSync(filePath)
+                    // Using process.stdout directly to avoid circular dependency or logger init issues
+                    process.stdout.write(`[Logger] Cleaned up old log file: ${file} (Age: ${ageDays.toFixed(1)} days)\n`)
+                }
+            } catch (err) {
+                // Ignore file access errors
+            }
+        }
+    } catch (error) {
+        process.stderr.write(`[Logger] Failed to cleanup logs: ${error}\n`)
+    }
+}
+
+// Run cleanup on startup
+cleanupOldLogs()
+
 function buildDatedFile(dateStr: string) {
     // Always name file as YYYY-MM-DD.1.log
     return path.join(logDir, `${dateStr}.1.log`)
@@ -86,10 +122,14 @@ export function rotateIfNeeded() {
     const today = dateFormatter.format(new Date())
     if (today === currentDate)
         return
+
+    // Rotate log file
     fileStream.end()
     currentDate = today
     try {
         fileStream = fs.createWriteStream(buildDatedFile(currentDate), { flags: 'a' })
+        // Trigger cleanup after rotation
+        cleanupOldLogs()
     }
     catch {
         fileLoggingEnabled = false
