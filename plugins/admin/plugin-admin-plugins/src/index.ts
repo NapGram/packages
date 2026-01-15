@@ -1,5 +1,5 @@
 import type { NapGramPlugin, PluginContext } from '@napgram/sdk';
-import { marketplacesRoutes, pluginsRoutes } from '@napgram/web-interfaces';
+import { marketplacesRoutes, pluginsRoutes, permissionsRoutes } from '@napgram/web-interfaces';
 
 const plugin: NapGramPlugin = {
     id: 'admin-plugins',
@@ -13,6 +13,7 @@ const plugin: NapGramPlugin = {
         ctx.web.registerRoutes((app: any) => {
             app.register(pluginsRoutes);
             app.register(marketplacesRoutes);
+            app.register(permissionsRoutes);
         });
     },
 };
