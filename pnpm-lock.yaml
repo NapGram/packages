@@ -55,8 +55,8 @@ importers:
   clients/qq-client:
     dependencies:
       '@naplink/naplink':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.0.7
+        version: 0.0.7
     devDependencies:
       '@types/node':
         specifier: 25.0.3
@@ -1664,8 +1664,8 @@ packages:
   '@napgram/utils@0.1.15':
     resolution: {integrity: sha512-ZBkNLNfHnfdDp6QuM7YosV1Unqh5U/hFIavFz9+Z59ZQvxh4Ic7W98Wz7w6pM1mmoakDIqcOPfO2seZFkjIRhA==, tarball: https://npm.pkg.github.com/download/@napgram/utils/0.1.15/7d474892db9d5e3f4f63342916b8cba367753def}
 
-  '@naplink/naplink@0.0.3':
-    resolution: {integrity: sha512-Kj9decWNurJyCOQgSMlMZLOYg0xJtdgMVZO+O8nHMDPND7rhwwqqbVX11M7CIRBmHO1mjl5NTuY3OaI2lUCvGw==}
+  '@naplink/naplink@0.0.7':
+    resolution: {integrity: sha512-ndZqUVrUf3OVS+DhQB44bIt6Azx1peC1CTmolxu3j5BWtJbfOrHq/NTwQY5u5frGp+CTa06CUJLfrXkPd8aAyg==}
     engines: {node: '>=18.0.0'}
 
   '@nodelib/fs.scandir@2.1.5':
@@ -4534,7 +4534,7 @@ snapshots:
     dependencies:
       '@napgram/core': 0.1.15
 
-  '@naplink/naplink@0.0.3':
+  '@naplink/naplink@0.0.7':
     dependencies:
       isomorphic-ws: 5.0.0(ws@8.19.0)
       ws: 8.19.0

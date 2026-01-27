@@ -155,6 +155,16 @@ export class NapCatAdapter extends EventEmitter {
         timestamp: data.time * 1000,
       })
     })
+
+    this.client.on('notice.notify.gray_tip', (data: any) => {
+      ; (this as any).emit('gray_tip', {
+        groupId: String(data.group_id),
+        content: data.content,
+        busiId: String(data.busi_id),
+        messageId: String(data.message_id),
+        timestamp: Date.now(),
+      })
+    })
   }
 
   private normalizeMediaIds(message: any) {
@@ -446,12 +456,12 @@ export class NapCatAdapter extends EventEmitter {
     return this.client.api.setGroupAnonymousBan(groupId, anonymousFlag, duration)
   }
 
-  async uploadGroupFile(groupId: string, file: string | Buffer | Uint8Array | NodeJS.ReadableStream, name: string): Promise<any> {
-    return this.client.api.uploadGroupFile(groupId, file, name)
+  async uploadGroupFile(groupId: string, file: string | Buffer | Uint8Array | NodeJS.ReadableStream, name: string, folder?: string, uploadFile?: boolean): Promise<any> {
+    return (this.client.api as any).uploadGroupFile(groupId, file, name, folder, uploadFile)
   }
 
-  async uploadPrivateFile(userId: string, file: string | Buffer | Uint8Array | NodeJS.ReadableStream, name: string): Promise<any> {
-    return this.client.api.uploadPrivateFile(userId, file, name)
+  async uploadPrivateFile(userId: string, file: string | Buffer | Uint8Array | NodeJS.ReadableStream, name: string, uploadFile?: boolean): Promise<any> {
+    return (this.client.api as any).uploadPrivateFile(userId, file, name, uploadFile)
   }
 
   async setGroupPortrait(groupId: string, file: string | Buffer | Uint8Array | NodeJS.ReadableStream): Promise<any> {
@@ -1058,5 +1068,19 @@ export class NapCatAdapter extends EventEmitter {
       this.logger.error(`[NapCat] \u83b7\u53d6\u7fa4\u8363\u8a89\u4fe1\u606f\u5931\u8d25: ${groupId}`, error)
       throw new Error(`\u83b7\u53d6\u7fa4\u8363\u8a89\u4fe1\u606f\u5931\u8d25: ${error.message || 'Unknown error'}`)
     }
+  }
+
+  async getEmojiLikes(params: { message_id: string; emoji_id: string; count?: number }): Promise<any> {
+    const api: any = this.client.api as any
+    if (typeof api.getEmojiLikes === 'function')
+      return api.getEmojiLikes(params)
+    return this.client.callApi('get_emoji_likes', params)
+  }
+
+  async fetchEmojiLike(params: { message_id: string; emojiId: string; emojiType: string; count?: number; cookie?: string }): Promise<any> {
+    const api: any = this.client.api as any
+    if (typeof api.fetchEmojiLike === 'function')
+      return api.fetchEmojiLike(params)
+    return this.client.callApi('fetch_emoji_like', params)
   }
 }
