@@ -7,13 +7,19 @@ import { authMiddleware } from '@napgram/auth-kit'
  * 实例管理 API
  */
 export default async function (fastify: FastifyInstance) {
+  const isNumeric = (val: any) => typeof val === 'string' && /^\d+$/.test(val)
+
   const toOptionalBigInt = z.preprocess(
     (val) => {
       if (val === '' || val === null || val === undefined)
         return undefined
       if (typeof val === 'bigint')
         return val
-      return BigInt(val as any)
+      if (typeof val === 'number')
+        return BigInt(val)
+      if (isNumeric(val))
+        return BigInt(val as string)
+      return val // 让后续 z.bigint() 触发校验错误
     },
     z.bigint().optional(),
   )
@@ -24,7 +30,11 @@ export default async function (fastify: FastifyInstance) {
         return undefined
       if (typeof val === 'bigint')
         return val
-      return BigInt(val as any)
+      if (typeof val === 'number')
+        return BigInt(val)
+      if (isNumeric(val))
+        return BigInt(val as string)
+      return val
     },
     z.bigint(),
   )
@@ -108,7 +118,7 @@ export default async function (fastify: FastifyInstance) {
       items.map((item: any) => {
         // Fallback to env vars for Instance 0
         const isDefaultInstance = item.id === 0
-        const owner = (item.owner === 0n && isDefaultInstance && env.ADMIN_TG) ? env.ADMIN_TG.toString() : item.owner.toString()
+        const owner = (item.owner === BigInt(0) && isDefaultInstance && env.ADMIN_TG) ? env.ADMIN_TG.toString() : item.owner.toString()
 
         let qqBot = item.qqBot
           ? {
@@ -177,7 +187,7 @@ export default async function (fastify: FastifyInstance) {
 
     // Fallback logic
     const isDefaultInstance = instance.id === 0
-    const owner = (instance.owner === 0n && isDefaultInstance && env.ADMIN_TG) ? env.ADMIN_TG.toString() : instance.owner.toString()
+    const owner = (instance.owner === BigInt(0) && isDefaultInstance && env.ADMIN_TG) ? env.ADMIN_TG.toString() : instance.owner.toString()
 
     let qqBot = instance.qqBot
       ? {
