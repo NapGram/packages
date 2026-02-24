@@ -47,8 +47,29 @@ export default class Telegram {
 
     const dataDir = this.env.DATA_DIR || '/app/data'
     if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir, { recursive: true })
+      try {
+        fs.mkdirSync(dataDir, { recursive: true })
+      }
+      catch (err: any) {
+        this.logger.error(`无法创建数据目录 ${dataDir}: 权限拒绝。请确保容器内用户对挂载卷有写权限。`, err)
+        throw new Error(`EACCES: 权限拒绝，无法创建目录 ${dataDir}`)
+      }
     }
+
+    // 测试目录写权限
+    try {
+      const testFile = path.join(dataDir, `.perm_test_${Date.now()}`)
+      fs.writeFileSync(testFile, '')
+      fs.unlinkSync(testFile)
+    }
+    catch (err: any) {
+      if (err.code === 'EACCES') {
+        this.logger.error(`对数据目录 ${dataDir} 没有写权限。
+请检查挂载卷权限，或运行: chown -R 1000:1000 <主机数据目录>`, err)
+        throw new Error(`EACCES: 权限拒绝，无法写入目录 ${dataDir}`)
+      }
+    }
+
     const defaultStorage = path.join(dataDir, 'session.db')
     const finalStorage = storage || defaultStorage
     const proxyTransport
@@ -61,13 +82,21 @@ export default class Telegram {
         })
         : undefined
 
-    this.client = new TelegramClient({
-      apiId: Number(this.env.TG_API_ID),
-      apiHash: this.env.TG_API_HASH as string,
-      storage: finalStorage,
-      ...(proxyTransport ? { transport: proxyTransport } : {}),
-      initConnectionOptions: {},
-    })
+    try {
+      this.client = new TelegramClient({
+        apiId: Number(this.env.TG_API_ID),
+        apiHash: this.env.TG_API_HASH as string,
+        storage: finalStorage,
+        ...(proxyTransport ? { transport: proxyTransport } : {}),
+        initConnectionOptions: {},
+      })
+    }
+    catch (err: any) {
+      if (err.message?.includes('readonly') || err.code === 'SQLITE_CANTOPEN') {
+        this.logger.error(`无法打开 SQLite 数据库 ${finalStorage}: 可能是权限不足。`, err)
+      }
+      throw err
+    }
     this.dispatcher = Dispatcher.for(this.client)
   }
 
