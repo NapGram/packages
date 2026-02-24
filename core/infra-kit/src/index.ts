@@ -30,6 +30,7 @@ import * as arrays from './utils/arrays.js'
 import * as cache from './utils/cache.js'
 import * as date from './utils/date.js'
 import * as pastebin from './utils/pastebin.js'
+import { stringifyBigInts } from './utils/json.js'
 import * as highLevel from './utils/highLevel.js'
 
 // Individual named exports from modules
@@ -77,6 +78,7 @@ export {
   cache,
   date,
   pastebin,
+  stringifyBigInts,
   highLevel
 }
 export type { AppLogger }

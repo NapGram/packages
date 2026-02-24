@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { db, getLogger, schema, eq, sql, count } from '@napgram/infra-kit'
+import { db, getLogger, schema, eq, sql, count, stringifyBigInts } from '@napgram/infra-kit'
 import { PasswordUtil, TokenManager } from './TokenManager.js'
 
 const logger = getLogger('AuthService')
@@ -153,7 +153,7 @@ export class AuthService {
       action,
       resource,
       resourceId,
-      details,
+      details: stringifyBigInts(details) || {},
       ipAddress,
       userAgent,
     }).catch(() => { }) // 审计日志失败不应影响主流程
