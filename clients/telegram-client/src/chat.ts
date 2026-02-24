@@ -4,7 +4,7 @@ import type { Buffer } from 'node:buffer'
 import type Telegram from './client.js'
 
 export default class TelegramChat {
-  public readonly id: number
+  public readonly id: number | bigint
 
   constructor(
     public readonly parent: Telegram,
@@ -15,7 +15,7 @@ export default class TelegramChat {
   }
 
   public async sendMessage(text: InputText, params?: Parameters<TelegramClient['sendText']>[2]) {
-    return await this.client.sendText(this.id, text, params)
+    return await this.client.sendText(this.id as any, text, params)
   }
 
   /**
@@ -23,7 +23,7 @@ export default class TelegramChat {
    */
   public async setProfilePhoto(photo: Buffer | string) {
     return await this.client.setChatPhoto({
-      chatId: this.id,
+      chatId: this.id as any,
       media: photo,
       type: 'photo',
     })
@@ -52,15 +52,15 @@ export default class TelegramChat {
   }
 
   public async editAbout(about: string) {
-    return await this.client.setChatDescription(this.id, about)
+    return await this.client.setChatDescription(this.id as any, about)
   }
 
   public async editTitle(title: string) {
-    return await this.client.setChatTitle(this.id, title)
+    return await this.client.setChatTitle(this.id as any, title)
   }
 
   public async getInviteLink() {
-    return await this.client.createInviteLink(this.id)
+    return await this.client.createInviteLink(this.id as any)
   }
 
   /**
@@ -68,7 +68,7 @@ export default class TelegramChat {
    */
   public async getMember(user: InputPeerLike) {
     return await this.client.getChatMember({
-      chatId: this.id,
+      chatId: this.id as any,
       userId: user,
     })
   }
@@ -77,16 +77,16 @@ export default class TelegramChat {
    * 删除消息
    * 注意: mtcute 的 deleteMessages 接受 Message 数组，但也有 deleteMessagesById
    */
-  public async deleteMessages(messageIds: number[]) {
+  public async deleteMessages(messageIds: (number | bigint)[]) {
     const { deleteMessagesById } = await import('@mtcute/core/methods.js')
-    return await deleteMessagesById(this.client as any, this.id, messageIds)
+    return await deleteMessagesById(this.client as any, this.id as any, messageIds as any)
   }
 
   /**
    * 邀请成员
    */
   public async inviteMember(users: InputPeerLike[]) {
-    return await this.client.addChatMembers(this.id, users, { forwardCount: 0 })
+    return await this.client.addChatMembers(this.id as any, users, { forwardCount: 0 })
   }
 
   /**
@@ -94,7 +94,7 @@ export default class TelegramChat {
    */
   public async setTyping(action: string = 'typing') {
     return await this.client.setTyping({
-      peerId: this.id,
+      peerId: this.id as any,
       status: action as any,
     })
   }

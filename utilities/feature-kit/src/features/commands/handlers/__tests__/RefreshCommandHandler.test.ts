@@ -303,7 +303,7 @@ describe('refreshCommandHandler', () => {
 
     describe('thread Support', () => {
       it('should use extracted thread ID', async () => {
-        vi.mocked(mockContext.extractThreadId).mockReturnValue(12345)
+        vi.mocked(mockContext.extractThreadId).mockReturnValue(BigInt(12345))
 
         const msg = createMessage('/refresh', '999999', '777777')
         await handler.execute(msg, [], 'refresh')

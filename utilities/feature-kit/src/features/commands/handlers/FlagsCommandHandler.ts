@@ -75,7 +75,7 @@ export class FlagsCommandHandler {
   /**
    * 显示所有功能标志
    */
-  private async showAllFlags(chatId: string, threadId: number | undefined) {
+  private async showAllFlags(chatId: string, threadId: bigint | undefined) {
     const instanceId = this.context.instance.id
 
     try {
@@ -114,7 +114,7 @@ export class FlagsCommandHandler {
   /**
    * 设置功能标志
    */
-  private async setFlag(chatId: string, threadId: number | undefined, flagName: string, enabled: boolean) {
+  private async setFlag(chatId: string, threadId: bigint | undefined, flagName: string, enabled: boolean) {
     const instanceId = this.context.instance.id
 
     try {

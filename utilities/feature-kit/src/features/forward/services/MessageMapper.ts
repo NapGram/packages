@@ -35,7 +35,7 @@ export class ForwardMapper {
         rand: BigInt(0),
         pktnum: 0,
         tgChatId: BigInt(pair.tgChatId),
-        tgMsgId: tgMsg.id,
+        tgMsgId: BigInt(tgMsg.id),
         tgSenderId: BigInt(tgMsg.sender?.id || 0),
         instanceId: pair.instanceId,
         nick,
@@ -74,7 +74,7 @@ export class ForwardMapper {
         rand: BigInt(rand),
         pktnum: 0,
         tgChatId,
-        tgMsgId,
+        tgMsgId: BigInt(tgMsgId),
         tgSenderId,
         instanceId,
         nick,
@@ -86,7 +86,7 @@ export class ForwardMapper {
     }
   }
 
-  async findTgMsgId(instanceId: number, qqRoomId: bigint, qqMsgId: string): Promise<number | undefined> {
+  async findTgMsgId(instanceId: number, qqRoomId: bigint, qqMsgId: string): Promise<bigint | undefined> {
     const numericId = Number(qqMsgId)
     if (!Number.isNaN(numericId)) {
       this.logger.debug(`Finding TG Msg ID by seq: instanceId=${instanceId}, qqRoomId=${qqRoomId}, seq=${numericId}`)
@@ -128,7 +128,7 @@ export class ForwardMapper {
     return undefined
   }
 
-  async findQqSource(instanceId: number, tgChatId: number, tgMsgId: number) {
+  async findQqSource(instanceId: number, tgChatId: bigint, tgMsgId: bigint) {
     if (this.shouldSkipPersistence()) {
       return undefined
     }

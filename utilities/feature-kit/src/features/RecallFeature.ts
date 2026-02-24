@@ -62,7 +62,7 @@ export class RecallFeature {
 
       // 删除 Telegram 消息
       try {
-        const chat = await this.tgBot.getChat(Number(dbEntry.tgChatId))
+        const chat = await this.tgBot.getChat(BigInt(dbEntry.tgChatId))
         await chat.deleteMessages([dbEntry.tgMsgId])
         logger.info(`TG message ${dbEntry.tgMsgId} deleted successfully`)
       }
@@ -109,7 +109,7 @@ export class RecallFeature {
             where: and(
               eq(schema.message.instanceId, this.instance.id),
               eq(schema.message.tgChatId, BigInt(chatId)),
-              eq(schema.message.tgMsgId, Number(tgMsgId)),
+              eq(schema.message.tgMsgId, BigInt(tgMsgId)),
             ),
           })
 
@@ -145,7 +145,7 @@ export class RecallFeature {
   /**
    * 处理 Telegram 消息撤回
    */
-  async handleTGRecall(tgChatId: number, tgMsgId: number) {
+  async handleTGRecall(tgChatId: bigint | number, tgMsgId: bigint | number) {
     try {
       logger.info(`TG message recall requested: ${tgMsgId}`)
 
@@ -154,7 +154,7 @@ export class RecallFeature {
         where: and(
           eq(schema.message.instanceId, this.instance.id),
           eq(schema.message.tgChatId, BigInt(tgChatId)),
-          eq(schema.message.tgMsgId, tgMsgId),
+          eq(schema.message.tgMsgId, BigInt(tgMsgId)),
         ),
       })
 

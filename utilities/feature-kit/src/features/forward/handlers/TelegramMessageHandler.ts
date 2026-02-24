@@ -39,7 +39,7 @@ export class TelegramMessageHandler {
       const qqReply = await this.replyResolver.resolveTGReply(
         tgMsg as any,
         pair.instanceId,
-        Number(pair.tgChatId),
+        BigInt(pair.tgChatId),
       )
 
       const replySegment = qqReply
@@ -232,7 +232,7 @@ export class TelegramMessageHandler {
               rand: BigInt(0),
               pktnum: 0,
               tgChatId: BigInt(pair.tgChatId),
-              tgMsgId: tgMsg.id,
+              tgMsgId: BigInt(tgMsg.id),
               tgSenderId: BigInt(tgMsg.sender.id || 0),
               instanceId: pair.instanceId,
               nick: tgSenderName,

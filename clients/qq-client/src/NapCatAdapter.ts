@@ -279,20 +279,26 @@ export class NapCatAdapter extends EventEmitter {
   }
 
   async getForwardMsg(messageId: string, _fileName?: string): Promise<ForwardMessage[]> {
-    const data = await this.client.getForwardMessage(messageId) // file_name not supported in SDK types yet or not common
-    const rawMessages = (data as any)?.messages || []
+    try {
+      const data = await this.client.getForwardMessage(messageId) // file_name not supported in SDK types yet or not common
+      const rawMessages = (data as any)?.messages || []
 
-    await Promise.all(rawMessages.map(async (node: any) => {
-      const content = node?.message
-      const segments = Array.isArray(content) ? content : (content ? [content] : [])
-      if (segments.length === 0)
-        return
+      await Promise.all(rawMessages.map(async (node: any) => {
+        const content = node?.message
+        const segments = Array.isArray(content) ? content : (content ? [content] : [])
+        if (segments.length === 0)
+          return
 
-      this.normalizeMediaIds(segments)
-      await this.client.hydrateMessage(segments)
-    }))
+        this.normalizeMediaIds(segments)
+        await this.client.hydrateMessage(segments)
+      }))
 
-    return napCatForwardMultiple(rawMessages)
+      return napCatForwardMultiple(rawMessages)
+    }
+    catch (e) {
+      this.logger.warn(e, 'get_forward_msg failed')
+      return []
+    }
   }
 
   async getFile(fileId: string): Promise<any> {
@@ -307,28 +313,46 @@ export class NapCatAdapter extends EventEmitter {
   }
 
   async getFriendList(): Promise<Sender[]> {
-    const friends = await this.client.getFriendList()
-    return friends.map((f: any) => ({
-      id: String(f.user_id),
-      name: f.nickname || f.remark,
-    }))
+    try {
+      const friends = await this.client.getFriendList()
+      return friends.map((f: any) => ({
+        id: String(f.user_id),
+        name: f.nickname || f.remark,
+      }))
+    }
+    catch (e) {
+      this.logger.warn(e, 'get_friend_list failed')
+      return []
+    }
   }
 
   async getGroupList(): Promise<Chat[]> {
-    const groups = await this.client.getGroupList()
-    return groups.map((g: any) => ({
-      id: String(g.group_id),
-      type: 'group' as const,
-      name: g.group_name,
-    }))
+    try {
+      const groups = await this.client.getGroupList()
+      return groups.map((g: any) => ({
+        id: String(g.group_id),
+        type: 'group' as const,
+        name: g.group_name,
+      }))
+    }
+    catch (e) {
+      this.logger.warn(e, 'get_group_list failed')
+      return []
+    }
   }
 
   async getGroupMemberList(groupId: string): Promise<Sender[]> {
-    const members = await this.client.getGroupMemberList(groupId)
-    return members.map((m: any) => ({
-      id: String(m.user_id),
-      name: m.card || m.nickname,
-    }))
+    try {
+      const members = await this.client.getGroupMemberList(groupId)
+      return members.map((m: any) => ({
+        id: String(m.user_id),
+        name: m.card || m.nickname,
+      }))
+    }
+    catch (e) {
+      this.logger.warn(e, `get_group_member_list failed for ${groupId}`)
+      return []
+    }
   }
 
   async getFriendInfo(uin: string): Promise<Sender | null> {

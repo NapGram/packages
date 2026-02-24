@@ -61,7 +61,7 @@ export class RefreshCommandHandler {
   /**
    * 刷新当前群组的头像和描述
    */
-  private async handleRefresh(chatId: string, threadId: number | undefined) {
+  private async handleRefresh(chatId: string, threadId: bigint | undefined) {
     const forwardMap = this.context.instance.forwardPairs as ForwardMap
     const pair = forwardMap.findByTG(chatId, threadId, true)
 
@@ -83,7 +83,7 @@ export class RefreshCommandHandler {
       }
 
       // 获取 TG 聊天对象
-      const tgChat = await this.context.tgBot.getChat(Number(chatId))
+      const tgChat = await this.context.tgBot.getChat(BigInt(chatId))
 
       // 更新群组名称
       if (groupInfo.name) {
@@ -140,7 +140,7 @@ export class RefreshCommandHandler {
   /**
    * 刷新所有绑定群组的信息
    */
-  private async handleRefreshAll(chatId: string, threadId: number | undefined) {
+  private async handleRefreshAll(chatId: string, threadId: bigint | undefined) {
     try {
       await this.context.replyTG(chatId, '🔄 正在刷新所有绑定群组信息...', threadId)
 
@@ -163,7 +163,7 @@ export class RefreshCommandHandler {
           }
 
           // 获取 TG 聊天对象
-          const tgChat = await this.context.tgBot.getChat(Number(tgChatId))
+          const tgChat = await this.context.tgBot.getChat(BigInt(tgChatId))
 
           // 更新群组名称
           if (groupInfo.name) {

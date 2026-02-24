@@ -1,6 +1,6 @@
 {
     "name": "@napgram/runtime-kit",
-    "version": "0.1.18",
+    "version": "0.1.20",
     "description": "Runtime exports for NapGram web interfaces",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",

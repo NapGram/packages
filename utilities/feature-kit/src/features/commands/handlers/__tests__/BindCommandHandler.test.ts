@@ -157,7 +157,7 @@ describe('bindCommandHandler', () => {
     })
 
     it('should bind with thread ID when provided', async () => {
-      vi.mocked(mockContext.extractThreadId).mockReturnValue(12345)
+      vi.mocked(mockContext.extractThreadId).mockReturnValue(BigInt(12345))
 
       const msg = createMessage('/bind 888888', '999999', '777777')
       await handler.execute(msg, ['888888'])
@@ -165,13 +165,13 @@ describe('bindCommandHandler', () => {
       expect(mockContext.instance.forwardPairs.add).toHaveBeenCalledWith(
         '888888',
         '777777',
-        12345,
+        BigInt(12345),
       )
 
       expect(mockContext.replyTG).toHaveBeenCalledWith(
         '777777',
         expect.stringContaining('话题 12345'),
-        12345,
+        BigInt(12345),
       )
     })
 
@@ -320,7 +320,7 @@ describe('bindCommandHandler', () => {
 
   describe('thread Support', () => {
     it('should handle thread binding correctly', async () => {
-      vi.mocked(mockContext.extractThreadId).mockReturnValue(54321)
+      vi.mocked(mockContext.extractThreadId).mockReturnValue(BigInt(54321))
 
       const msg = createMessage('/bind 888888', '999999', '777777')
       await handler.execute(msg, ['888888'])
@@ -328,12 +328,12 @@ describe('bindCommandHandler', () => {
       expect(mockContext.instance.forwardPairs.add).toHaveBeenCalledWith(
         '888888',
         '777777',
-        54321,
+        BigInt(54321),
       )
     })
 
     it('should set binding state with correct thread ID in interactive mode', async () => {
-      vi.mocked(mockContext.extractThreadId).mockReturnValue(99999)
+      vi.mocked(mockContext.extractThreadId).mockReturnValue(BigInt(99999))
 
       const msg = createMessage('/bind', '999999', '777777')
       await handler.execute(msg, [])
@@ -341,7 +341,7 @@ describe('bindCommandHandler', () => {
       expect(mockContext.stateManager.setBindingState).toHaveBeenCalledWith(
         '777777',
         '999999',
-        99999,
+        BigInt(99999),
       )
     })
   })

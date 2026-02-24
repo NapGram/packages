@@ -105,7 +105,7 @@ describe('replyResolver', () => {
     }
     const resolver = new ReplyResolver(mapper as any)
 
-    const result = await resolver.resolveTGReply({}, 1, 222)
+    const result = await resolver.resolveTGReply({}, 1, BigInt(222))
 
     expect(result).toBeUndefined()
     expect(mapper.findQqSource).not.toHaveBeenCalled()
@@ -125,10 +125,10 @@ describe('replyResolver', () => {
     const result = await resolver.resolveTGReply(
       { replyToMessage: { id: 555 } },
       1,
-      222,
+      BigInt(222),
     )
 
-    expect(mapper.findQqSource).toHaveBeenCalledWith(1, 222, 555)
+    expect(mapper.findQqSource).toHaveBeenCalledWith(1, BigInt(222), BigInt(555))
     expect(result).toEqual({
       seq: 7,
       qqRoomId: BigInt(111),
@@ -146,10 +146,10 @@ describe('replyResolver', () => {
     const result = await resolver.resolveTGReply(
       { replyToMessage: { id: 555 } },
       1,
-      222,
+      BigInt(222),
     )
 
-    expect(mapper.findQqSource).toHaveBeenCalledWith(1, 222, 555)
+    expect(mapper.findQqSource).toHaveBeenCalledWith(1, BigInt(222), BigInt(555))
     expect(result).toBeUndefined()
   })
 })

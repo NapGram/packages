@@ -261,7 +261,7 @@ describe('qQInteractionCommandHandler', () => {
 
   describe('thread Support', () => {
     it('should use extracted thread ID', async () => {
-      vi.mocked(mockContext.extractThreadId).mockReturnValue(12345)
+      vi.mocked(mockContext.extractThreadId).mockReturnValue(BigInt(12345))
 
       const msg = createMessage('/poke', '999999', '777777')
       await handler.execute(msg, [], 'poke')
@@ -274,7 +274,7 @@ describe('qQInteractionCommandHandler', () => {
     })
 
     it('should reply to correct thread', async () => {
-      vi.mocked(mockContext.extractThreadId).mockReturnValue(54321)
+      vi.mocked(mockContext.extractThreadId).mockReturnValue(BigInt(54321))
 
       const msg = createMessage('/poke', '999999', '777777')
       await handler.execute(msg, [], 'poke')

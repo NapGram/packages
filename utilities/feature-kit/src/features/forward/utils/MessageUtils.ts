@@ -77,22 +77,22 @@ export class MessageUtils {
    */
   static async replyTG(
     tgBot: Telegram,
-    chatId: string | number,
+    chatId: string | number | bigint,
     text: string,
-    replyTo?: any,
+    replyTo?: string | number | bigint,
   ): Promise<void> {
     try {
-      // Ensure numeric chat IDs are passed as numbers to avoid being treated as usernames
-      const resolvedChatId = (typeof chatId === 'string' && /^-?\d+$/.test(chatId))
-        ? Number(chatId)
-        : chatId
+      // Ensure numeric chat IDs are passed correctly
+      let resolvedChatId: string | number | bigint = chatId
+      if (typeof chatId === 'string' && /^-?\d+$/.test(chatId)) {
+        resolvedChatId = BigInt(chatId)
+      }
 
-      const chat = await tgBot.getChat(resolvedChatId)
+      const chat = await tgBot.getChat(resolvedChatId as any)
       const params: any = { linkPreview: { disable: true } }
-      if (replyTo) {
-        params.replyTo = replyTo
-        // Force implicit thread routing if replyTo is treated as threadId
-        params.messageThreadId = Number(replyTo)
+      if (replyTo !== undefined && replyTo !== null) {
+        // If it's a thread ID, MTCute expects it in params
+        params.messageThreadId = typeof replyTo === 'string' ? BigInt(replyTo) : replyTo
       }
       await chat.sendMessage(text, params)
     }

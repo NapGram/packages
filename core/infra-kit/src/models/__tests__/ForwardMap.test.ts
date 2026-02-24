@@ -48,25 +48,25 @@ describe('forwardMap', () => {
 
   it('loads mappings and supports find helpers', async () => {
     const pair1 = makePair()
-    const pair2 = makePair({ id: 2, qqRoomId: BigInt(101), tgChatId: BigInt(201), tgThreadId: 9 })
+    const pair2 = makePair({ id: 2, qqRoomId: BigInt(101), tgChatId: BigInt(201), tgThreadId: BigInt(9) })
     dbMocks.forwardPair.findMany.mockResolvedValueOnce([pair1, pair2])
 
     const map = await ForwardMap.load(1)
 
     expect(map.findByQQ(100)).toEqual(pair1)
-    expect(map.findByTG(201, 9)).toEqual(pair2)
+    expect(map.findByTG(201, BigInt(9))).toEqual(pair2)
     expect(map.find({ uin: '100' })).toEqual(pair1)
     expect(map.find({ gid: 101 })).toEqual(pair2)
     expect(map.find({ id: 200 })).toEqual(pair1)
-    expect(map.findByTG(200, 5)).toEqual(pair1)
-    expect(map.findByTG(200, 5, false)).toBeUndefined()
+    expect(map.findByTG(200, BigInt(5))).toEqual(pair1)
+    expect(map.findByTG(200, BigInt(5), false)).toBeUndefined()
     expect(loggerMocks.debug).toHaveBeenCalled()
     expect(map.find(null)).toBeNull()
   })
 
   it('reloads mappings in place', async () => {
     const pair1 = makePair()
-    const pair2 = makePair({ id: 2, qqRoomId: BigInt(300), tgChatId: BigInt(400), tgThreadId: 2 })
+    const pair2 = makePair({ id: 2, qqRoomId: BigInt(300), tgChatId: BigInt(400), tgThreadId: BigInt(2) })
     dbMocks.forwardPair.findMany.mockResolvedValueOnce([pair1])
     const map = await ForwardMap.load(1)
 
@@ -75,7 +75,7 @@ describe('forwardMap', () => {
 
     expect(map.findByQQ(100)).toBeUndefined()
     expect(map.findByQQ(300)).toEqual(pair2)
-    expect(map.findByTG(400, 2)).toEqual(pair2)
+    expect(map.findByTG(400, BigInt(2))).toEqual(pair2)
   })
 
   it('returns existing mapping when tg target is already taken', async () => {
@@ -92,7 +92,7 @@ describe('forwardMap', () => {
 
   it('updates existing qq mapping to new target', async () => {
     const pair1 = makePair()
-    const updated = makePair({ tgChatId: BigInt(300), tgThreadId: 7 })
+    const updated = makePair({ tgChatId: BigInt(300), tgThreadId: BigInt(7) })
     dbMocks.forwardPair.findMany.mockResolvedValueOnce([pair1])
     dbMocks.forwardPair.update.mockResolvedValueOnce(updated)
     const map = await ForwardMap.load(1)
@@ -101,20 +101,20 @@ describe('forwardMap', () => {
     expect(same).toEqual(pair1)
     expect(dbMocks.forwardPair.update).not.toHaveBeenCalled()
 
-    const result = await map.add(100, 300, 7)
+    const result = await map.add(100, 300, BigInt(7))
 
     expect(result).toEqual(updated)
     expect(dbMocks.forwardPair.update).toHaveBeenCalledWith({
       where: { id: pair1.id },
       data: {
         tgChatId: BigInt(300),
-        tgThreadId: 7,
+        tgThreadId: BigInt(7),
       },
       select: expect.any(Object),
     })
     expect(map.findByQQ(100)).toEqual(updated)
     expect(map.findByTG(200)).toBeUndefined()
-    expect(map.findByTG(300, 7)).toEqual(updated)
+    expect(map.findByTG(300, BigInt(7))).toEqual(updated)
   })
 
   it('creates and removes mappings', async () => {

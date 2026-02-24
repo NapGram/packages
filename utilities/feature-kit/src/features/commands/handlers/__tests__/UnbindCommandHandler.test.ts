@@ -160,7 +160,7 @@ describe('unbindCommandHandler', () => {
       const mockBinding = {
         qqRoomId: '888888',
         tgChatId: '777777',
-        tgThreadId: 12345,
+        tgThreadId: BigInt(12345),
       }
 
       mockContext.instance.forwardPairs.findByQQ = vi.fn().mockReturnValue(mockBinding)
@@ -171,7 +171,7 @@ describe('unbindCommandHandler', () => {
       expect(mockContext.replyTG).toHaveBeenCalledWith(
         '777777',
         expect.stringContaining('话题 12345'),
-        12345,
+        BigInt(12345),
       )
     })
   })
@@ -201,18 +201,18 @@ describe('unbindCommandHandler', () => {
       const mockBinding = {
         qqRoomId: '888888',
         tgChatId: '777777',
-        tgThreadId: 54321,
+        tgThreadId: BigInt(54321),
       }
 
       mockContext.instance.forwardPairs.findByTG = vi.fn().mockReturnValue(mockBinding)
-      vi.mocked(mockContext.extractThreadId).mockReturnValue(54321)
+      vi.mocked(mockContext.extractThreadId).mockReturnValue(BigInt(54321))
 
       const msg = createMessage('/unbind', '999999', '777777')
       await handler.execute(msg, [])
 
       expect(mockContext.instance.forwardPairs.findByTG).toHaveBeenCalledWith(
         '777777',
-        54321,
+        BigInt(54321),
         false,
       )
       expect(mockContext.instance.forwardPairs.remove).toHaveBeenCalledWith('888888')
@@ -324,7 +324,7 @@ describe('unbindCommandHandler', () => {
       const mockBinding = {
         qqRoomId: '888888',
         tgChatId: '777777',
-        tgThreadId: 99999,
+        tgThreadId: BigInt(99999),
       }
 
       mockContext.instance.forwardPairs.findByQQ = vi.fn().mockReturnValue(mockBinding)
@@ -336,7 +336,7 @@ describe('unbindCommandHandler', () => {
       expect(mockContext.replyTG).toHaveBeenCalledWith(
         '777777',
         expect.any(String),
-        99999,
+        BigInt(99999),
       )
     })
 
@@ -348,7 +348,7 @@ describe('unbindCommandHandler', () => {
       }
 
       mockContext.instance.forwardPairs.findByTG = vi.fn().mockReturnValue(mockBinding)
-      vi.mocked(mockContext.extractThreadId).mockReturnValue(77777)
+      vi.mocked(mockContext.extractThreadId).mockReturnValue(BigInt(77777))
 
       const msg = createMessage('/unbind', '999999', '777777')
       await handler.execute(msg, [])
@@ -356,7 +356,7 @@ describe('unbindCommandHandler', () => {
       expect(mockContext.replyTG).toHaveBeenCalledWith(
         '777777',
         expect.any(String),
-        77777,
+        BigInt(77777),
       )
     })
   })

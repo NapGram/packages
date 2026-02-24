@@ -1,5 +1,5 @@
 interface BindingState {
-  threadId?: number
+  threadId?: bigint
   userId: string
   timestamp: number
 }
@@ -15,7 +15,7 @@ export class InteractiveStateManager {
   /**
    * 设置绑定状态
    */
-  setBindingState(chatId: string, userId: string, threadId?: number) {
+  setBindingState(chatId: string, userId: string, threadId?: bigint) {
     const key = `${chatId}:${userId}`
     this.bindingStates.set(key, {
       threadId,

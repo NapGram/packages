@@ -200,7 +200,7 @@ describe('infoCommandHandler', () => {
       const mockPair = {
         qqRoomId: '888888',
         tgChatId: '777777',
-        tgThreadId: 12345,
+        tgThreadId: BigInt(12345),
         forwardMode: 'normal',
       }
       mockContext.instance.forwardPairs.findByTG = vi.fn().mockReturnValue(mockPair)
@@ -400,11 +400,11 @@ describe('infoCommandHandler', () => {
       const mockPair = {
         qqRoomId: '888888',
         tgChatId: '777777',
-        tgThreadId: 12345,
+        tgThreadId: BigInt(12345),
         forwardMode: 'normal',
       }
       mockContext.instance.forwardPairs.findByTG = vi.fn().mockReturnValue(mockPair)
-      vi.mocked(mockContext.extractThreadId).mockReturnValue(12345)
+      vi.mocked(mockContext.extractThreadId).mockReturnValue(BigInt(12345))
 
       const msg = createMessage('/info', '999999', '777777')
       await handler.execute(msg, [])
@@ -420,16 +420,16 @@ describe('infoCommandHandler', () => {
       const mockPair = {
         qqRoomId: '888888',
         tgChatId: '777777',
-        tgThreadId: 99999,
+        tgThreadId: BigInt(99999),
         forwardMode: 'normal',
       }
       mockContext.instance.forwardPairs.findByTG = vi.fn().mockReturnValue(mockPair)
-      vi.mocked(mockContext.extractThreadId).mockReturnValue(99999)
+      vi.mocked(mockContext.extractThreadId).mockReturnValue(BigInt(99999))
 
       const msg = createMessage('/info', '999999', '777777')
       await handler.execute(msg, [])
 
-      expect(mockContext.replyTG).toHaveBeenCalledWith('777777', expect.anything(), 99999)
+      expect(mockContext.replyTG).toHaveBeenCalledWith('777777', expect.anything(), BigInt(99999))
     })
   })
 

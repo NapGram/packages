@@ -53,7 +53,7 @@ export class RequestManagementCommandHandler {
    * 仅从消息元数据提取 threadId，避免把参数误判为 threadId
    * （例如 /reject <flag> <reason...> 的 reason 可能以数字开头）
    */
-  private extractThreadIdFromRaw(msg: UnifiedMessage): number | undefined {
+  private extractThreadIdFromRaw(msg: UnifiedMessage): bigint | undefined {
     return this.context.extractThreadId(msg, [])
   }
 
@@ -68,7 +68,7 @@ export class RequestManagementCommandHandler {
   /**
    * /pending [friend|group]
    */
-  private async handlePending(chatId: string, threadId: number | undefined, args: string[]) {
+  private async handlePending(chatId: string, threadId: bigint | undefined, args: string[]) {
     try {
       const filter = args[0]
       const instanceId = this.context.instance.id
@@ -124,7 +124,7 @@ export class RequestManagementCommandHandler {
   /**
    * /approve <flag>
    */
-  private async handleApprove(chatId: string, threadId: number | undefined, msg: UnifiedMessage, args: string[]) {
+  private async handleApprove(chatId: string, threadId: bigint | undefined, msg: UnifiedMessage, args: string[]) {
     try {
       const flag = args[0]
       if (!flag) {
@@ -183,7 +183,7 @@ export class RequestManagementCommandHandler {
   /**
    * /reject <flag> [reason...]
    */
-  private async handleReject(chatId: string, threadId: number | undefined, msg: UnifiedMessage, args: string[]) {
+  private async handleReject(chatId: string, threadId: bigint | undefined, msg: UnifiedMessage, args: string[]) {
     try {
       const flag = args[0]
       const reason = args.slice(1).join(' ') || undefined
@@ -249,7 +249,7 @@ export class RequestManagementCommandHandler {
   /**
    * /reqstats [today|week|month|all]
    */
-  private async handleRequestStats(chatId: string, threadId: number | undefined, args: string[]) {
+  private async handleRequestStats(chatId: string, threadId: bigint | undefined, args: string[]) {
     try {
       const period = args[0] || 'all'
       const instanceId = this.context.instance.id
@@ -341,7 +341,7 @@ export class RequestManagementCommandHandler {
   /**
    * /approveall [friend|group]
    */
-  private async handleApproveAll(chatId: string, threadId: number | undefined, msg: UnifiedMessage, args: string[]) {
+  private async handleApproveAll(chatId: string, threadId: bigint | undefined, msg: UnifiedMessage, args: string[]) {
     try {
       const filter = args[0]
       const instanceId = this.context.instance.id
@@ -414,7 +414,7 @@ export class RequestManagementCommandHandler {
   /**
    * /rejectall [friend|group] [reason...]
    */
-  private async handleRejectAll(chatId: string, threadId: number | undefined, msg: UnifiedMessage, args: string[]) {
+  private async handleRejectAll(chatId: string, threadId: bigint | undefined, msg: UnifiedMessage, args: string[]) {
     try {
       const filter = args[0]
       const reason = args.slice(1).join(' ') || '批量拒绝'

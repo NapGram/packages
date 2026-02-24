@@ -344,6 +344,7 @@ export default async function (fastify: FastifyInstance) {
           ...pair,
           qqRoomId: pair.qqRoomId.toString(),
           tgChatId: pair.tgChatId.toString(),
+          tgThreadId: pair.tgThreadId?.toString() || null,
           qqFromGroupId: pair.qqFromGroupId?.toString() || null,
         },
       }
@@ -437,6 +438,7 @@ export default async function (fastify: FastifyInstance) {
           ...pair,
           qqRoomId: pair.qqRoomId.toString(),
           tgChatId: pair.tgChatId.toString(),
+          tgThreadId: pair.tgThreadId?.toString() || null,
           qqFromGroupId: pair.qqFromGroupId?.toString() || null,
         },
       }

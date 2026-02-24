@@ -1,6 +1,6 @@
 import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { db, getLogger, schema, eq, sql } from '@napgram/infra-kit'
+import { ApiResponse, db, getLogger, schema, eq, and, sql, count, desc, stringifyBigInts } from '@napgram/infra-kit'
 import { authMiddleware } from '@napgram/auth-kit'
 
 const logger = getLogger('database')
@@ -39,7 +39,7 @@ export default async function (fastify: FastifyInstance) {
                 FROM pg_tables 
                 WHERE schemaname = ${schemaName}
                 ORDER BY tablename;
-            `)
+`)
       const rows = result.rows as any[]
       return {
         success: true,
@@ -65,7 +65,7 @@ export default async function (fastify: FastifyInstance) {
                 WHERE schema_name NOT LIKE 'pg_%'
                   AND schema_name <> 'information_schema'
                 ORDER BY schema_name;
-            `)
+`)
       const rows = result.rows as any[]
       return {
         success: true,
@@ -96,7 +96,7 @@ export default async function (fastify: FastifyInstance) {
                 SELECT tablename 
                 FROM pg_tables 
                 WHERE schemaname = ${schemaName} AND tablename = ${tableName};
-            `)
+`)
       const tables = tablesResult.rows as any[]
 
       if (tables.length === 0) {
@@ -107,16 +107,16 @@ export default async function (fastify: FastifyInstance) {
       }
 
       const columnsResult = await db.execute(sql`
-                SELECT 
-                    column_name,
-                    data_type,
-                    is_nullable,
-                    column_default
+SELECT
+column_name,
+  data_type,
+  is_nullable,
+  column_default
                 FROM information_schema.columns
                 WHERE table_schema = ${schemaName} 
                   AND table_name = ${tableName}
                 ORDER BY ordinal_position;
-            `)
+`)
       const columns = columnsResult.rows as any[]
 
       return { success: true, data: columns }
@@ -160,7 +160,7 @@ export default async function (fastify: FastifyInstance) {
                 SELECT tablename 
                 FROM pg_tables 
                 WHERE schemaname = ${schema} AND tablename = ${tableName};
-            `)
+`)
       const tables = tablesResult.rows as any[]
 
       if (tables.length === 0) {
@@ -184,18 +184,18 @@ export default async function (fastify: FastifyInstance) {
                     WHERE table_schema = ${schema} 
                       AND table_name = ${tableName}
                       AND column_name = ${sortBy};
-                `)
+`)
         const columns = columnsResult.rows as any[]
 
         if (columns.length > 0) {
           const order = sortOrder.toUpperCase() === 'DESC' ? 'DESC' : 'ASC'
-          orderClause = `ORDER BY "${sortBy}" ${order}`
+          orderClause = `ORDER BY "${sortBy}" ${order} `
         }
       }
 
       // 查询数据
       const dataResult = await db.execute(sql.raw(
-        `SELECT * FROM "${schema}"."${tableName}" ${orderClause} LIMIT ${pageSizeNum} OFFSET ${offset}`,
+        `SELECT * FROM "${schema}"."${tableName}" ${orderClause} LIMIT ${pageSizeNum} OFFSET ${offset} `,
       ))
       const data = dataResult.rows as any[]
 
@@ -256,7 +256,7 @@ export default async function (fastify: FastifyInstance) {
       const dangerousKeywords = ['DROP', 'TRUNCATE', 'ALTER', 'CREATE']
 
       for (const keyword of dangerousKeywords) {
-        const regex = new RegExp(`\\b${keyword}\\b`, 'i')
+        const regex = new RegExp(`\\b${keyword} \\b`, 'i')
         if (regex.test(rawSql)) {
           return reply.code(403).send({
             success: false,
@@ -275,10 +275,10 @@ export default async function (fastify: FastifyInstance) {
         userId: auth.userId,
         action: 'database_query',
         resource: 'database',
-        details: {
+        details: stringifyBigInts({
           sql: rawSql.substring(0, 500), // 截断过长的 SQL
           rowCount,
-        },
+        }),
         ipAddress: request.ip,
         userAgent: request.headers['user-agent'],
       }).catch((err: any) => {
@@ -328,7 +328,7 @@ export default async function (fastify: FastifyInstance) {
                 SELECT tablename 
                 FROM pg_tables 
                 WHERE schemaname = ${schemaName} AND tablename = ${tableName};
-            `)
+`)
       const tables = tablesResult.rows as any[]
 
       if (tables.length === 0) {
@@ -348,11 +348,11 @@ export default async function (fastify: FastifyInstance) {
       // 构建 UPDATE SQL
       const setEntries = Object.entries(updates)
       const setClauses = setEntries
-        .map((_, idx) => `"${setEntries[idx][0]}" = $${idx + 1}`)
+        .map((_, idx) => `"${setEntries[idx][0]}" = $${idx + 1} `)
         .join(', ')
       const values = setEntries.map(([_, value]) => value)
 
-      await db.execute(sql.raw(`UPDATE "${schemaName}"."."${tableName}" SET ${setClauses} WHERE id = '${id}'`))
+      await db.execute(sql.raw(`UPDATE "${schemaName}"."."${tableName} " SET ${setClauses} WHERE id = '${id}'`))
       // Values are actually safer if passed separately, but Drizzle execute(sql.raw) doesn't support params like Prisma.
       // Wait, Drizzle's sql.raw is just raw. I should use sql with parameters.
       // But setClauses is dynamically built.
@@ -369,7 +369,7 @@ export default async function (fastify: FastifyInstance) {
         action: 'database_update',
         resource: tableName,
         resourceId: String(id),
-        details: updates,
+        details: stringifyBigInts(updates),
         ipAddress: request.ip,
         userAgent: request.headers['user-agent'],
       }).catch((err: any) => {

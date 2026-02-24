@@ -40,17 +40,17 @@ export class QQMessageHandler {
         return
       }
 
-      const tgChatId = Number(pair.tgChatId)
+      const tgChatId = BigInt(pair.tgChatId)
       logger.info(`Forwarding using pair: QQ=${pair.qqRoomId} -> TG=${pair.tgChatId}, Thread=${pair.tgThreadId}`)
       const chat = await this.instance.tgBot.getChat(tgChatId)
 
       // 处理回复
       const replyToMsgId = await this.replyResolver.resolveQQReply(msg, pair.instanceId, pair.qqRoomId)
 
-      const sentMsg = await this.telegramSender.sendToTelegram(chat, msg, pair, replyToMsgId, this.modeService.nicknameMode)
+      const sentMsg = await this.telegramSender.sendToTelegram(chat, msg, pair, replyToMsgId ? Number(replyToMsgId) : undefined, this.modeService.nicknameMode)
 
       if (sentMsg) {
-        await this.mapper.saveMessage(msg, sentMsg, pair.instanceId, pair.qqRoomId, BigInt(tgChatId))
+        await this.mapper.saveMessage(msg, sentMsg, pair.instanceId, pair.qqRoomId, tgChatId)
         logger.info(`QQ message ${msg.id} forwarded to TG ${tgChatId} (TG ID: ${sentMsg.id})`)
 
         // 发布消息事件到插件系统（QQ 侧消息）

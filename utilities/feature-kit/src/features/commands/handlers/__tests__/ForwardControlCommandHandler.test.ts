@@ -333,7 +333,7 @@ describe('forwardControlCommandHandler', () => {
 
     it('should include thread ID in binding info when present', async () => {
       mockPair.tgThreadId = 12345
-      vi.mocked(mockContext.extractThreadId).mockReturnValue(12345)
+      vi.mocked(mockContext.extractThreadId).mockReturnValue(BigInt(12345))
 
       const msg = createMessage('/forwardoff', '999999', '777777')
       await handler.execute(msg, [], 'forwardoff')
@@ -382,7 +382,7 @@ describe('forwardControlCommandHandler', () => {
 
   describe('thread Support', () => {
     it('should use extracted thread ID', async () => {
-      vi.mocked(mockContext.extractThreadId).mockReturnValue(99999)
+      vi.mocked(mockContext.extractThreadId).mockReturnValue(BigInt(99999))
 
       const msg = createMessage('/forwardoff', '999999', '777777')
       await handler.execute(msg, [], 'forwardoff')
@@ -395,7 +395,7 @@ describe('forwardControlCommandHandler', () => {
     })
 
     it('should reply to correct thread', async () => {
-      vi.mocked(mockContext.extractThreadId).mockReturnValue(54321)
+      vi.mocked(mockContext.extractThreadId).mockReturnValue(BigInt(54321))
 
       const msg = createMessage('/forwardoff', '999999', '777777')
       await handler.execute(msg, [], 'forwardoff')

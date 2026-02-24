@@ -60,7 +60,7 @@ export class AdvancedGroupManagementCommandHandler {
    */
   private async handleMuteAll(
     chatId: string,
-    threadId: number | undefined,
+    threadId: bigint | undefined,
     qqGroupId: string,
     msg: UnifiedMessage,
     args: string[],
@@ -139,7 +139,7 @@ export class AdvancedGroupManagementCommandHandler {
    */
   private async handleSetAdmin(
     chatId: string,
-    threadId: number | undefined,
+    threadId: bigint | undefined,
     qqGroupId: string,
     msg: UnifiedMessage,
     args: string[],
@@ -220,7 +220,7 @@ export class AdvancedGroupManagementCommandHandler {
    */
   private async handleGroupName(
     chatId: string,
-    threadId: number | undefined,
+    threadId: bigint | undefined,
     qqGroupId: string,
     msg: UnifiedMessage,
     args: string[],
@@ -275,7 +275,7 @@ export class AdvancedGroupManagementCommandHandler {
    */
   private async handleSpecialTitle(
     chatId: string,
-    threadId: number | undefined,
+    threadId: bigint | undefined,
     qqGroupId: string,
     msg: UnifiedMessage,
     args: string[],

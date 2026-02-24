@@ -716,7 +716,7 @@ export class CommandsFeature {
             }
             else {
               const threadInfo = threadId ? ` (话题 ${threadId})` : ''
-              await this.replyTG(chatId, `绑定成功：QQ ${qqGroupId} <-> TG ${chatId}${threadInfo}`, threadId)
+              await this.replyTG(chatId, `绑定成功：QQ ${qqGroupId} <-> TG ${chatId}${threadId ? ` (话题 ${threadId})` : ''}`, threadId)
               logger.info(`Interactive Bind: QQ ${qqGroupId} <-> TG ${chatId}${threadInfo}`)
             }
           }
@@ -892,7 +892,7 @@ export class CommandsFeature {
           platform: 'tg',
           channelId: String(tgMsg.chat.id),
           channelType,
-          threadId,
+          threadId: threadId as any,
           sender: {
             userId: `tg:u:${tgMsg.sender?.id || 0}`,
             userName: tgMsg.sender?.displayName || tgMsg.sender?.username || 'Unknown',
@@ -905,26 +905,26 @@ export class CommandsFeature {
           },
           raw: tgMsg,
           reply: async (content) => {
-            const chat = await this.tgBot.getChat(Number(tgMsg.chat.id))
+            const chat = await this.tgBot.getChat(BigInt(tgMsg.chat.id))
             const textContent = contentToText(content)
-            const params: any = { replyTo: tgMsg.id }
+            const params: any = { replyTo: BigInt(tgMsg.id) }
             if (threadId)
-              params.messageThreadId = threadId
+              params.messageThreadId = BigInt(threadId)
             const sent = await chat.sendMessage(textContent, params)
             return { messageId: `tg:${String(tgMsg.chat.id)}:${String((sent as any)?.id ?? '')}`, timestamp: Date.now() }
           },
           send: async (content) => {
-            const chat = await this.tgBot.getChat(Number(tgMsg.chat.id))
+            const chat = await this.tgBot.getChat(BigInt(tgMsg.chat.id))
             const textContent = contentToText(content)
             const params: any = {}
             if (threadId)
-              params.messageThreadId = threadId
+              params.messageThreadId = BigInt(threadId)
             const sent = await chat.sendMessage(textContent, params)
             return { messageId: `tg:${String(tgMsg.chat.id)}:${String((sent as any)?.id ?? '')}`, timestamp: Date.now() }
           },
           recall: async () => {
-            const chat = await this.tgBot.getChat(Number(tgMsg.chat.id))
-            await chat.deleteMessages([tgMsg.id])
+            const chat = await this.tgBot.getChat(BigInt(tgMsg.chat.id))
+            await chat.deleteMessages([BigInt(tgMsg.id)])
           },
         })
       }
@@ -1022,12 +1022,12 @@ export class CommandsFeature {
     }
   }
 
-  private extractThreadId(msg: UnifiedMessage, args: string[]) {
+  private extractThreadId(msg: UnifiedMessage, args: string[]): bigint | undefined {
     // 1. 优先从命令参数获取（显式指定）
     const arg = args[1]
-    if (arg && /^\d+$/.test(arg)) {
+    if (arg && /^-?\d+$/.test(arg)) {
       logger.debug(`[extractThreadId] From arg: ${arg}`)
-      return Number(arg)
+      return BigInt(arg)
     }
 
     // 2. 使用 ThreadIdExtractor 从消息元数据中提取
@@ -1044,9 +1044,9 @@ export class CommandsFeature {
     return undefined
   }
 
-  private async replyTG(chatId: string | number, text: any, threadId?: number) {
+  private async replyTG(chatId: string | number | bigint, text: any, threadId?: bigint | number) {
     try {
-      const chat = await this.tgBot.getChat(Number(chatId))
+      const chat = await this.tgBot.getChat(BigInt(chatId))
       const params: any = {
         linkPreview: { disable: true },
       }

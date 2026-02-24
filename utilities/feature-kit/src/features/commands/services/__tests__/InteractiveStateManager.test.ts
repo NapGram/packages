@@ -15,11 +15,11 @@ describe('interactiveStateManager', () => {
 
   describe('setBindingState', () => {
     it('sets binding state with threadId', () => {
-      manager.setBindingState('chat-1', 'user-1', 123)
+      manager.setBindingState('chat-1', 'user-1', BigInt(123))
 
       const state = manager.getBindingState('chat-1', 'user-1')
       expect(state).toBeTruthy()
-      expect(state?.threadId).toBe(123)
+      expect(state?.threadId).toBe(BigInt(123))
       expect(state?.userId).toBe('user-1')
     })
 
@@ -33,11 +33,11 @@ describe('interactiveStateManager', () => {
     })
 
     it('overwrites existing state', () => {
-      manager.setBindingState('chat-1', 'user-1', 100)
-      manager.setBindingState('chat-1', 'user-1', 200)
+      manager.setBindingState('chat-1', 'user-1', BigInt(100))
+      manager.setBindingState('chat-1', 'user-1', BigInt(200))
 
       const state = manager.getBindingState('chat-1', 'user-1')
-      expect(state?.threadId).toBe(200)
+      expect(state?.threadId).toBe(BigInt(200))
     })
   })
 
@@ -49,17 +49,17 @@ describe('interactiveStateManager', () => {
     })
 
     it('returns existing state', () => {
-      manager.setBindingState('chat-1', 'user-1', 50)
+      manager.setBindingState('chat-1', 'user-1', BigInt(50))
 
       const state = manager.getBindingState('chat-1', 'user-1')
       expect(state).toBeTruthy()
-      expect(state?.threadId).toBe(50)
+      expect(state?.threadId).toBe(BigInt(50))
     })
   })
 
   describe('deleteBindingState', () => {
     it('deletes existing state', () => {
-      manager.setBindingState('chat-1', 'user-1', 100)
+      manager.setBindingState('chat-1', 'user-1', BigInt(100))
       manager.deleteBindingState('chat-1', 'user-1')
 
       const state = manager.getBindingState('chat-1', 'user-1')
@@ -90,8 +90,8 @@ describe('interactiveStateManager', () => {
 
   describe('cleanupExpired', () => {
     it('removes expired states', () => {
-      manager.setBindingState('chat-1', 'user-1', 100)
-      manager.setBindingState('chat-2', 'user-2', 200)
+      manager.setBindingState('chat-1', 'user-1', BigInt(100))
+      manager.setBindingState('chat-2', 'user-2', BigInt(200))
 
       // Advance time by 6 minutes
       vi.advanceTimersByTime(6 * 60 * 1000)
@@ -103,7 +103,7 @@ describe('interactiveStateManager', () => {
     })
 
     it('keeps non-expired states', () => {
-      manager.setBindingState('chat-1', 'user-1', 100)
+      manager.setBindingState('chat-1', 'user-1', BigInt(100))
 
       // Advance time by 2 minutes
       vi.advanceTimersByTime(2 * 60 * 1000)
@@ -114,12 +114,12 @@ describe('interactiveStateManager', () => {
     })
 
     it('handles mixed expired and non-expired states', () => {
-      manager.setBindingState('chat-1', 'user-1', 100)
+      manager.setBindingState('chat-1', 'user-1', BigInt(100))
 
       // Advance time by 6 minutes
       vi.advanceTimersByTime(6 * 60 * 1000)
 
-      manager.setBindingState('chat-2', 'user-2', 200)
+      manager.setBindingState('chat-2', 'user-2', BigInt(200))
 
       manager.cleanupExpired()
 

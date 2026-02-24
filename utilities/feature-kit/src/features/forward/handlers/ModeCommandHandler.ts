@@ -12,7 +12,7 @@ const logger = getLogger('ModeCommandHandler')
 export class ModeCommandHandler {
   constructor(
     private readonly modeService: ForwardModeService,
-    private readonly replyTG: (chatId: string | number, text: string, threadId?: number) => Promise<void>,
+    private readonly replyTG: (chatId: string | number | bigint, text: string, threadId?: bigint | number) => Promise<void>,
   ) { }
 
   /**

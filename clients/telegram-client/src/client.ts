@@ -240,9 +240,9 @@ export default class Telegram {
     }
   }
 
-  public async getChat(chatId: number | string) {
+  public async getChat(chatId: number | string | bigint) {
     const { default: TelegramChat } = await import('./chat.js')
-    const chat = await this.client.getChat(chatId)
+    const chat = await this.client.getChat(chatId as any)
     return new TelegramChat(this, this.client, chat)
   }
 

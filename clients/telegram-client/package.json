@@ -1,6 +1,6 @@
 {
     "name": "@napgram/telegram-client",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "description": "Shared Telegram client for NapGram",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",

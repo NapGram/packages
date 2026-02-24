@@ -47,7 +47,7 @@ export class ForwardFeature {
     const threadId = new ThreadIdExtractor().extractFromRaw((tgMsg as any).raw || tgMsg)
 
     const pair = this.forwardMap.findByTG(
-      tgMsg.chat.id,
+      BigInt(tgMsg.chat.id),
       threadId,
       !threadId, // 如果有 threadId，禁用 fallback，避免落到 general
     )
@@ -71,7 +71,7 @@ export class ForwardFeature {
       logger.debug(e, '[Forward] Failed to convert TG message')
     }
 
-    await this.publishTgPluginEvent(tgMsg, pair, unified, threadId)
+    await this.publishTgPluginEvent(tgMsg, pair, unified, threadId ? Number(threadId) : undefined)
 
     // Publish gateway event (doesn't affect forwarding)
     try {
@@ -285,7 +285,7 @@ export class ForwardFeature {
         platform: 'tg',
         channelId: String(tgMsg.chat.id),
         channelType: 'group',
-        threadId,
+        threadId: threadId ? Number(threadId) : undefined,
         sender: {
           userId: `tg:u:${tgMsg.sender?.id || 0}`,
           userName: tgMsg.sender?.displayName || tgMsg.sender?.username || 'Unknown',
@@ -487,7 +487,7 @@ export class ForwardFeature {
       // 处理回复 - 使用 ReplyResolver
       const replyToMsgId = await this.replyResolver.resolveQQReply(msg, pair.instanceId, pair.qqRoomId)
 
-      const sentMsg = await this.telegramSender.sendToTelegram(chat, msg, pair, replyToMsgId, this.getNicknameMode(pair))
+      const sentMsg = await this.telegramSender.sendToTelegram(chat, msg, pair, replyToMsgId ? Number(replyToMsgId) : undefined, this.getNicknameMode(pair))
 
       if (sentMsg) {
         await this.mapper.saveMessage(msg, sentMsg, pair.instanceId, pair.qqRoomId, BigInt(tgChatId))
@@ -509,9 +509,7 @@ export class ForwardFeature {
   private handleModeCommand = async (msg: UnifiedMessage, args: string[]) => {
     const chatId = msg.chat.id
     // Extract threadId from raw message
-    // Extract threadId from raw message
     const raw = (msg.metadata as any)?.raw
-    // Do not use .extract(msg, args) here because args may contain numbers (e.g. "10" for mode) that are NOT threadId
     const threadId = new ThreadIdExtractor().extractFromRaw(raw)
 
     if (!MessageUtils.isAdmin(msg.sender.id, this.instance)) {
@@ -528,7 +526,7 @@ export class ForwardFeature {
     }
 
     // 查找当前聊天对应的 pair
-    const pair = this.forwardMap.findByTG(chatId, threadId, !threadId)
+    const pair = this.forwardMap.findByTG(BigInt(chatId), threadId, !threadId)
     if (!pair) {
       await MessageUtils.replyTG(this.tgBot, chatId, '错误：未找到对应的转发配置', threadId)
       return
@@ -611,7 +609,7 @@ export class ForwardFeature {
       if (forwardMode[0] === '0')
         return
 
-      const tgChatId = Number(pair.tgChatId)
+      const tgChatId = BigInt(pair.tgChatId)
 
       let msgText = ''
       if (operatorId === targetId) {
@@ -633,7 +631,7 @@ export class ForwardFeature {
         }
       }
 
-      await MessageUtils.replyTG(this.tgBot, tgChatId, msgText, pair.tgThreadId)
+      await MessageUtils.replyTG(this.tgBot, tgChatId, msgText, pair.tgThreadId ?? undefined)
     }
     catch (error) {
       logger.error('Failed to handle poke event:', error)

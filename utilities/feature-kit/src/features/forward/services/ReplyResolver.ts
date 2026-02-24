@@ -18,7 +18,7 @@ export class ReplyResolver {
     msg: UnifiedMessage,
     instanceId: number,
     qqRoomId: bigint,
-  ): Promise<number | undefined> {
+  ): Promise<bigint | undefined> {
     const replyContent = msg.content.find(c => c.type === 'reply')
     if (!replyContent || replyContent.type !== 'reply') {
       return undefined
@@ -40,7 +40,7 @@ export class ReplyResolver {
   async resolveTGReply(
     tgMsg: any,
     instanceId: number,
-    tgChatId: number,
+    tgChatId: bigint,
   ): Promise<{ seq?: number, qqRoomId?: bigint, senderUin?: string, time?: number } | undefined> {
     // mtcute uses replyToMessage, not replyTo
     const replyToMsgId = tgMsg.replyToMessage?.id
@@ -48,7 +48,7 @@ export class ReplyResolver {
       return undefined
     }
 
-    const qqSource = await this.mapper.findQqSource(instanceId, tgChatId, replyToMsgId)
+    const qqSource = await this.mapper.findQqSource(instanceId, tgChatId, BigInt(replyToMsgId))
     if (qqSource) {
       logger.debug(`Resolved TG reply: TG msg ${replyToMsgId} -> QQ seq ${qqSource.seq}`)
       return {

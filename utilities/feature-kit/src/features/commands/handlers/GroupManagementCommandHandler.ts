@@ -57,7 +57,7 @@ export class GroupManagementCommandHandler {
    */
   private async handleBan(
     chatId: string,
-    threadId: number | undefined,
+    threadId: bigint | undefined,
     qqGroupId: string,
     msg: UnifiedMessage,
     args: string[],
@@ -144,7 +144,7 @@ export class GroupManagementCommandHandler {
    */
   private async handleUnban(
     chatId: string,
-    threadId: number | undefined,
+    threadId: bigint | undefined,
     qqGroupId: string,
     msg: UnifiedMessage,
     args: string[],
@@ -207,7 +207,7 @@ export class GroupManagementCommandHandler {
    */
   private async handleKick(
     chatId: string,
-    threadId: number | undefined,
+    threadId: bigint | undefined,
     qqGroupId: string,
     msg: UnifiedMessage,
     args: string[],
@@ -271,7 +271,7 @@ export class GroupManagementCommandHandler {
    */
   private async handleCard(
     chatId: string,
-    threadId: number | undefined,
+    threadId: bigint | undefined,
     qqGroupId: string,
     msg: UnifiedMessage,
     args: string[],

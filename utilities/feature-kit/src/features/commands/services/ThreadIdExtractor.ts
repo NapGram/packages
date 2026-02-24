@@ -15,7 +15,7 @@ export class ThreadIdExtractor {
    * @param args 命令参数
    * @returns 话题 ID（如果存在）
    */
-  extract(msg: UnifiedMessage, args: string[]): number | undefined {
+  extract(msg: UnifiedMessage, args: string[]): bigint | undefined {
     // 从第二个参数开始，向后查找第一个纯数字且较小的参数作为话题 ID
     // 避免把 qq_group_id 或 chatId 当作话题
     const arg = args
@@ -23,7 +23,7 @@ export class ThreadIdExtractor {
       .reverse()
       .find(a => /^\d+$/.test(a) && Number(a) > 0 && Number(a) < 1_000_000_000)
     if (arg)
-      return Number(arg)
+      return BigInt(arg)
 
     const raw = (msg.metadata as any)?.raw as any
     const thread = this.extractFromRaw(raw)
@@ -52,7 +52,7 @@ export class ThreadIdExtractor {
    * 从原始 TG 消息中提取话题 ID
    * 适配 mtcute 的字段命名
    */
-  extractFromRaw(raw: any): number | undefined {
+  extractFromRaw(raw: any): bigint | undefined {
     if (!raw)
       return undefined
     const replyTo = raw?.replyTo
@@ -90,8 +90,8 @@ export class ThreadIdExtractor {
     }
 
     for (const c of candidates) {
-      if (typeof c === 'number' && c > 0)
-        return c
+      if ((typeof c === 'number' || typeof c === 'bigint') && Number(c) > 0)
+        return BigInt(c)
     }
     return undefined
   }

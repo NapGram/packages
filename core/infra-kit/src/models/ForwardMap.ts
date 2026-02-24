@@ -7,7 +7,7 @@ export interface ForwardPairRecord {
     id: number
     qqRoomId: bigint
     tgChatId: bigint
-    tgThreadId?: number | null // Telegram 话题 ID
+    tgThreadId?: bigint | null // Telegram 话题 ID
     flags: number
     instanceId: number
     apiKey: string
@@ -74,7 +74,7 @@ export class ForwardMap {
         return this.findByQQ(target) || this.findByTG(target) || null
     }
 
-    async add(qqRoomId: string | number | bigint, tgChatId: string | number | bigint, tgThreadId?: number) {
+    async add(qqRoomId: string | number | bigint, tgChatId: string | number | bigint, tgThreadId?: bigint) {
         const normalizedThreadId = tgThreadId ?? null
         const existingByQQ = this.findByQQ(qqRoomId)
         const existingByTG = this.findByTG(tgChatId, tgThreadId, false)
@@ -136,7 +136,7 @@ export class ForwardMap {
         return this.byQQ.get(String(qqRoomId))
     }
 
-    findByTG(tgChatId: string | number | bigint, tgThreadId?: number, allowFallback = true): ForwardPairRecord | undefined {
+    findByTG(tgChatId: string | number | bigint, tgThreadId?: bigint, allowFallback = true): ForwardPairRecord | undefined {
         const key = this.getTgKey(tgChatId, tgThreadId)
         const exact = this.byTG.get(key)
 
@@ -155,7 +155,7 @@ export class ForwardMap {
         return Array.from(this.byQQ.values())
     }
 
-    private getTgKey(tgChatId: string | number | bigint, tgThreadId?: number | null) {
+    private getTgKey(tgChatId: string | number | bigint, tgThreadId?: bigint | null) {
         return tgThreadId ? `${tgChatId}:${tgThreadId}` : String(tgChatId)
     }
 

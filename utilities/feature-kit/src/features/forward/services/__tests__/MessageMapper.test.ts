@@ -53,7 +53,7 @@ describe('forwardMapper', () => {
       const unified: any = { content: [] }
       const tgMsg: any = { id: 100 }
       const receipt: any = { messageId: 200 }
-      const pair: any = { qqRoomId: BigInt(1000), tgChatId: 2000, instanceId: 1 }
+      const pair: any = { qqRoomId: BigInt(1000), tgChatId: BigInt(2000), instanceId: 1 }
 
       await mapper.saveTgToQqMapping(unified, tgMsg, receipt, pair)
 
@@ -67,7 +67,7 @@ describe('forwardMapper', () => {
       const unified: any = { content: [{ type: 'text', data: { text: 'Hello' } }] }
       const tgMsg: any = { id: 100, sender: { id: 123 } }
       const receipt: any = { messageId: 200 }
-      const pair: any = { qqRoomId: BigInt(1000), tgChatId: 2000, instanceId: 1 }
+      const pair: any = { qqRoomId: BigInt(1000), tgChatId: BigInt(2000), instanceId: 1 }
 
       await mapper.saveTgToQqMapping(unified, tgMsg, receipt, pair)
 
@@ -156,7 +156,7 @@ describe('forwardMapper', () => {
       const mockResult = { seq: 123 }
       vi.mocked(db.query.message.findFirst).mockResolvedValue(mockResult as any)
 
-      const result = await mapper.findQqSource(1, 2000, 100)
+      const result = await mapper.findQqSource(1, BigInt(2000), BigInt(100))
       expect(result).toEqual(mockResult)
     })
   })
