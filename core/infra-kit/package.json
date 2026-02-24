@@ -1,6 +1,6 @@
 {
     "name": "@napgram/infra-kit",
-    "version": "0.1.20",
+    "version": "0.1.21",
     "description": "Infrastructure exports for NapGram plugins",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",

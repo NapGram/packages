@@ -1,6 +1,6 @@
 {
     "name": "@napgram/plugin-adapter-telegram-mtcute",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "description": "NapGram Telegram adapter for mtcute",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",

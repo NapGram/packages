@@ -1,6 +1,6 @@
 {
     "name": "@napgram/request-kit",
-    "version": "0.1.10",
+    "version": "0.1.11",
     "description": "Request automation helpers for NapGram",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
