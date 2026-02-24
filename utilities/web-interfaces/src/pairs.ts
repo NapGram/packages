@@ -74,7 +74,7 @@ export default async function (fastify: FastifyInstance) {
   const createPairSchema = z.object({
     qqRoomId: bigIntId,
     tgChatId: bigIntId,
-    tgThreadId: optionalInt.optional(),
+    tgThreadId: bigIntId.optional(),
     instanceId: intWithDefault(0).default(0),
     forwardMode: optionalMode.optional(),
     nicknameMode: optionalMode.optional(),
@@ -102,7 +102,7 @@ export default async function (fastify: FastifyInstance) {
   const updatePairSchema = z.object({
     qqRoomId: bigIntId.optional(),
     tgChatId: bigIntId.optional(),
-    tgThreadId: optionalInt.optional(),
+    tgThreadId: bigIntId.optional(),
     instanceId: z.preprocess((v) => {
       if (v === '' || v === undefined || v === null)
         return undefined
