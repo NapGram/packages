@@ -33,7 +33,7 @@ export class ReplyResolver {
         if (!replyToMsgId) {
             return undefined;
         }
-        const qqSource = await this.mapper.findQqSource(instanceId, tgChatId, replyToMsgId);
+        const qqSource = await this.mapper.findQqSource(instanceId, tgChatId, BigInt(replyToMsgId));
         if (qqSource) {
             logger.debug(`Resolved TG reply: TG msg ${replyToMsgId} -> QQ seq ${qqSource.seq}`);
             return {

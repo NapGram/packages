@@ -268,7 +268,7 @@ describe('qQInteractionCommandHandler', () => {
 
       expect(mockContext.instance.forwardPairs.findByTG).toHaveBeenCalledWith(
         '777777',
-        12345,
+        BigInt(12345),
         true,
       )
     })
@@ -282,7 +282,7 @@ describe('qQInteractionCommandHandler', () => {
       expect(mockContext.replyTG).toHaveBeenCalledWith(
         '777777',
         expect.any(String),
-        54321,
+        BigInt(54321),
       )
     })
   })

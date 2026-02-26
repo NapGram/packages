@@ -136,7 +136,7 @@ describe('refreshCommandHandler', () => {
         await handler.execute(msg, [], 'refresh')
 
         expect(mockQQClient.getGroupInfo).toHaveBeenCalledWith('888888')
-        expect(mockTgBot.getChat).toHaveBeenCalledWith(777777)
+        expect(mockTgBot.getChat).toHaveBeenCalledWith(BigInt(777777))
       })
 
       it('should update TG chat title with QQ group name', async () => {
@@ -310,7 +310,7 @@ describe('refreshCommandHandler', () => {
 
         expect(mockContext.instance.forwardPairs.findByTG).toHaveBeenCalledWith(
           '777777',
-          12345,
+          BigInt(12345),
           true,
         )
       })

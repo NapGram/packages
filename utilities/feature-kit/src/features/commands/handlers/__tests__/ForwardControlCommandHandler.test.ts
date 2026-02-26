@@ -341,7 +341,7 @@ describe('forwardControlCommandHandler', () => {
       expect(mockContext.replyTG).toHaveBeenCalledWith(
         '777777',
         expect.stringContaining('话题 12345'),
-        12345,
+        BigInt(12345),
       )
     })
   })
@@ -389,7 +389,7 @@ describe('forwardControlCommandHandler', () => {
 
       expect(mockContext.instance.forwardPairs.findByTG).toHaveBeenCalledWith(
         '777777',
-        99999,
+        BigInt(99999),
         true,
       )
     })
@@ -403,7 +403,7 @@ describe('forwardControlCommandHandler', () => {
       expect(mockContext.replyTG).toHaveBeenCalledWith(
         '777777',
         expect.any(String),
-        54321,
+        BigInt(54321),
       )
     })
   })

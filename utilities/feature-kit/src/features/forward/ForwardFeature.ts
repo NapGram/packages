@@ -23,6 +23,13 @@ import { ReplyResolver } from './services/ReplyResolver.js'
 import { MessageUtils } from './utils/MessageUtils.js'
 
 const logger = getLogger('ForwardFeature')
+const DEFAULT_TG_SEND_INTERVAL_MS = 350
+const FLOOD_WAIT_BUFFER_MS = 2000
+
+interface TelegramSendQueueState {
+  chain: Promise<void>
+  nextAvailableAt: number
+}
 
 /**
  * 基于新架构的简化转发实现（NapCat <-> Telegram）。
@@ -36,6 +43,10 @@ export class ForwardFeature {
   private tgMessageHandler: TelegramMessageHandler
   private mediaPreparer: ForwardMediaPreparer
   private processedMsgIds = new Set<string>()
+  private telegramSendQueue: TelegramSendQueueState = {
+    chain: Promise.resolve(),
+    nextAvailableAt: 0,
+  }
   private handleTgMessage = async (tgMsg: Message) => {
     const rawText = tgMsg.text || ''
     logger.debug('[Forward][TG->QQ] incoming', {
@@ -141,6 +152,74 @@ export class ForwardFeature {
         adminOnly: true,
       })
     }
+  }
+
+  private sleep(ms: number): Promise<void> {
+    if (ms <= 0)
+      return Promise.resolve()
+    return new Promise(resolve => setTimeout(resolve, ms))
+  }
+
+  private getMinSendIntervalMs(): number {
+    if (typeof process !== 'undefined' && process.env.NODE_ENV === 'test')
+      return 0
+    return DEFAULT_TG_SEND_INTERVAL_MS
+  }
+
+  private extractFloodWaitSeconds(error: unknown): number | null {
+    const message = String((error as any)?.message || error || '')
+    const directMatch = message.match(/FLOOD_WAIT[_\s]?(\d+)/i)
+    if (directMatch?.[1])
+      return Number(directMatch[1])
+
+    const waitMatch = message.match(/A wait of (\d+) seconds/i)
+    if (waitMatch?.[1])
+      return Number(waitMatch[1])
+
+    return null
+  }
+
+  private async executeTelegramSendWithRetry<T>(task: () => Promise<T>): Promise<T> {
+    const maxAttempts = 3
+    let attempt = 0
+
+    while (true) {
+      attempt += 1
+      try {
+        return await task()
+      }
+      catch (error) {
+        const floodWaitSeconds = this.extractFloodWaitSeconds(error)
+        if (!floodWaitSeconds || attempt >= maxAttempts) {
+          throw error
+        }
+
+        const waitMs = (floodWaitSeconds * 1000) + FLOOD_WAIT_BUFFER_MS
+        logger.warn(`[Forward][QQ->TG] FLOOD_WAIT ${floodWaitSeconds}s, pausing queue for ${waitMs}ms (attempt ${attempt}/${maxAttempts})`)
+        await this.sleep(waitMs)
+      }
+    }
+  }
+
+  private enqueueTelegramSend<T>(task: () => Promise<T>): Promise<T> {
+    const queue = this.telegramSendQueue
+
+    const run = async (): Promise<T> => {
+      const now = Date.now()
+      const waitMs = queue.nextAvailableAt - now
+      if (waitMs > 0)
+        await this.sleep(waitMs)
+
+      const result = await this.executeTelegramSendWithRetry(task)
+
+      const minIntervalMs = this.getMinSendIntervalMs()
+      queue.nextAvailableAt = Date.now() + minIntervalMs
+      return result
+    }
+
+    const current = queue.chain.then(run, run)
+    queue.chain = current.then(() => undefined, () => undefined)
+    return current
   }
 
   private setupListeners() {
@@ -487,7 +566,15 @@ export class ForwardFeature {
       // 处理回复 - 使用 ReplyResolver
       const replyToMsgId = await this.replyResolver.resolveQQReply(msg, pair.instanceId, pair.qqRoomId)
 
-      const sentMsg = await this.telegramSender.sendToTelegram(chat, msg, pair, replyToMsgId ? Number(replyToMsgId) : undefined, this.getNicknameMode(pair))
+      const sentMsg = await this.enqueueTelegramSend(() =>
+        this.telegramSender.sendToTelegram(
+          chat,
+          msg,
+          pair,
+          replyToMsgId ? Number(replyToMsgId) : undefined,
+          this.getNicknameMode(pair),
+        ),
+      )
 
       if (sentMsg) {
         await this.mapper.saveMessage(msg, sentMsg, pair.instanceId, pair.qqRoomId, BigInt(tgChatId))
@@ -649,4 +736,3 @@ export class ForwardFeature {
 }
 
 export default ForwardFeature
-

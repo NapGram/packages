@@ -411,7 +411,7 @@ describe('infoCommandHandler', () => {
 
       expect(mockContext.instance.forwardPairs.findByTG).toHaveBeenCalledWith(
         '777777',
-        12345,
+        BigInt(12345),
         true,
       )
     })
