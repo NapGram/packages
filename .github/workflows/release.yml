@@ -43,8 +43,9 @@ jobs:
       - name: Create Release PR or Publish
         uses: changesets/action@v1
         with:
+          github-token: ${{ secrets.GH_PACKAGES_TOKEN }}
           publish: pnpm changeset publish --registry https://npm.pkg.github.com
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+          NPM_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}

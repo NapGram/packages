@@ -15,7 +15,7 @@ permissions:
 jobs:
   changeset-release-pr:
     runs-on: ubuntu-latest
-    if: github.actor == 'github-actions[bot]' && github.event.pull_request.base.ref == 'main' && startsWith(github.event.pull_request.head.ref, 'changeset-release/')
+    if: github.event.pull_request.base.ref == 'main' && startsWith(github.event.pull_request.head.ref, 'changeset-release/') && github.event.pull_request.head.repo.full_name == github.repository && !github.event.pull_request.draft
     steps:
       - name: Enable auto-merge for Changeset release PR
         run: gh pr merge --auto --merge --delete-branch "$PR_URL"
