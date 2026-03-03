@@ -1,6 +1,30 @@
 import { pgTable, serial, integer, text, boolean, bigint, timestamp, json, customType, uniqueIndex, index, pgEnum } from 'drizzle-orm/pg-core';
 import { relations, sql } from 'drizzle-orm';
 
+function stringifyBigInts(obj: any): any {
+    if (obj === null || obj === undefined) {
+        return obj;
+    }
+
+    if (typeof obj === 'bigint') {
+        return obj.toString();
+    }
+
+    if (Array.isArray(obj)) {
+        return obj.map(item => stringifyBigInts(item));
+    }
+
+    if (typeof obj === 'object' && !(obj instanceof Date)) {
+        const result: Record<string, any> = {};
+        for (const key of Object.keys(obj)) {
+            result[key] = stringifyBigInts(obj[key]);
+        }
+        return result;
+    }
+
+    return obj;
+}
+
 // Custom types mapping
 // Prisma BigInt -> JS BigInt (handled by drizzle bigint mode: 'bigint')
 // Prisma Bytes -> Buffer (handled by customType or simple bytes if available, Drizzle has customType)
@@ -10,6 +34,21 @@ const bytea = customType<{ data: Buffer; driverData: Buffer }>({
         return 'bytea';
     },
 });
+
+const jsonWithBigInt = <TName extends string>(name: TName) => customType<{ data: any; driverData: string }>({
+    dataType() {
+        return 'json';
+    },
+    toDriver(value) {
+        return JSON.stringify(stringifyBigInts(value));
+    },
+    fromDriver(value) {
+        if (typeof value === 'string') {
+            return JSON.parse(value);
+        }
+        return value;
+    },
+})(name);
 
 // Enums
 export const qqBotType = pgEnum('QqBotType', ['napcat']);
@@ -278,7 +317,7 @@ export const adminAuditLog = pgTable('AdminAuditLog', {
     action: text('action').notNull(),
     resource: text('resource'),
     resourceId: text('resourceId'),
-    details: json('details'),
+    details: jsonWithBigInt('details'),
     ipAddress: text('ipAddress'),
     userAgent: text('userAgent'),
     createdAt: timestamp('createdAt').defaultNow().notNull(),
@@ -340,7 +379,7 @@ export const automationRule = pgTable('AutomationRule', {
     instanceId: integer('instanceId').notNull().references(() => instance.id, { onDelete: 'cascade' }),
     type: text('type').notNull(),
     target: text('target').notNull(),
-    conditions: json('conditions').notNull(),
+    conditions: jsonWithBigInt('conditions').notNull(),
     action: text('action').notNull(),
     reason: text('reason'),
     enabled: boolean('enabled').default(true).notNull(),

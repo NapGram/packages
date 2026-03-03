@@ -10,6 +10,9 @@ export type LoggerFactory = (name: string) => LoggerLike;
 
 export interface TelegramEnv {
     DATA_DIR?: string;
+    PROXY?: string;
+    PROXY_URL?: string;
+    PROXY_TYPE?: string;
     PROXY_IP?: string;
     PROXY_PORT?: string | number;
     PROXY_USERNAME?: string;
@@ -53,6 +56,9 @@ export function getTelegramClientDependencies(): TelegramClientDependencies {
 export function resolveTelegramEnv(env?: TelegramEnv): TelegramEnv {
     return {
         DATA_DIR: env?.DATA_DIR ?? process.env.DATA_DIR,
+        PROXY: env?.PROXY ?? process.env.PROXY,
+        PROXY_URL: env?.PROXY_URL ?? process.env.PROXY_URL,
+        PROXY_TYPE: env?.PROXY_TYPE ?? process.env.PROXY_TYPE,
         PROXY_IP: env?.PROXY_IP ?? process.env.PROXY_IP,
         PROXY_PORT: env?.PROXY_PORT ?? process.env.PROXY_PORT,
         PROXY_USERNAME: env?.PROXY_USERNAME ?? process.env.PROXY_USERNAME,

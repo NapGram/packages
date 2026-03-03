@@ -4,7 +4,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { Message } from '@mtcute/core'
 import { Dispatcher } from '@mtcute/dispatcher'
-import { HttpProxyTcpTransport, TelegramClient } from '@mtcute/node'
+import { HttpProxyTcpTransport, SocksProxyTcpTransport, TelegramClient } from '@mtcute/node'
 import {
   getTelegramClientDependencies,
   resolveLoggerFactory,
@@ -25,6 +25,96 @@ export default class Telegram {
   private tempPath!: string
 
   private static existedBots = {} as { [id: number]: Telegram }
+
+  private resolveProxyType(raw?: string): 'socks5' | 'http' | 'https' {
+    const normalized = (raw || 'socks5').trim().toLowerCase()
+    if (normalized === 'socks' || normalized === 'socks5') {
+      return 'socks5'
+    }
+    if (normalized === 'http' || normalized === 'https') {
+      return normalized
+    }
+    this.logger.warn(`Unknown PROXY_TYPE="${raw}", fallback to socks5`)
+    return 'socks5'
+  }
+
+  private createProxyTransportFromUrl(rawUrl: string) {
+    let proxyUrl: URL
+    try {
+      proxyUrl = new URL(rawUrl.trim())
+    }
+    catch {
+      throw new Error(`Invalid proxy url: ${rawUrl}`)
+    }
+
+    const protocol = proxyUrl.protocol.replace(/:$/, '').toLowerCase()
+    const host = proxyUrl.hostname
+    const user = proxyUrl.username ? decodeURIComponent(proxyUrl.username) : undefined
+    const password = proxyUrl.password ? decodeURIComponent(proxyUrl.password) : undefined
+
+    if (!host) {
+      throw new Error(`Invalid proxy url host: ${rawUrl}`)
+    }
+
+    if (protocol === 'socks4' || protocol === 'socks5' || protocol === 'socks') {
+      const port = Number(proxyUrl.port || 1080)
+      return new SocksProxyTcpTransport({
+        host,
+        port,
+        user,
+        password,
+        ...(protocol === 'socks4' ? { version: 4 as const } : { version: 5 as const }),
+      })
+    }
+
+    if (protocol === 'http' || protocol === 'https') {
+      const port = Number(proxyUrl.port || (protocol === 'https' ? 443 : 80))
+      return new HttpProxyTcpTransport({
+        host,
+        port,
+        user,
+        password,
+        ...(protocol === 'https' ? { tls: true } : {}),
+      })
+    }
+
+    throw new Error(`Unsupported proxy protocol: ${protocol}`)
+  }
+
+  private createProxyTransport() {
+    const proxyUrl = this.env.PROXY_URL || this.env.PROXY
+    if (proxyUrl) {
+      try {
+        return this.createProxyTransportFromUrl(proxyUrl)
+      }
+      catch (err) {
+        this.logger.error(`Invalid proxy url: ${proxyUrl}`, err)
+        throw err
+      }
+    }
+
+    if (!this.env.PROXY_IP || !this.env.PROXY_PORT) {
+      return undefined
+    }
+
+    const proxyType = this.resolveProxyType(this.env.PROXY_TYPE)
+    if (proxyType === 'http' || proxyType === 'https') {
+      return new HttpProxyTcpTransport({
+        host: this.env.PROXY_IP,
+        port: Number(this.env.PROXY_PORT),
+        user: this.env.PROXY_USERNAME,
+        password: this.env.PROXY_PASSWORD,
+        ...(proxyType === 'https' ? { tls: true } : {}),
+      })
+    }
+
+    return new SocksProxyTcpTransport({
+      host: this.env.PROXY_IP,
+      port: Number(this.env.PROXY_PORT),
+      user: this.env.PROXY_USERNAME,
+      password: this.env.PROXY_PASSWORD,
+    })
+  }
 
   public get sessionId() {
     return this.session.dbId
@@ -72,15 +162,7 @@ export default class Telegram {
 
     const defaultStorage = path.join(dataDir, 'session.db')
     const finalStorage = storage || defaultStorage
-    const proxyTransport
-      = this.env.PROXY_IP && this.env.PROXY_PORT
-        ? new HttpProxyTcpTransport({
-          host: this.env.PROXY_IP,
-          port: Number(this.env.PROXY_PORT),
-          user: this.env.PROXY_USERNAME,
-          password: this.env.PROXY_PASSWORD,
-        })
-        : undefined
+    const proxyTransport = this.createProxyTransport()
 
     try {
       this.client = new TelegramClient({

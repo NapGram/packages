@@ -3,24 +3,24 @@
  */
 export function stringifyBigInts(obj: any): any {
     if (obj === null || obj === undefined) {
-        return obj
+        return obj;
     }
 
     if (typeof obj === 'bigint') {
-        return obj.toString()
+        return obj.toString();
     }
 
     if (Array.isArray(obj)) {
-        return obj.map(item => stringifyBigInts(item))
+        return obj.map(item => stringifyBigInts(item));
     }
 
-    if (typeof obj === 'object') {
-        const result: Record<string, any> = {}
+    if (typeof obj === 'object' && !(obj instanceof Date)) {
+        const result: Record<string, any> = {};
         for (const key of Object.keys(obj)) {
-            result[key] = stringifyBigInts(obj[key])
+            result[key] = stringifyBigInts(obj[key]);
         }
-        return result
+        return result;
     }
 
-    return obj
+    return obj;
 }

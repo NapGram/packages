@@ -74,14 +74,14 @@ importers:
   clients/telegram-client:
     dependencies:
       '@mtcute/core':
-        specifier: ^0.27.5
-        version: 0.27.5
+        specifier: ^0.28.1
+        version: 0.28.1
       '@mtcute/dispatcher':
-        specifier: ^0.27.5
-        version: 0.27.5
+        specifier: ^0.28.1
+        version: 0.28.1
       '@mtcute/node':
-        specifier: ^0.27.5
-        version: 0.27.5(ws@8.19.0)
+        specifier: ^0.28.1
+        version: 0.28.1(ws@8.19.0)
     devDependencies:
       '@types/node':
         specifier: 25.0.3
@@ -145,8 +145,8 @@ importers:
         specifier: workspace:*
         version: link:../runtime-kit
       '@napgram/sdk':
-        specifier: ^0.1.15
-        version: 0.1.15
+        specifier: workspace:*
+        version: link:../../sdk
       '@sentry/node':
         specifier: 10.32.1
         version: 10.32.1
@@ -704,14 +704,14 @@ importers:
   utilities/feature-kit:
     dependencies:
       '@mtcute/core':
-        specifier: ^0.27.5
-        version: 0.27.5
+        specifier: ^0.28.1
+        version: 0.28.1
       '@mtcute/markdown-parser':
-        specifier: ^0.27.5
-        version: 0.27.5
+        specifier: ^0.28.1
+        version: 0.28.1
       '@mtcute/node':
-        specifier: ^0.27.5
-        version: 0.27.5(ws@8.19.0)
+        specifier: ^0.28.1
+        version: 0.28.1(ws@8.19.0)
       '@napgram/auth-kit':
         specifier: workspace:*
         version: link:../auth-kit
@@ -756,11 +756,11 @@ importers:
   utilities/gateway-kit:
     dependencies:
       '@mtcute/core':
-        specifier: ^0.27.5
-        version: 0.27.5
+        specifier: ^0.28.1
+        version: 0.28.1
       '@mtcute/node':
-        specifier: ^0.27.5
-        version: 0.27.5(ws@8.19.0)
+        specifier: ^0.28.1
+        version: 0.28.1(ws@8.19.0)
       '@napgram/infra-kit':
         specifier: workspace:*
         version: link:../../core/infra-kit
@@ -840,8 +840,8 @@ importers:
   utilities/message-kit:
     dependencies:
       '@mtcute/core':
-        specifier: ^0.27.5
-        version: 0.27.5
+        specifier: ^0.28.1
+        version: 0.28.1
       '@napgram/infra-kit':
         specifier: workspace:*
         version: link:../../core/infra-kit
@@ -1556,14 +1556,14 @@ packages:
   '@fastify/proxy-addr@5.1.0':
     resolution: {integrity: sha512-INS+6gh91cLUjB+PVHfu1UqcB76Sqtpyp7bnL+FYojhjygvOPA9ctiD/JDKsyD9Xgu4hUhCSJBPig/w7duNajw==}
 
-  '@fuman/io@0.0.17':
-    resolution: {integrity: sha512-VmMnfHtXzBfEddEfptn/oYshUzWqW2XUkdVnwKuHWphEQTQZrOWxC7G12FI9U2EhEYt4nRdrUTYk65U8GVJWYw==}
+  '@fuman/io@0.0.19':
+    resolution: {integrity: sha512-B+2n3GVa9PCYMJ9xfsdXUlUV9yXO4gKLYfxm815PeJ+MGOw5TbEp166drRmBq1AtxVnP0efy6Oz9rYpKVODgow==}
 
-  '@fuman/net@0.0.17':
-    resolution: {integrity: sha512-x/kK3kWQ+gy5rfsoS6QVCsodh9n/XJeM3c6m1YHPUiQ0gWWQd4CC1bcQ/rh2UHh9DQyJJeWjCQXWH2xmsVCcFQ==}
+  '@fuman/net@0.0.19':
+    resolution: {integrity: sha512-yISM+JcZEWBpBYn0v2mUY/Zst4SsicTRaVTvRkVhMiZhgMzdXalfvRwRV/vsgwwL31bntwowCTDW4iilCJLbXg==}
 
-  '@fuman/node@0.0.17':
-    resolution: {integrity: sha512-XXRlJthuCnJBnIrg/tZcqCfv/cPuXuNOVUN521oJgKrW8FyFmt+lAt2MlYw3TROumGNRMtvn3ySjdQRpBT2sLw==}
+  '@fuman/node@0.0.19':
+    resolution: {integrity: sha512-1VNTBb47yrN5BzuXiP4t6An7mDPklH5N+vUtkeL3XATK+xWbtlQsSsU244T7iqGurmDpYrLM9kIUjdMFm8OhDw==}
     peerDependencies:
       ws: ^8.18.1
     peerDependenciesMeta:
@@ -1573,8 +1573,8 @@ packages:
   '@fuman/utils@0.0.15':
     resolution: {integrity: sha512-3H3WzkfG7iLKCa/yNV4s80lYD4yr5hgiNzU13ysLY2BcDqFjM08XGYuLd5wFVp4V8+DA/fe8gIDW96To/JwDyA==}
 
-  '@fuman/utils@0.0.17':
-    resolution: {integrity: sha512-hy1Xu1146nOspVam8FC6p4yakb1FV1V3KrS85RzcHiK7AccFKR43Fgtv8exC8Ybsw6MtMU+MRNyaPqVhA+7TsA==}
+  '@fuman/utils@0.0.19':
+    resolution: {integrity: sha512-4qVrZ9AjKYztLJsNr1Tp7kL48b22dvVLN1iVW+Me8ZSQ0ILN0qknoxjsczVPReF7+GDWgknNxR2l6ggrA4SZyw==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -1631,41 +1631,32 @@ packages:
   '@manypkg/get-packages@1.1.3':
     resolution: {integrity: sha512-fo+QhuU3qE/2TQMQmbVMqaQ6EWbMhi4ABWP+O4AM1NqPBuy0OrApV5LO6BrrgnhtAHS2NH6RrVk9OL181tTi8A==}
 
-  '@mtcute/core@0.27.5':
-    resolution: {integrity: sha512-OMWFxiMVHMM8zPbliHjzNzc7q6DbJhoHpLGEmUPYQ7e/PMejIvluHWr4+TXUTOLtsvbkggOgvLyQekawrN4bsA==}
+  '@mtcute/core@0.28.1':
+    resolution: {integrity: sha512-ahpY3HxTfVvhhFao73P7SLF4nUkxfoRRtCGyWgZr8bjcBMs2fcVP0+EiiTZkUc4qJf+9wdUasUxq3caqIqdCHw==}
 
-  '@mtcute/dispatcher@0.27.5':
-    resolution: {integrity: sha512-jjzGrxBW27cIZgnQ/XtUL1zmPk89mklbhdotFglaQAWiYXAmDBRtV8ieDW3ybJFgD5OzVBb/aQhWQz0ybvpDlA==}
+  '@mtcute/dispatcher@0.28.1':
+    resolution: {integrity: sha512-qRUXVukPlqL8oncNTj0T/3GSNrhLlFE0SY9oAQMNektJTbfiMtRYo305CK/hP1TGmoeq8wk9C5cf/DC7MbdfUQ==}
 
-  '@mtcute/file-id@0.27.0':
-    resolution: {integrity: sha512-a8+8TSot62zM7rmuNzf7aTk3dws3wuHPjWRFeybhFg11Gr1/1f8R3MRGoHYzDGRcuXobcU9mUQxEKYYE+ogdEg==}
+  '@mtcute/file-id@0.28.1':
+    resolution: {integrity: sha512-OtjJEk/NF1+uKxf9D+IYtIrfglUzmg4KYoy21FrnbLgnqHw0EZbocgDDmJy/5/j5GVAHC/SHp7AGw4RkWCd9rw==}
 
-  '@mtcute/html-parser@0.27.5':
-    resolution: {integrity: sha512-nNMwfSFT+2NCmpGnAey6RWc2sE21R71d4NyjiNjvMZU8TxEDIUokOLAVhaf20HFEYBiVyugexz7iJ8msVFsp2Q==}
+  '@mtcute/html-parser@0.28.1':
+    resolution: {integrity: sha512-Kw1mANUtlb6+u1/qj3CItJSI0gb6sSRAaZAOAKDmcYlPo3g1jT0tms3Rxjxd0un5owzCx0W8VpIk3ep7AXyaow==}
 
-  '@mtcute/markdown-parser@0.27.5':
-    resolution: {integrity: sha512-KA9juC0tuk37O0qM5Ht2t+KD33WkA2/QHufYPoqKmtAeuQ7N7nB3m/n+4bK+PFLfA9UHyjhYzlrwQAV8UYXtcg==}
+  '@mtcute/markdown-parser@0.28.1':
+    resolution: {integrity: sha512-wKNPG9BcuAD9GB3O4FFXhGo2ciM6lioL0uldDMDZm1GugcdBp0mKhT+h8QJyDDrRM9l+XW01MROTc1KZbItAZQ==}
 
-  '@mtcute/node@0.27.5':
-    resolution: {integrity: sha512-7kGQ2Mg07IMbFgi0ckW31k3I28DkM/AT4g6o6qyLGdiCj31Z4JWDPT0DBwRVh6O6gt+FuXN1gepiEZ77/If+DQ==}
+  '@mtcute/node@0.28.1':
+    resolution: {integrity: sha512-ygXPuH+YNHfTNnhgr6eDwLFYl9uda7hLNbnsq2YIf20dqmi4H1swb4xrEHSqptwUr/BYRRYFBOGfbQpkvAUaIQ==}
 
   '@mtcute/tl-runtime@0.24.3':
     resolution: {integrity: sha512-61J3cgYgNOQT532GdIiuezRrSC7v6cc9MfvWv9GO27bRGf7JUKWVbFt4U0KzQ9Tp0J1uMOUfi1EbQKkYKacIKQ==}
 
-  '@mtcute/tl@221.0.0':
-    resolution: {integrity: sha512-Wp01L9nznTMLl2s9rbKnzQ8pij72eF4HK2XIziOQoJXiObPKZxQdxvMj+C6l0ArxMFmpT0H0/3EL5RB7O6VPwg==}
+  '@mtcute/tl@222.0.0':
+    resolution: {integrity: sha512-zg64rX2V7GPrQBJcZ2QX6Z+bLxkF7n1V2HxKQUB+mBkTPElmqMY9dE1lbzcwQw7Dys8lo9h3WlTOnfa1LeNyvw==}
 
-  '@mtcute/wasm@0.27.0':
-    resolution: {integrity: sha512-1v4eO1N1BVRQ8L+cyUsMAeLXs5suTGXyVv/tftkbd/mGGHxc+fvOWItp3Fmq+GIwN7m4VX7kztuMMLhHxv2i2Q==}
-
-  '@napgram/core@0.1.15':
-    resolution: {integrity: sha512-/k68POBVZL3APMipDPbWYF4ZSOtJh2HSb9Isq4DRThM+m3cNO/+YDza8yKs8PiPDiKrSfakT7RXaODtDI4dMmQ==, tarball: https://npm.pkg.github.com/download/@napgram/core/0.1.15/b313dc7f25fff04dad556019fa4f4f4f756c03da}
-
-  '@napgram/sdk@0.1.15':
-    resolution: {integrity: sha512-O5oObNYa7t+s3JJSS0JVWjoeCHSu7P6ZaYHVxhzCQ9vLfgsvDyspd8hWxV3HRLTosT1Waj6JbpjOFLvvgP3zuw==, tarball: https://npm.pkg.github.com/download/@napgram/sdk/0.1.15/4ca09b6621bc6e4320fbe89a8f7aea39417dfa91}
-
-  '@napgram/utils@0.1.15':
-    resolution: {integrity: sha512-ZBkNLNfHnfdDp6QuM7YosV1Unqh5U/hFIavFz9+Z59ZQvxh4Ic7W98Wz7w6pM1mmoakDIqcOPfO2seZFkjIRhA==, tarball: https://npm.pkg.github.com/download/@napgram/utils/0.1.15/7d474892db9d5e3f4f63342916b8cba367753def}
+  '@mtcute/wasm@0.27.8':
+    resolution: {integrity: sha512-3z1v1WtkAAW95l5t8LB3Ul+Y8dQNMez5YF16cHE3mAHX5RRrfgE+rgVk+wRQJHa24CugfuEEBSi6QpdZuTRBIw==}
 
   '@naplink/naplink@0.0.7':
     resolution: {integrity: sha512-ndZqUVrUf3OVS+DhQB44bIt6Azx1peC1CTmolxu3j5BWtJbfOrHq/NTwQY5u5frGp+CTa06CUJLfrXkPd8aAyg==}
@@ -4389,26 +4380,26 @@ snapshots:
       '@fastify/forwarded': 3.0.1
       ipaddr.js: 2.3.0
 
-  '@fuman/io@0.0.17':
+  '@fuman/io@0.0.19':
     dependencies:
-      '@fuman/utils': 0.0.17
+      '@fuman/utils': 0.0.19
 
-  '@fuman/net@0.0.17':
+  '@fuman/net@0.0.19':
     dependencies:
-      '@fuman/io': 0.0.17
-      '@fuman/utils': 0.0.17
+      '@fuman/io': 0.0.19
+      '@fuman/utils': 0.0.19
 
-  '@fuman/node@0.0.17(ws@8.19.0)':
+  '@fuman/node@0.0.19(ws@8.19.0)':
     dependencies:
-      '@fuman/io': 0.0.17
-      '@fuman/net': 0.0.17
-      '@fuman/utils': 0.0.17
+      '@fuman/io': 0.0.19
+      '@fuman/net': 0.0.19
+      '@fuman/utils': 0.0.19
     optionalDependencies:
       ws: 8.19.0
 
   '@fuman/utils@0.0.15': {}
 
-  '@fuman/utils@0.0.17': {}
+  '@fuman/utils@0.0.19': {}
 
   '@humanfs/core@0.19.1': {}
 
@@ -4470,48 +4461,48 @@ snapshots:
       globby: 11.1.0
       read-yaml-file: 1.1.0
 
-  '@mtcute/core@0.27.5':
+  '@mtcute/core@0.28.1':
     dependencies:
-      '@fuman/io': 0.0.17
-      '@fuman/net': 0.0.17
-      '@fuman/utils': 0.0.17
-      '@mtcute/file-id': 0.27.0
-      '@mtcute/tl': 221.0.0
+      '@fuman/io': 0.0.19
+      '@fuman/net': 0.0.19
+      '@fuman/utils': 0.0.19
+      '@mtcute/file-id': 0.28.1
+      '@mtcute/tl': 222.0.0
       '@mtcute/tl-runtime': 0.24.3
       '@types/events': 3.0.0
       long: 5.2.3
 
-  '@mtcute/dispatcher@0.27.5':
+  '@mtcute/dispatcher@0.28.1':
     dependencies:
-      '@fuman/utils': 0.0.17
-      '@mtcute/core': 0.27.5
+      '@fuman/utils': 0.0.19
+      '@mtcute/core': 0.28.1
 
-  '@mtcute/file-id@0.27.0':
+  '@mtcute/file-id@0.28.1':
     dependencies:
-      '@fuman/utils': 0.0.17
+      '@fuman/utils': 0.0.19
       '@mtcute/tl-runtime': 0.24.3
       long: 5.2.3
 
-  '@mtcute/html-parser@0.27.5':
+  '@mtcute/html-parser@0.28.1':
     dependencies:
-      '@mtcute/core': 0.27.5
+      '@mtcute/core': 0.28.1
       htmlparser2: 10.0.0
       long: 5.2.3
 
-  '@mtcute/markdown-parser@0.27.5':
+  '@mtcute/markdown-parser@0.28.1':
     dependencies:
-      '@mtcute/core': 0.27.5
+      '@mtcute/core': 0.28.1
       long: 5.2.3
 
-  '@mtcute/node@0.27.5(ws@8.19.0)':
+  '@mtcute/node@0.28.1(ws@8.19.0)':
     dependencies:
-      '@fuman/net': 0.0.17
-      '@fuman/node': 0.0.17(ws@8.19.0)
-      '@fuman/utils': 0.0.17
-      '@mtcute/core': 0.27.5
-      '@mtcute/html-parser': 0.27.5
-      '@mtcute/markdown-parser': 0.27.5
-      '@mtcute/wasm': 0.27.0
+      '@fuman/net': 0.0.19
+      '@fuman/node': 0.0.19(ws@8.19.0)
+      '@fuman/utils': 0.0.19
+      '@mtcute/core': 0.28.1
+      '@mtcute/html-parser': 0.28.1
+      '@mtcute/markdown-parser': 0.28.1
+      '@mtcute/wasm': 0.27.8
       better-sqlite3: 12.5.0
     transitivePeerDependencies:
       - ws
@@ -4521,22 +4512,11 @@ snapshots:
       '@fuman/utils': 0.0.15
       long: 5.2.3
 
-  '@mtcute/tl@221.0.0':
+  '@mtcute/tl@222.0.0':
     dependencies:
       long: 5.2.3
 
-  '@mtcute/wasm@0.27.0': {}
-
-  '@napgram/core@0.1.15': {}
-
-  '@napgram/sdk@0.1.15':
-    dependencies:
-      '@napgram/core': 0.1.15
-      '@napgram/utils': 0.1.15
-
-  '@napgram/utils@0.1.15':
-    dependencies:
-      '@napgram/core': 0.1.15
+  '@mtcute/wasm@0.27.8': {}
 
   '@naplink/naplink@0.0.7':
     dependencies:

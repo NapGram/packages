@@ -14,21 +14,30 @@ export default async function (fastify: FastifyInstance) {
     preHandler: authMiddleware,
   }, async () => {
     const startOfToday = Math.floor(new Date().setHours(0, 0, 0, 0) / 1000)
+    const safeCount = async (target: any, where?: any) => {
+      try {
+        const query = db.select({ value: count() }).from(target)
+        if (where)
+          query.where(where)
+        const result = await query
+        return result[0].value
+      }
+      catch (err) {
+        return 0
+      }
+    }
+
     const [
-      pairCountResult,
-      instanceCountResult,
-      messageCountResult,
-      todayMessageCountResult,
+      pairCount,
+      instanceCount,
+      messageCount,
+      todayMessageCount,
     ] = await Promise.all([
-      db.select({ value: count() }).from(schema.forwardPair),
-      db.select({ value: count() }).from(schema.instance),
-      db.select({ value: count() }).from(schema.message),
-      db.select({ value: count() }).from(schema.message).where(gte(schema.message.time, startOfToday)),
+      safeCount(schema.forwardPair),
+      safeCount(schema.instance),
+      safeCount(schema.message),
+      safeCount(schema.message, gte(schema.message.time, startOfToday)),
     ])
-    const pairCount = pairCountResult[0].value
-    const instanceCount = instanceCountResult[0].value
-    const messageCount = messageCountResult[0].value
-    const todayMessageCount = todayMessageCountResult[0].value
 
     // Basic health check
     const health = {
