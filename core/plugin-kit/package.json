@@ -39,16 +39,16 @@
         "@napgram/message-kit": "workspace:*",
         "@napgram/runtime-kit": "workspace:*",
         "@napgram/sdk": "workspace:*",
-        "@sentry/node": "10.32.1",
+        "@sentry/node": "10.42.0",
         "axios": "^1.13.2",
         "semver": "^7.7.3",
         "yaml": "^2.8.2",
-        "zod": "4.3.5"
+        "zod": "4.3.6"
     },
     "devDependencies": {
-        "@types/node": "25.0.3",
+        "@types/node": "25.3.3",
         "@types/semver": "^7.7.1",
         "typescript": "5.9.3",
-        "vitest": "4.0.16"
+        "vitest": "4.0.18"
     }
 }
