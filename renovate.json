@@ -1,0 +1,44 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "baseBranches": [
+    "main"
+  ],
+  "prConcurrentLimit": 10,
+  "packageRules": [
+    {
+      "matchManagers": [
+        "npm",
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
+      "groupName": "safe dependency updates",
+      "labels": [
+        "dependencies",
+        "safe-update"
+      ],
+      "automerge": false
+    },
+    {
+      "matchManagers": [
+        "npm",
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "labels": [
+        "dependencies",
+        "major"
+      ],
+      "automerge": false
+    }
+  ]
+}

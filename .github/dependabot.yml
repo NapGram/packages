@@ -1,18 +1,18 @@
 version: 2
 updates:
+  # Dependabot version updates are disabled for this repository.
+  # Security alerts remain available via GitHub Dependabot Alerts.
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "daily"
-    groups:
-      all-npm-deps:
-        patterns:
-          - "*"
+    target-branch: "main"
+    ignore:
+      - dependency-name: "*"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
-    groups:
-      all-actions:
-        patterns:
-          - "*"
+    target-branch: "main"
+    ignore:
+      - dependency-name: "*"

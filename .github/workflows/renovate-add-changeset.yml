@@ -1,0 +1,100 @@
+name: Renovate Add Changeset
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - labeled
+      - ready_for_review
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  add-changeset:
+    runs-on: ubuntu-latest
+    if: |
+      (github.event.pull_request.user.login == 'renovate[bot]' || github.event.pull_request.user.login == 'app/renovate') &&
+      github.event.pull_request.base.ref == 'main' &&
+      !github.event.pull_request.draft &&
+      contains(github.event.pull_request.labels.*.name, 'safe-update') &&
+      !contains(github.event.pull_request.labels.*.name, 'major')
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.GH_PACKAGES_TOKEN }}
+          fetch-depth: 0
+
+      - name: Generate or update changeset for Renovate PR
+        env:
+          BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
+          HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+
+          git fetch origin "$BASE_BRANCH"
+
+          mapfile -t changed_files < <(git diff --name-only "origin/${BASE_BRANCH}...HEAD" -- '**/package.json')
+
+          declare -a pkg_names=()
+          for file in "${changed_files[@]}"; do
+            if [[ ! -f "$file" ]]; then
+              continue
+            fi
+
+            if ! jq -e '.private != true' "$file" >/dev/null 2>&1; then
+              continue
+            fi
+
+            name="$(jq -r '.name // empty' "$file")"
+            if [[ -n "$name" ]]; then
+              pkg_names+=("$name")
+            fi
+          done
+
+          if [[ "${#pkg_names[@]}" -gt 0 ]]; then
+            mapfile -t uniq_pkg_names < <(printf '%s\n' "${pkg_names[@]}" | sort -u)
+          else
+            uniq_pkg_names=()
+          fi
+
+          changeset_file=".changeset/renovate-pr-${PR_NUMBER}.md"
+
+          if [[ "${#uniq_pkg_names[@]}" -eq 0 ]]; then
+            if [[ -f "$changeset_file" ]]; then
+              rm -f "$changeset_file"
+            fi
+          else
+            {
+              echo '---'
+              for pkg in "${uniq_pkg_names[@]}"; do
+                printf '"%s": patch\n' "$pkg"
+              done
+              echo '---'
+              echo
+              echo "chore: renovate dependency updates (#${PR_NUMBER})"
+            } > "$changeset_file"
+          fi
+
+          if git diff --quiet -- "$changeset_file"; then
+            echo "No changeset updates needed."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if [[ -f "$changeset_file" ]]; then
+            git add "$changeset_file"
+          else
+            git rm -f "$changeset_file"
+          fi
+
+          git commit -m "chore(changeset): add renovate changeset for #${PR_NUMBER}"
+          git push origin "HEAD:${HEAD_BRANCH}"
