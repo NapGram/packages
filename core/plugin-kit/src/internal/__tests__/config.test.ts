@@ -542,6 +542,64 @@ describe('loadPluginSpecs priority and override logic', () => {
     expect(pingPong?.module).toContain('custom-ping-pong.js')
   })
 
+  it('should apply id-only config override to builtin plugin', async () => {
+    process.env.PLUGINS_CONFIG_PATH = '/app/data/config.json'
+    vi.mocked(fs.access).mockResolvedValue(undefined)
+    vi.mocked(fs.readFile).mockImplementation(async (p) => {
+      if (((p as any).includes)('config.json')) {
+        return JSON.stringify({
+          plugins: [{
+            id: 'ping-pong',
+            enabled: false,
+          }],
+        })
+      }
+      return ''
+    })
+    vi.mocked(fs.readdir).mockResolvedValue([])
+
+    const specs = await loadPluginSpecs()
+    const pingPong = specs.find(s => s.id === 'ping-pong')
+
+    expect(pingPong).toBeDefined()
+    expect(pingPong?.module).toBe('@builtin/ping-pong')
+    expect(pingPong?.enabled).toBe(false)
+  })
+
+  it('should treat missing legacy local builtin path as builtin override', async () => {
+    process.env.PLUGINS_CONFIG_PATH = '/app/data/config.json'
+    vi.mocked(fs.access).mockImplementation(async (p) => {
+      const pathStr = String(p)
+      if (pathStr.includes('config.json'))
+        return undefined
+      if (pathStr.endsWith('/plugins'))
+        return undefined
+      if (pathStr.includes('/app/data/local/ping-pong/index.mjs'))
+        throw new Error('missing module')
+      return undefined
+    })
+    vi.mocked(fs.readFile).mockImplementation(async (p) => {
+      if (((p as any).includes)('config.json')) {
+        return JSON.stringify({
+          plugins: [{
+            id: 'ping-pong',
+            module: './local/ping-pong/index.mjs',
+            enabled: false,
+          }],
+        })
+      }
+      return ''
+    })
+    vi.mocked(fs.readdir).mockResolvedValue([])
+
+    const specs = await loadPluginSpecs()
+    const pingPong = specs.find(s => s.id === 'ping-pong')
+
+    expect(pingPong).toBeDefined()
+    expect(pingPong?.module).toBe('@builtin/ping-pong')
+    expect(pingPong?.enabled).toBe(false)
+  })
+
   it('should skip duplicate plugin id from same priority source', async () => {
     vi.mocked(fs.readFile).mockResolvedValue('')
     vi.mocked(fs.access).mockResolvedValue(undefined)

@@ -1,7 +1,7 @@
 export interface PluginsConfigFile {
     plugins: Array<{
         id: string;
-        module: string;
+        module?: string;
         enabled?: boolean;
         config?: any;
         source?: any;
@@ -32,7 +32,7 @@ export declare function upsertPluginConfig(entry: {
     path: string;
     record: {
         id: string;
-        module: string;
+        module?: string;
         enabled: boolean;
         config: any;
         source: any;

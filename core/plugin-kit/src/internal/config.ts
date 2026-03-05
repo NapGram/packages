@@ -129,6 +129,8 @@ function sanitizeId(input: string): string {
     .slice(0, 64) || 'plugin'
 }
 
+const legacyLocalBuiltinPathPattern = /^\.\/local\/[^/]+\/index\.(?:mjs|js)$/i
+
 async function loadModule(specifier: string): Promise<any> {
   if (isTsFile(specifier) && !resolveAllowTsPlugins()) {
     throw new Error(`Refusing to load TypeScript plugin without PLUGINS_ALLOW_TS=1: ${specifier}`)
@@ -146,6 +148,14 @@ async function loadModule(specifier: string): Promise<any> {
 }
 
 export async function loadPluginSpecs(builtins: PluginSpec[] = []): Promise<PluginSpec[]> {
+  type BuiltinOverride = {
+    enabled: boolean
+    hasConfig: boolean
+    config: any
+    hasSource: boolean
+    source: any
+    reason: 'id-only' | 'legacy-missing-local-module'
+  }
   type SpecOrigin = 'config' | 'local' | 'builtin'
   const priorityByOrigin: Record<SpecOrigin, number> = {
     config: 3,
@@ -156,12 +166,27 @@ export async function loadPluginSpecs(builtins: PluginSpec[] = []): Promise<Plug
   let order = 0
   const allowTs = resolveAllowTsPlugins()
   const dataDir = resolveDataDir()
+  const builtinIds = new Set(builtins.map(builtin => sanitizeId(builtin.id)))
+  const builtinOverrides = new Map<string, BuiltinOverride>()
   const hasSpec = (predicate: (spec: PluginSpec) => boolean): boolean => {
     for (const entry of specsById.values()) {
       if (predicate(entry.spec))
         return true
     }
     return false
+  }
+  const rememberBuiltinOverride = (id: string, p: any, reason: BuiltinOverride['reason']) => {
+    if (!builtinIds.has(id))
+      return
+    builtinOverrides.set(id, {
+      enabled: p?.enabled !== false,
+      hasConfig: typeof p === 'object' && p !== null && 'config' in p,
+      config: p?.config,
+      hasSource: typeof p === 'object' && p !== null && 'source' in p,
+      source: p?.source,
+      reason,
+    })
+    logger.info({ id, reason }, 'Builtin plugin override loaded from config')
   }
   const addSpec = (spec: PluginSpec, origin: SpecOrigin) => {
     const priority = priorityByOrigin[origin]
@@ -205,11 +230,26 @@ export async function loadPluginSpecs(builtins: PluginSpec[] = []): Promise<Plug
 
       for (const p of plugins) {
         const rawId = typeof p?.id === 'string' ? p.id : ''
-        const moduleRaw = typeof p?.module === 'string' ? p.module : ''
+        const idFromRaw = rawId ? sanitizeId(rawId) : ''
+        const moduleRaw = typeof p?.module === 'string' ? p.module.trim() : ''
+        if (!moduleRaw) {
+          if (idFromRaw && builtinIds.has(idFromRaw))
+            rememberBuiltinOverride(idFromRaw, p, 'id-only')
+          else logger.warn({ id: idFromRaw || rawId, module: moduleRaw }, 'Skip plugin config without usable module')
+          continue
+        }
+
         const module = resolveModuleSpecifier(moduleRaw, baseDir)
         if (!module) {
           logger.warn({ module: moduleRaw }, 'Skip non-file plugin (only DATA_DIR file paths are allowed)')
           continue
+        }
+        if (idFromRaw && builtinIds.has(idFromRaw) && legacyLocalBuiltinPathPattern.test(moduleRaw)) {
+          const modulePathForCheck = module.startsWith('file://') ? fileUrlToPathSafe(module) : module
+          if (!await exists(modulePathForCheck)) {
+            rememberBuiltinOverride(idFromRaw, p, 'legacy-missing-local-module')
+            continue
+          }
         }
         if (isTsFile(module) && !allowTs) {
           logger.warn({ module }, 'Skip .ts plugin (set PLUGINS_ALLOW_TS=1 to enable)')
@@ -326,8 +366,21 @@ export async function loadPluginSpecs(builtins: PluginSpec[] = []): Promise<Plug
   // 加载内置插件（低优先级：仅当外部未提供同名 id）
   try {
     for (const builtin of builtins) {
-      addSpec(builtin, 'builtin')
-      if (specsById.get(builtin.id)?.spec === builtin) {
+      const builtinId = sanitizeId(builtin.id)
+      const override = !specsById.has(builtinId) ? builtinOverrides.get(builtinId) : undefined
+      const specToAdd = override
+        ? {
+            ...builtin,
+            enabled: override.enabled,
+            ...(override.hasConfig ? { config: override.config } : {}),
+            ...(override.hasSource ? { source: override.source } : {}),
+          }
+        : builtin
+      if (override) {
+        logger.info({ id: builtinId, reason: override.reason }, 'Applying builtin plugin override from config')
+      }
+      addSpec(specToAdd, 'builtin')
+      if (specsById.get(builtin.id)?.spec === specToAdd) {
         logger.debug({ id: builtin.id, module: builtin.module }, 'Builtin plugin added')
       }
     }

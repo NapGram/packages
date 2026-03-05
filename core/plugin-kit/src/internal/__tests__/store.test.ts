@@ -156,8 +156,26 @@ describe('store.ts', () => {
 
       const result = await store.readPluginsConfig()
 
+      expect(result.config.plugins).toHaveLength(2)
+      expect(result.config.plugins.map(p => p.id)).toEqual(['valid-plugin', 'no-module'])
+      expect(result.config.plugins.find(p => p.id === 'no-module')?.module).toBeUndefined()
+    })
+
+    it('should keep id-only plugin records for builtin override', async () => {
+      const yamlContent = `plugins:
+  - id: ping-pong
+    enabled: false`
+
+      vi.mocked(fs.access).mockResolvedValue(undefined)
+      vi.mocked(fs.readFile).mockResolvedValue(yamlContent)
+      vi.mocked(fs.realpath).mockImplementation(async p => String(p))
+
+      const result = await store.readPluginsConfig()
+
       expect(result.config.plugins).toHaveLength(1)
-      expect(result.config.plugins[0].id).toBe('valid-plugin')
+      expect(result.config.plugins[0].id).toBe('ping-pong')
+      expect(result.config.plugins[0].module).toBeUndefined()
+      expect(result.config.plugins[0].enabled).toBe(false)
     })
 
     it('should handle JSON config files', async () => {
@@ -479,13 +497,21 @@ describe('store.ts', () => {
       vi.mocked(fs.mkdir).mockResolvedValue(undefined)
       vi.mocked(fs.writeFile).mockResolvedValue(undefined)
 
+      let writtenContent = ''
+      vi.mocked(fs.writeFile).mockImplementation(async (path, content) => {
+        writtenContent = String(content)
+        return undefined
+      })
+
       const result = await store.patchPluginConfig('new-plugin', {
         enabled: true,
       })
 
       expect(result.id).toBe('new-plugin')
-      // Should create with default module path
-      expect(vi.mocked(fs.writeFile)).toHaveBeenCalled()
+      const parsed = YAML.parse(writtenContent)
+      expect(parsed.plugins[0].id).toBe('new-plugin')
+      expect(parsed.plugins[0].enabled).toBe(true)
+      expect(parsed.plugins[0].module).toBeUndefined()
     })
 
     it('should update module path', async () => {

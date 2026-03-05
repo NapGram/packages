@@ -13,7 +13,7 @@ const legacyConfigExtensions = ['.yaml', '.yml', '.json'] as const
 export interface PluginsConfigFile {
     plugins: Array<{
         id: string
-        module: string
+        module?: string
         enabled?: boolean
         config?: any
         source?: any
@@ -84,14 +84,18 @@ function parseConfig(raw: string, ext: string): PluginsConfigFile {
     const data = (ext === '.yaml' || ext === '.yml') ? YAML.parse(raw) : JSON.parse(raw)
     const plugins = Array.isArray((data as any)?.plugins) ? (data as any).plugins : []
     const normalized = plugins
-        .map((p: any) => ({
-            id: typeof p?.id === 'string' ? p.id : '',
-            module: typeof p?.module === 'string' ? p.module : '',
-            enabled: p?.enabled !== false,
-            config: p?.config,
-            source: p?.source,
-        }))
-        .filter((p: any) => p.id && p.module)
+        .map((p: any) => {
+            const rawId = typeof p?.id === 'string' ? p.id : ''
+            const rawModule = typeof p?.module === 'string' ? p.module.trim() : ''
+            return {
+                id: rawId,
+                ...(rawModule ? { module: rawModule } : {}),
+                enabled: p?.enabled !== false,
+                ...(typeof p === 'object' && p !== null && 'config' in p ? { config: p.config } : {}),
+                ...(typeof p === 'object' && p !== null && 'source' in p ? { source: p.source } : {}),
+            }
+        })
+        .filter((p: any) => p.id)
     return { plugins: normalized }
 }
 
@@ -262,18 +266,25 @@ export async function patchPluginConfig(id: string, patch: { module?: string, en
     const idx = config.plugins.findIndex(p => p.id === pluginId)
 
     if (idx < 0) {
-        // Plugin not in config yet - try to add it
-        if (!patch.module) {
-            const possiblePaths = [
-                `./local/${pluginId}/index.mjs`,
-                `./local/${pluginId}/index.js`,
-            ]
-            patch.module = possiblePaths[0]
+        // Plugin not in config yet:
+        // - with module: treat as explicit plugin add/update
+        // - without module: store id-only override for builtin/plugin state
+        if (!patch.module || !patch.module.trim()) {
+            const record = {
+                id: pluginId,
+                enabled: patch.enabled !== false,
+                ...('config' in patch ? { config: patch.config } : {}),
+                ...('source' in patch ? { source: patch.source } : {}),
+            }
+            config.plugins.push(record)
+            config.plugins.sort((a, b) => a.id.localeCompare(b.id))
+            await writePluginsConfigFile(configPath, config)
+            return { id: pluginId, path: configPath, record }
         }
 
         return await upsertPluginConfig({
             id: pluginId,
-            module: patch.module!,
+            module: patch.module,
             enabled: patch.enabled,
             config: patch.config,
             source: patch.source,
