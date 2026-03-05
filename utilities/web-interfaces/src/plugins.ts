@@ -362,12 +362,15 @@ export default async function (fastify: FastifyInstance) {
     const runtimeActive = runtime.isActive()
 
     const plugins = await Promise.all(config.plugins.map(async (p: any) => {
+      const moduleSpecifier = typeof p.module === 'string' ? p.module.trim() : ''
       let absolute: string | null = null
-      try {
-        absolute = (await normalizeModuleSpecifierForPluginsConfig(p.module)).absolute
-      }
-      catch {
-        absolute = null
+      if (moduleSpecifier) {
+        try {
+          absolute = (await normalizeModuleSpecifierForPluginsConfig(moduleSpecifier)).absolute
+        }
+        catch {
+          absolute = null
+        }
       }
       const rootDir = absolute ? resolvePluginRootFromModule(absolute) : null
       const runtimePlugin = runtimeActive ? runtime.getPlugin(p.id) : undefined
@@ -388,7 +391,7 @@ export default async function (fastify: FastifyInstance) {
       return {
         ...p,
         absolute,
-        exists: await moduleExistsAbsolute(absolute || p.module),
+        exists: await moduleExistsAbsolute(absolute || moduleSpecifier),
         loaded: loaded.has(p.id),
         error: failed.get(p.id) || null,
         name,
@@ -590,10 +593,11 @@ export default async function (fastify: FastifyInstance) {
     try {
       const { config } = await readPluginsConfig()
       const record = config.plugins.find((p: any) => p.id === pluginId)
+      const recordModule = typeof record?.module === 'string' ? record.module.trim() : ''
       let absolute: string | null = null
-      if (record) {
+      if (recordModule) {
         try {
-          absolute = (await normalizeModuleSpecifierForPluginsConfig(record.module)).absolute
+          absolute = (await normalizeModuleSpecifierForPluginsConfig(recordModule)).absolute
         }
         catch {
           absolute = null
@@ -602,7 +606,7 @@ export default async function (fastify: FastifyInstance) {
 
       const patterns = [
         pluginId,
-        record?.module,
+        recordModule,
         absolute,
         absolute ? path.basename(absolute) : null,
       ].filter(Boolean).map(String)
