@@ -30,7 +30,7 @@
     },
     "devDependencies": {
         "@fastify/cookie": "^11.0.2",
-        "@types/node": "25.3.3",
+        "@types/node": "25.3.4",
         "typescript": "5.9.3"
     },
     "publishConfig": {
