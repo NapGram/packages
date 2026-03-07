@@ -10,16 +10,16 @@ importers:
     devDependencies:
       '@changesets/cli':
         specifier: ^2.27.1
-        version: 2.30.0(@types/node@25.3.4)
+        version: 2.30.0(@types/node@25.3.5)
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.52.0
-        version: 8.56.1(@typescript-eslint/parser@8.56.1(eslint@10.0.2)(typescript@5.9.3))(eslint@10.0.2)(typescript@5.9.3)
+        version: 8.56.1(@typescript-eslint/parser@8.56.1(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3)
       '@typescript-eslint/parser':
         specifier: ^8.52.0
-        version: 8.56.1(eslint@10.0.2)(typescript@5.9.3)
+        version: 8.56.1(eslint@10.0.3)(typescript@5.9.3)
       eslint:
         specifier: ^10.0.0
-        version: 10.0.2
+        version: 10.0.3
       tsup:
         specifier: ^8.5.1
         version: 8.5.1(postcss@8.5.6)(typescript@5.9.3)(yaml@2.8.2)
@@ -37,8 +37,8 @@ importers:
         version: 8.20.0
     devDependencies:
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       '@types/pg':
         specifier: ^8.16.0
         version: 8.18.0
@@ -53,7 +53,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: 4.0.18
-        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.4)(yaml@2.8.2)
+        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.5)(yaml@2.8.2)
 
   clients/qq-client:
     dependencies:
@@ -62,14 +62,14 @@ importers:
         version: 0.0.7
     devDependencies:
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
       vitest:
         specifier: 4.0.18
-        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.4)(yaml@2.8.2)
+        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.5)(yaml@2.8.2)
 
   clients/telegram-client:
     dependencies:
@@ -84,8 +84,8 @@ importers:
         version: 0.28.2(ws@8.19.0)
     devDependencies:
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -108,15 +108,15 @@ importers:
         specifier: ^0.45.1
         version: 0.45.1(@opentelemetry/api@1.9.0)(@types/pg@8.18.0)(better-sqlite3@12.6.2)(pg@8.20.0)
       fastify:
-        specifier: 5.8.1
-        version: 5.8.1
+        specifier: 5.8.2
+        version: 5.8.2
       zod:
         specifier: ^4.3.5
         version: 4.3.6
     devDependencies:
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       '@types/pg':
         specifier: ^8.16.0
         version: 8.18.0
@@ -128,7 +128,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: 4.0.18
-        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.4)(yaml@2.8.2)
+        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.5)(yaml@2.8.2)
 
   core/plugin-kit:
     dependencies:
@@ -164,8 +164,8 @@ importers:
         version: 4.3.6
     devDependencies:
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       '@types/semver':
         specifier: ^7.7.1
         version: 7.7.1
@@ -174,7 +174,7 @@ importers:
         version: 5.9.3
       vitest:
         specifier: 4.0.18
-        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.4)(yaml@2.8.2)
+        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.5)(yaml@2.8.2)
 
   core/runtime-kit:
     dependencies:
@@ -195,8 +195,8 @@ importers:
         version: 2.8.2
     devDependencies:
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -211,8 +211,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -227,8 +227,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -245,8 +245,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       drizzle-orm:
         specifier: ^0.45.1
         version: 0.45.1(@opentelemetry/api@1.9.0)(@types/pg@8.18.0)(better-sqlite3@12.6.2)(pg@8.20.0)
@@ -263,8 +263,8 @@ importers:
         specifier: workspace:*
         version: link:../../../utilities/web-interfaces
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -278,8 +278,8 @@ importers:
         specifier: workspace:*
         version: link:../../../utilities/web-interfaces
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -293,8 +293,8 @@ importers:
         specifier: workspace:*
         version: link:../../../utilities/web-interfaces
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -308,8 +308,8 @@ importers:
         specifier: workspace:*
         version: link:../../../utilities/web-interfaces
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -323,8 +323,8 @@ importers:
         specifier: workspace:*
         version: link:../../../utilities/web-interfaces
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -338,8 +338,8 @@ importers:
         specifier: workspace:*
         version: link:../../../utilities/web-interfaces
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -353,8 +353,8 @@ importers:
         specifier: workspace:*
         version: link:../../../utilities/web-interfaces
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -368,8 +368,8 @@ importers:
         specifier: workspace:*
         version: link:../../../utilities/web-interfaces
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -383,8 +383,8 @@ importers:
         specifier: workspace:*
         version: link:../../../utilities/web-interfaces
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -398,8 +398,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -410,8 +410,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -425,8 +425,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -440,8 +440,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -452,8 +452,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -467,8 +467,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -479,8 +479,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -497,8 +497,8 @@ importers:
         specifier: workspace:*
         version: link:../../../utilities/web-interfaces
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -509,8 +509,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -521,8 +521,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -533,8 +533,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -548,8 +548,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -560,8 +560,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -575,8 +575,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -590,8 +590,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -605,8 +605,8 @@ importers:
         specifier: workspace:*
         version: link:../../../utilities/web-interfaces
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -620,8 +620,8 @@ importers:
         specifier: workspace:*
         version: link:../../../utilities/web-interfaces
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -635,8 +635,8 @@ importers:
         specifier: workspace:*
         version: link:../../../utilities/web-interfaces
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -651,8 +651,8 @@ importers:
         version: link:../sdk-utils
     devDependencies:
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -660,8 +660,8 @@ importers:
   sdk-core:
     devDependencies:
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -673,8 +673,8 @@ importers:
         version: link:../sdk-core
     devDependencies:
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -688,15 +688,15 @@ importers:
         specifier: workspace:*
         version: link:../../clients/qq-client
       fastify:
-        specifier: 5.8.1
-        version: 5.8.1
+        specifier: 5.8.2
+        version: 5.8.2
     devDependencies:
       '@fastify/cookie':
         specifier: ^11.0.2
         version: 11.0.2
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -744,14 +744,14 @@ importers:
         version: 1.4.0
     devDependencies:
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
       vitest:
         specifier: 4.0.18
-        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.4)(yaml@2.8.2)
+        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.5)(yaml@2.8.2)
 
   utilities/gateway-kit:
     dependencies:
@@ -778,8 +778,8 @@ importers:
         version: 8.19.0
     devDependencies:
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       '@types/ws':
         specifier: ^8.18.1
         version: 8.18.1
@@ -806,8 +806,8 @@ importers:
         version: 2.8.2
     devDependencies:
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -828,14 +828,14 @@ importers:
         version: 3.7.1
     devDependencies:
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
       vitest:
         specifier: 4.0.18
-        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.4)(yaml@2.8.2)
+        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.5)(yaml@2.8.2)
 
   utilities/message-kit:
     dependencies:
@@ -862,17 +862,17 @@ importers:
         version: 1.4.0
     devDependencies:
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       '@vitest/coverage-v8':
         specifier: 4.0.18
-        version: 4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.4)(yaml@2.8.2))
+        version: 4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.5)(yaml@2.8.2))
       typescript:
         specifier: 5.9.3
         version: 5.9.3
       vitest:
         specifier: 4.0.18
-        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.4)(yaml@2.8.2)
+        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.5)(yaml@2.8.2)
 
   utilities/request-kit:
     dependencies:
@@ -890,8 +890,8 @@ importers:
         version: 0.45.1(@opentelemetry/api@1.9.0)(@types/pg@8.18.0)(better-sqlite3@12.6.2)(pg@8.20.0)
     devDependencies:
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -917,8 +917,8 @@ importers:
         specifier: workspace:*
         version: link:../../clients/telegram-client
       fastify:
-        specifier: 5.8.1
-        version: 5.8.1
+        specifier: 5.8.2
+        version: 5.8.2
       zod:
         specifier: 4.3.6
         version: 4.3.6
@@ -936,8 +936,8 @@ importers:
         specifier: workspace:*
         version: link:../../core/runtime-kit
       '@types/node':
-        specifier: 25.3.4
-        version: 25.3.4
+        specifier: 25.3.5
+        version: 25.3.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -1648,24 +1648,24 @@ packages:
     resolution: {integrity: sha512-EriSTlt5OC9/7SXkRSCAhfSxxoSUgBm33OH+IkwbdpgoqsSsUg7y3uh+IICI/Qg4BBWr3U2i39RpmycbxMq4ew==}
     engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
 
-  '@eslint/config-array@0.23.2':
-    resolution: {integrity: sha512-YF+fE6LV4v5MGWRGj7G404/OZzGNepVF8fxk7jqmqo3lrza7a0uUcDnROGRBG1WFC1omYUS/Wp1f42i0M+3Q3A==}
+  '@eslint/config-array@0.23.3':
+    resolution: {integrity: sha512-j+eEWmB6YYLwcNOdlwQ6L2OsptI/LO6lNBuLIqe5R7RetD658HLoF+Mn7LzYmAWWNNzdC6cqP+L6r8ujeYXWLw==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  '@eslint/config-helpers@0.5.2':
-    resolution: {integrity: sha512-a5MxrdDXEvqnIq+LisyCX6tQMPF/dSJpCfBgBauY+pNZ28yCtSsTvyTYrMhaI+LK26bVyCJfJkT0u8KIj2i1dQ==}
+  '@eslint/config-helpers@0.5.3':
+    resolution: {integrity: sha512-lzGN0onllOZCGroKJmRwY6QcEHxbjBw1gwB8SgRSqK8YbbtEXMvKynsXc3553ckIEBxsbMBU7oOZXKIPGZNeZw==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  '@eslint/core@1.1.0':
-    resolution: {integrity: sha512-/nr9K9wkr3P1EzFTdFdMoLuo1PmIxjmwvPozwoSodjNBdefGujXQUF93u1DDZpEaTuDvMsIQddsd35BwtrW9Xw==}
+  '@eslint/core@1.1.1':
+    resolution: {integrity: sha512-QUPblTtE51/7/Zhfv8BDwO0qkkzQL7P/aWWbqcf4xWLEYn1oKjdO0gglQBB4GAsu7u6wjijbCmzsUTy6mnk6oQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  '@eslint/object-schema@3.0.2':
-    resolution: {integrity: sha512-HOy56KJt48Bx8KmJ+XGQNSUMT/6dZee/M54XyUyuvTvPXJmsERRvBchsUVx1UMe1WwIH49XLAczNC7V2INsuUw==}
+  '@eslint/object-schema@3.0.3':
+    resolution: {integrity: sha512-iM869Pugn9Nsxbh/YHRqYiqd23AmIbxJOcpUMOuWCVNdoQJ5ZtwL6h3t0bcZzJUlC3Dq9jCFCESBZnX0GTv7iQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  '@eslint/plugin-kit@0.6.0':
-    resolution: {integrity: sha512-bIZEUzOI1jkhviX2cp5vNyXQc6olzb2ohewQubuYlMXZ2Q/XjBO0x0XhGPvc9fjSIiUN0vw+0hq53BJ4eQSJKQ==}
+  '@eslint/plugin-kit@0.6.1':
+    resolution: {integrity: sha512-iH1B076HoAshH1mLpHMgwdGeTs0CYwL0SPMkGuSebZrwBp16v415e9NZXg2jtrqPVQjf6IANe2Vtlr5KswtcZQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
   '@fastify/ajv-compiler@4.0.5':
@@ -2259,8 +2259,8 @@ packages:
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
 
-  '@types/node@25.3.4':
-    resolution: {integrity: sha512-NB1qVMIPsjfYtrY+9cCTj2VqLBh/TIDmsZXtmM2Xsn+W2yMlkA9Q1Okpr9W3f1fyGgvelw8ojumDsv8Vc0xufQ==}
+  '@types/node@25.3.5':
+    resolution: {integrity: sha512-oX8xrhvpiyRCQkG1MFchB09f+cXftgIXb3a7UUa4Y3wpmZPw5tyZGTLWhlESOLq1Rq6oDlc8npVU2/9xiCuXMA==}
 
   '@types/pg-pool@2.0.7':
     resolution: {integrity: sha512-U4CwmGVQcbEuqpyju8/ptOKg6gEC+Tqsvj2xS9o1g71bUh8twxnC6ZL5rZKCsGN0iyH0CwgUyc9VR5owNQF9Ng==}
@@ -2802,8 +2802,8 @@ packages:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
 
-  eslint-scope@9.1.1:
-    resolution: {integrity: sha512-GaUN0sWim5qc8KVErfPBWmc31LEsOkrUJbvJZV+xuL3u2phMUK4HIvXlWAakfC8W4nzlK+chPEAkYOYb5ZScIw==}
+  eslint-scope@9.1.2:
+    resolution: {integrity: sha512-xS90H51cKw0jltxmvmHy2Iai1LIqrfbw57b79w/J7MfvDfkIkFZ+kj6zC3BjtUwh150HsSSdxXZcsuv72miDFQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
   eslint-visitor-keys@3.4.3:
@@ -2814,8 +2814,8 @@ packages:
     resolution: {integrity: sha512-tD40eHxA35h0PEIZNeIjkHoDR4YjjJp34biM0mDvplBe//mB+IHCqHDGV7pxF+7MklTvighcCPPZC7ynWyjdTA==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  eslint@10.0.2:
-    resolution: {integrity: sha512-uYixubwmqJZH+KLVYIVKY1JQt7tysXhtj21WSvjcSmU5SVNzMus1bgLe+pAt816yQ8opKfheVVoPLqvVMGejYw==}
+  eslint@10.0.3:
+    resolution: {integrity: sha512-COV33RzXZkqhG9P2rZCFl9ZmJ7WL+gQSCRzE7RhkbclbQPtLAWReL7ysA0Sh4c8Im2U9ynybdR56PV0XcKvqaQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
     hasBin: true
     peerDependencies:
@@ -2824,8 +2824,8 @@ packages:
       jiti:
         optional: true
 
-  espree@11.1.1:
-    resolution: {integrity: sha512-AVHPqQoZYc+RUM4/3Ly5udlZY/U4LS8pIG05jEjWM2lQMU/oaZ7qshzAl2YP1tfNmXfftH3ohurfwNAug+MnsQ==}
+  espree@11.2.0:
+    resolution: {integrity: sha512-7p3DrVEIopW1B1avAGLuCSh1jubc01H2JHc8B4qqGblmg5gI9yumBgACjWo4JlIc04ufug4xJ3SQI8HkS/Rgzw==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
   esprima@4.0.1:
@@ -2900,8 +2900,8 @@ packages:
   fastify-plugin@5.1.0:
     resolution: {integrity: sha512-FAIDA8eovSt5qcDgcBvDuX/v0Cjz0ohGhENZ/wpc3y+oZCY2afZ9Baqql3g/lC+OHRnciQol4ww7tuthOb9idw==}
 
-  fastify@5.8.1:
-    resolution: {integrity: sha512-y0kicFvvn7CYWoPOVLOcvn4YyKQz03DIY7UxmyOy21/J8eXm09R+tmb+tVDBW5h+pja30cHI5dqUcSlvY86V2A==}
+  fastify@5.8.2:
+    resolution: {integrity: sha512-lZmt3navvZG915IE+f7/TIVamxIwmBd+OMB+O9WBzcpIwOo6F0LTh0sluoMFk5VkrKTvvrwIaoJPkir4Z+jtAg==}
 
   fastq@1.20.1:
     resolution: {integrity: sha512-GGToxJ/w1x32s/D2EKND7kTil4n8OVk/9mycTc4VDza13lOvpUZTGX3mFSCtV9ksdGBVzvsyAVLM6mHFThxXxw==}
@@ -3652,11 +3652,6 @@ packages:
   secure-json-parse@4.1.0:
     resolution: {integrity: sha512-l4KnYfEyqYJxDwlNVyRfO2E4NTHfMKAWdUuA8J0yve2Dz/E/PdBepY03RvyJpssIpRFwJoCD55wA+mEDs6ByWA==}
 
-  semver@7.7.3:
-    resolution: {integrity: sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==}
-    engines: {node: '>=10'}
-    hasBin: true
-
   semver@7.7.4:
     resolution: {integrity: sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==}
     engines: {node: '>=10'}
@@ -4091,7 +4086,7 @@ snapshots:
     dependencies:
       '@changesets/types': 6.1.0
 
-  '@changesets/cli@2.30.0(@types/node@25.3.4)':
+  '@changesets/cli@2.30.0(@types/node@25.3.5)':
     dependencies:
       '@changesets/apply-release-plan': 7.1.0
       '@changesets/assemble-release-plan': 6.0.9
@@ -4107,7 +4102,7 @@ snapshots:
       '@changesets/should-skip-package': 0.1.2
       '@changesets/types': 6.1.0
       '@changesets/write': 0.4.0
-      '@inquirer/external-editor': 1.0.3(@types/node@25.3.4)
+      '@inquirer/external-editor': 1.0.3(@types/node@25.3.5)
       '@manypkg/get-packages': 1.1.3
       ansi-colors: 4.1.3
       enquirer: 2.4.1
@@ -4517,34 +4512,34 @@ snapshots:
   '@esbuild/win32-x64@0.27.3':
     optional: true
 
-  '@eslint-community/eslint-utils@4.9.1(eslint@10.0.2)':
+  '@eslint-community/eslint-utils@4.9.1(eslint@10.0.3)':
     dependencies:
-      eslint: 10.0.2
+      eslint: 10.0.3
       eslint-visitor-keys: 3.4.3
 
   '@eslint-community/regexpp@4.12.2': {}
 
-  '@eslint/config-array@0.23.2':
+  '@eslint/config-array@0.23.3':
     dependencies:
-      '@eslint/object-schema': 3.0.2
+      '@eslint/object-schema': 3.0.3
       debug: 4.4.3
       minimatch: 10.2.4
     transitivePeerDependencies:
       - supports-color
 
-  '@eslint/config-helpers@0.5.2':
+  '@eslint/config-helpers@0.5.3':
     dependencies:
-      '@eslint/core': 1.1.0
+      '@eslint/core': 1.1.1
 
-  '@eslint/core@1.1.0':
+  '@eslint/core@1.1.1':
     dependencies:
       '@types/json-schema': 7.0.15
 
-  '@eslint/object-schema@3.0.2': {}
+  '@eslint/object-schema@3.0.3': {}
 
-  '@eslint/plugin-kit@0.6.0':
+  '@eslint/plugin-kit@0.6.1':
     dependencies:
-      '@eslint/core': 1.1.0
+      '@eslint/core': 1.1.1
       levn: 0.4.1
 
   '@fastify/ajv-compiler@4.0.5':
@@ -4629,12 +4624,12 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@inquirer/external-editor@1.0.3(@types/node@25.3.4)':
+  '@inquirer/external-editor@1.0.3(@types/node@25.3.5)':
     dependencies:
       chardet: 2.1.1
       iconv-lite: 0.7.2
     optionalDependencies:
-      '@types/node': 25.3.4
+      '@types/node': 25.3.5
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
@@ -5190,7 +5185,7 @@ snapshots:
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 25.3.4
+      '@types/node': 25.3.5
 
   '@types/deep-eql@4.0.2': {}
 
@@ -5204,11 +5199,11 @@ snapshots:
 
   '@types/mysql@2.15.27':
     dependencies:
-      '@types/node': 25.3.4
+      '@types/node': 25.3.5
 
   '@types/node@12.20.55': {}
 
-  '@types/node@25.3.4':
+  '@types/node@25.3.5':
     dependencies:
       undici-types: 7.18.2
 
@@ -5218,13 +5213,13 @@ snapshots:
 
   '@types/pg@8.15.6':
     dependencies:
-      '@types/node': 25.3.4
+      '@types/node': 25.3.5
       pg-protocol: 1.13.0
       pg-types: 2.2.0
 
   '@types/pg@8.18.0':
     dependencies:
-      '@types/node': 25.3.4
+      '@types/node': 25.3.5
       pg-protocol: 1.13.0
       pg-types: 2.2.0
 
@@ -5232,21 +5227,21 @@ snapshots:
 
   '@types/tedious@4.0.14':
     dependencies:
-      '@types/node': 25.3.4
+      '@types/node': 25.3.5
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 25.3.4
+      '@types/node': 25.3.5
 
-  '@typescript-eslint/eslint-plugin@8.56.1(@typescript-eslint/parser@8.56.1(eslint@10.0.2)(typescript@5.9.3))(eslint@10.0.2)(typescript@5.9.3)':
+  '@typescript-eslint/eslint-plugin@8.56.1(@typescript-eslint/parser@8.56.1(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3)(typescript@5.9.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.2
-      '@typescript-eslint/parser': 8.56.1(eslint@10.0.2)(typescript@5.9.3)
+      '@typescript-eslint/parser': 8.56.1(eslint@10.0.3)(typescript@5.9.3)
       '@typescript-eslint/scope-manager': 8.56.1
-      '@typescript-eslint/type-utils': 8.56.1(eslint@10.0.2)(typescript@5.9.3)
-      '@typescript-eslint/utils': 8.56.1(eslint@10.0.2)(typescript@5.9.3)
+      '@typescript-eslint/type-utils': 8.56.1(eslint@10.0.3)(typescript@5.9.3)
+      '@typescript-eslint/utils': 8.56.1(eslint@10.0.3)(typescript@5.9.3)
       '@typescript-eslint/visitor-keys': 8.56.1
-      eslint: 10.0.2
+      eslint: 10.0.3
       ignore: 7.0.5
       natural-compare: 1.4.0
       ts-api-utils: 2.4.0(typescript@5.9.3)
@@ -5254,14 +5249,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@8.56.1(eslint@10.0.2)(typescript@5.9.3)':
+  '@typescript-eslint/parser@8.56.1(eslint@10.0.3)(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/scope-manager': 8.56.1
       '@typescript-eslint/types': 8.56.1
       '@typescript-eslint/typescript-estree': 8.56.1(typescript@5.9.3)
       '@typescript-eslint/visitor-keys': 8.56.1
       debug: 4.4.3
-      eslint: 10.0.2
+      eslint: 10.0.3
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
@@ -5284,13 +5279,13 @@ snapshots:
     dependencies:
       typescript: 5.9.3
 
-  '@typescript-eslint/type-utils@8.56.1(eslint@10.0.2)(typescript@5.9.3)':
+  '@typescript-eslint/type-utils@8.56.1(eslint@10.0.3)(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/types': 8.56.1
       '@typescript-eslint/typescript-estree': 8.56.1(typescript@5.9.3)
-      '@typescript-eslint/utils': 8.56.1(eslint@10.0.2)(typescript@5.9.3)
+      '@typescript-eslint/utils': 8.56.1(eslint@10.0.3)(typescript@5.9.3)
       debug: 4.4.3
-      eslint: 10.0.2
+      eslint: 10.0.3
       ts-api-utils: 2.4.0(typescript@5.9.3)
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -5313,13 +5308,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/utils@8.56.1(eslint@10.0.2)(typescript@5.9.3)':
+  '@typescript-eslint/utils@8.56.1(eslint@10.0.3)(typescript@5.9.3)':
     dependencies:
-      '@eslint-community/eslint-utils': 4.9.1(eslint@10.0.2)
+      '@eslint-community/eslint-utils': 4.9.1(eslint@10.0.3)
       '@typescript-eslint/scope-manager': 8.56.1
       '@typescript-eslint/types': 8.56.1
       '@typescript-eslint/typescript-estree': 8.56.1(typescript@5.9.3)
-      eslint: 10.0.2
+      eslint: 10.0.3
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
@@ -5329,7 +5324,7 @@ snapshots:
       '@typescript-eslint/types': 8.56.1
       eslint-visitor-keys: 5.0.1
 
-  '@vitest/coverage-v8@4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.4)(yaml@2.8.2))':
+  '@vitest/coverage-v8@4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.5)(yaml@2.8.2))':
     dependencies:
       '@bcoe/v8-coverage': 1.0.2
       '@vitest/utils': 4.0.18
@@ -5341,7 +5336,7 @@ snapshots:
       obug: 2.1.1
       std-env: 3.10.0
       tinyrainbow: 3.0.3
-      vitest: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.4)(yaml@2.8.2)
+      vitest: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.5)(yaml@2.8.2)
 
   '@vitest/expect@4.0.18':
     dependencies:
@@ -5352,13 +5347,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.0.3
 
-  '@vitest/mocker@4.0.18(vite@7.3.0(@types/node@25.3.4)(yaml@2.8.2))':
+  '@vitest/mocker@4.0.18(vite@7.3.0(@types/node@25.3.5)(yaml@2.8.2))':
     dependencies:
       '@vitest/spy': 4.0.18
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 7.3.0(@types/node@25.3.4)(yaml@2.8.2)
+      vite: 7.3.0(@types/node@25.3.5)(yaml@2.8.2)
 
   '@vitest/pretty-format@4.0.18':
     dependencies:
@@ -5776,7 +5771,7 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-scope@9.1.1:
+  eslint-scope@9.1.2:
     dependencies:
       '@types/esrecurse': 4.3.1
       '@types/estree': 1.0.8
@@ -5787,14 +5782,14 @@ snapshots:
 
   eslint-visitor-keys@5.0.1: {}
 
-  eslint@10.0.2:
+  eslint@10.0.3:
     dependencies:
-      '@eslint-community/eslint-utils': 4.9.1(eslint@10.0.2)
+      '@eslint-community/eslint-utils': 4.9.1(eslint@10.0.3)
       '@eslint-community/regexpp': 4.12.2
-      '@eslint/config-array': 0.23.2
-      '@eslint/config-helpers': 0.5.2
-      '@eslint/core': 1.1.0
-      '@eslint/plugin-kit': 0.6.0
+      '@eslint/config-array': 0.23.3
+      '@eslint/config-helpers': 0.5.3
+      '@eslint/core': 1.1.1
+      '@eslint/plugin-kit': 0.6.1
       '@humanfs/node': 0.16.7
       '@humanwhocodes/module-importer': 1.0.1
       '@humanwhocodes/retry': 0.4.3
@@ -5803,9 +5798,9 @@ snapshots:
       cross-spawn: 7.0.6
       debug: 4.4.3
       escape-string-regexp: 4.0.0
-      eslint-scope: 9.1.1
+      eslint-scope: 9.1.2
       eslint-visitor-keys: 5.0.1
-      espree: 11.1.1
+      espree: 11.2.0
       esquery: 1.7.0
       esutils: 2.0.3
       fast-deep-equal: 3.1.3
@@ -5822,7 +5817,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  espree@11.1.1:
+  espree@11.2.0:
     dependencies:
       acorn: 8.16.0
       acorn-jsx: 5.3.2(acorn@8.16.0)
@@ -5899,7 +5894,7 @@ snapshots:
 
   fastify-plugin@5.1.0: {}
 
-  fastify@5.8.1:
+  fastify@5.8.2:
     dependencies:
       '@fastify/ajv-compiler': 4.0.5
       '@fastify/error': 4.2.0
@@ -5914,7 +5909,7 @@ snapshots:
       process-warning: 5.0.0
       rfdc: 1.4.1
       secure-json-parse: 4.1.0
-      semver: 7.7.3
+      semver: 7.7.4
       toad-cache: 3.7.0
 
   fastq@1.20.1:
@@ -6694,8 +6689,6 @@ snapshots:
 
   secure-json-parse@4.1.0: {}
 
-  semver@7.7.3: {}
-
   semver@7.7.4: {}
 
   set-cookie-parser@2.7.2: {}
@@ -6935,7 +6928,7 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vite@7.3.0(@types/node@25.3.4)(yaml@2.8.2):
+  vite@7.3.0(@types/node@25.3.5)(yaml@2.8.2):
     dependencies:
       esbuild: 0.27.3
       fdir: 6.5.0(picomatch@4.0.3)
@@ -6944,14 +6937,14 @@ snapshots:
       rollup: 4.55.1
       tinyglobby: 0.2.15
     optionalDependencies:
-      '@types/node': 25.3.4
+      '@types/node': 25.3.5
       fsevents: 2.3.3
       yaml: 2.8.2
 
-  vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.4)(yaml@2.8.2):
+  vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.5)(yaml@2.8.2):
     dependencies:
       '@vitest/expect': 4.0.18
-      '@vitest/mocker': 4.0.18(vite@7.3.0(@types/node@25.3.4)(yaml@2.8.2))
+      '@vitest/mocker': 4.0.18(vite@7.3.0(@types/node@25.3.5)(yaml@2.8.2))
       '@vitest/pretty-format': 4.0.18
       '@vitest/runner': 4.0.18
       '@vitest/snapshot': 4.0.18
@@ -6968,11 +6961,11 @@ snapshots:
       tinyexec: 1.0.2
       tinyglobby: 0.2.15
       tinyrainbow: 3.0.3
-      vite: 7.3.0(@types/node@25.3.4)(yaml@2.8.2)
+      vite: 7.3.0(@types/node@25.3.5)(yaml@2.8.2)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@opentelemetry/api': 1.9.0
-      '@types/node': 25.3.4
+      '@types/node': 25.3.5
     transitivePeerDependencies:
       - jiti
       - less
