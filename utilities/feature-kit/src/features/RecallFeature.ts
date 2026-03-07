@@ -62,8 +62,8 @@ export class RecallFeature {
 
       // 删除 Telegram 消息
       try {
-        const chat = await this.tgBot.getChat(BigInt(dbEntry.tgChatId))
-        await chat.deleteMessages([dbEntry.tgMsgId])
+        const chat = await this.tgBot.getChat(Number(dbEntry.tgChatId))
+        await chat.deleteMessages([Number(dbEntry.tgMsgId)])
         logger.info(`TG message ${dbEntry.tgMsgId} deleted successfully`)
       }
       catch (error) {

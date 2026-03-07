@@ -85,14 +85,21 @@ export class MessageUtils {
       // Ensure numeric chat IDs are passed correctly
       let resolvedChatId: string | number | bigint = chatId
       if (typeof chatId === 'string' && /^-?\d+$/.test(chatId)) {
-        resolvedChatId = BigInt(chatId)
+        resolvedChatId = Number(chatId)
+      }
+      else if (typeof chatId === 'bigint') {
+        resolvedChatId = Number(chatId)
       }
 
       const chat = await tgBot.getChat(resolvedChatId as any)
       const params: any = { linkPreview: { disable: true } }
       if (replyTo !== undefined && replyTo !== null) {
-        // If it's a thread ID, MTCute expects it in params
-        params.messageThreadId = typeof replyTo === 'string' ? BigInt(replyTo) : replyTo
+        const normalizedReplyTo = Number(replyTo)
+        if (Number.isFinite(normalizedReplyTo) && normalizedReplyTo > 0) {
+          params.replyTo = normalizedReplyTo
+          // Force implicit thread routing if replyTo is treated as threadId
+          params.messageThreadId = normalizedReplyTo
+        }
       }
       await chat.sendMessage(text, params)
     }

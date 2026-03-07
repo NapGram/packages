@@ -905,26 +905,26 @@ export class CommandsFeature {
           },
           raw: tgMsg,
           reply: async (content) => {
-            const chat = await this.tgBot.getChat(BigInt(tgMsg.chat.id))
+            const chat = await this.tgBot.getChat(Number(tgMsg.chat.id))
             const textContent = contentToText(content)
-            const params: any = { replyTo: BigInt(tgMsg.id) }
+            const params: any = { replyTo: Number(tgMsg.id) }
             if (threadId)
-              params.messageThreadId = BigInt(threadId)
+              params.messageThreadId = Number(threadId)
             const sent = await chat.sendMessage(textContent, params)
             return { messageId: `tg:${String(tgMsg.chat.id)}:${String((sent as any)?.id ?? '')}`, timestamp: Date.now() }
           },
           send: async (content) => {
-            const chat = await this.tgBot.getChat(BigInt(tgMsg.chat.id))
+            const chat = await this.tgBot.getChat(Number(tgMsg.chat.id))
             const textContent = contentToText(content)
             const params: any = {}
             if (threadId)
-              params.messageThreadId = BigInt(threadId)
+              params.messageThreadId = Number(threadId)
             const sent = await chat.sendMessage(textContent, params)
             return { messageId: `tg:${String(tgMsg.chat.id)}:${String((sent as any)?.id ?? '')}`, timestamp: Date.now() }
           },
           recall: async () => {
-            const chat = await this.tgBot.getChat(BigInt(tgMsg.chat.id))
-            await chat.deleteMessages([BigInt(tgMsg.id)])
+            const chat = await this.tgBot.getChat(Number(tgMsg.chat.id))
+            await chat.deleteMessages([Number(tgMsg.id)])
           },
         })
       }
@@ -1046,13 +1046,22 @@ export class CommandsFeature {
 
   private async replyTG(chatId: string | number | bigint, text: any, threadId?: bigint | number) {
     try {
-      const chat = await this.tgBot.getChat(BigInt(chatId))
+      const normalizedChatId
+        = typeof chatId === 'bigint'
+          ? Number(chatId)
+          : (typeof chatId === 'string' && /^-?\d+$/.test(chatId))
+              ? Number(chatId)
+              : chatId
+      const chat = await this.tgBot.getChat(normalizedChatId as any)
       const params: any = {
         linkPreview: { disable: true },
       }
-      if (threadId) {
-        params.replyTo = threadId
-        params.messageThreadId = threadId
+      if (threadId !== undefined && threadId !== null) {
+        const normalizedThreadId = Number(threadId)
+        if (Number.isFinite(normalizedThreadId) && normalizedThreadId > 0) {
+          params.replyTo = normalizedThreadId
+          params.messageThreadId = normalizedThreadId
+        }
       }
 
       // 使用 parseMode: 'markdown' 并不稳定，我们直接使用 mtcute 的 md 解析器

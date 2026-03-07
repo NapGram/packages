@@ -105,12 +105,12 @@ export class RecallCommandHandler {
       let tgSuccess = 0
       if (tgMessageIds.length > 0) {
         logger.info(`准备批量删除 TG 消息: chatId=${chatId}, messageIds=${tgMessageIds.join(', ')}`)
-        const chat = await this.context.tgBot.getChat(BigInt(chatId))
+        const chat = await this.context.tgBot.getChat(Number(chatId))
 
         // 循环删除每条消息（单条删除是可靠的）
         for (const msgId of tgMessageIds) {
           try {
-            await chat.deleteMessages([msgId])
+            await chat.deleteMessages([Number(msgId)])
             tgSuccess++
             logger.info(`TG message ${msgId} deleted successfully`)
           }
@@ -127,8 +127,8 @@ export class RecallCommandHandler {
       // 删除命令消息
       if (cmdMsgId) {
         try {
-          const chat = await this.context.tgBot.getChat(BigInt(chatId))
-          await chat.deleteMessages([BigInt(cmdMsgId)])
+          const chat = await this.context.tgBot.getChat(Number(chatId))
+          await chat.deleteMessages([Number(cmdMsgId)])
         }
         catch {
           logger.debug('删除命令消息失败')
@@ -237,8 +237,8 @@ export class RecallCommandHandler {
       // 删除对应的 TG 消息
       if (record?.tgMsgId && record?.tgChatId) {
         try {
-          const chat = await this.context.tgBot.getChat(BigInt(record.tgChatId))
-          await chat.deleteMessages([record.tgMsgId])
+          const chat = await this.context.tgBot.getChat(Number(record.tgChatId))
+          await chat.deleteMessages([Number(record.tgMsgId)])
           logger.info(`TG message ${record.tgMsgId} deleted by QQ /rm command`)
         }
         catch (e) {
@@ -249,8 +249,8 @@ export class RecallCommandHandler {
     else {
       // TG 端发起：删除 TG 原消息
       try {
-        const chat = await this.context.tgBot.getChat(BigInt(chatId))
-        await chat.deleteMessages([replyToId])
+        const chat = await this.context.tgBot.getChat(Number(chatId))
+        await chat.deleteMessages([Number(replyToId)])
         logger.info(`TG message ${replyToId} deleted by /rm command`)
       }
       catch (e) {
@@ -271,8 +271,8 @@ export class RecallCommandHandler {
       // 级联删除：如果有触发命令，也删除它
       if (triggerCommandId) {
         try {
-          const chat = await this.context.tgBot.getChat(BigInt(chatId))
-          await chat.deleteMessages([triggerCommandId])
+          const chat = await this.context.tgBot.getChat(Number(chatId))
+          await chat.deleteMessages([Number(triggerCommandId)])
           logger.info(`级联删除触发命令: TG message ${triggerCommandId} deleted`)
 
           // 同时撤回触发命令对应的 QQ 消息
@@ -302,8 +302,8 @@ export class RecallCommandHandler {
     // 尝试删除命令消息自身
     if (cmdMsgId) {
       try {
-        const chat = await this.context.tgBot.getChat(BigInt(chatId))
-        await chat.deleteMessages([BigInt(cmdMsgId)])
+        const chat = await this.context.tgBot.getChat(Number(chatId))
+        await chat.deleteMessages([Number(cmdMsgId)])
       }
       catch (e) {
         logger.warn(e, '删除命令消息失败')

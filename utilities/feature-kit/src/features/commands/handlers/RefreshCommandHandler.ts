@@ -83,7 +83,7 @@ export class RefreshCommandHandler {
       }
 
       // 获取 TG 聊天对象
-      const tgChat = await this.context.tgBot.getChat(BigInt(chatId))
+      const tgChat = await this.context.tgBot.getChat(Number(chatId))
 
       // 更新群组名称
       if (groupInfo.name) {
@@ -163,7 +163,7 @@ export class RefreshCommandHandler {
           }
 
           // 获取 TG 聊天对象
-          const tgChat = await this.context.tgBot.getChat(BigInt(tgChatId))
+          const tgChat = await this.context.tgBot.getChat(Number(tgChatId))
 
           // 更新群组名称
           if (groupInfo.name) {
