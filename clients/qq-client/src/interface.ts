@@ -230,6 +230,7 @@ export type QQClientCreateParams = NapCatCreateParams | BaseQQClientCreateParams
 export interface NapCatCreateParams {
   type: 'napcat'
   wsUrl: string
+  token?: string
   reconnect?: boolean
   reconnectInterval?: number
 }

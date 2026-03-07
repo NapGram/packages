@@ -44,6 +44,7 @@ const configParsed = z.object({
 
     // 只会在实例 0 自动使用
     NAPCAT_WS_URL: z.preprocess(emptyStringToUndefined, z.string().url().optional()),
+    NAPCAT_WS_TOKEN: z.preprocess(emptyStringToUndefined, z.string().optional()),
 
     SIGN_API: z.preprocess(emptyStringToUndefined, z.string().url().optional()),
     SIGN_VER: z.preprocess(emptyStringToUndefined, z.string().optional()),

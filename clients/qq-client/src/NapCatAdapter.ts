@@ -31,6 +31,7 @@ export class NapCatAdapter extends EventEmitter {
     this.client = new NapLink({
       connection: {
         url: params.wsUrl,
+        token: params.token,
       },
       reconnect: params.reconnect
         ? {
