@@ -33,7 +33,7 @@
     "author": "NapLink",
     "license": "MIT",
     "devDependencies": {
-        "@types/node": "25.3.4",
+        "@types/node": "25.3.5",
         "typescript": "5.9.3"
     },
     "repository": {

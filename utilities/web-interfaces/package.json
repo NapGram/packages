@@ -24,7 +24,7 @@
         "@napgram/message-kit": "workspace:*",
         "@napgram/plugin-kit": "workspace:*",
         "@napgram/telegram-client": "workspace:*",
-        "fastify": "5.8.1",
+        "fastify": "5.8.2",
         "zod": "4.3.6"
     },
     "keywords": [
@@ -39,7 +39,7 @@
         "@kitajs/ts-html-plugin": "^4.1.3",
         "@napgram/infra-kit": "workspace:*",
         "@napgram/runtime-kit": "workspace:*",
-        "@types/node": "25.3.4",
+        "@types/node": "25.3.5",
         "typescript": "5.9.3"
     },
     "publishConfig": {
