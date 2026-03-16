@@ -738,7 +738,7 @@ importers:
         version: link:../../clients/telegram-client
       file-type:
         specifier: ^21.3.0
-        version: 21.3.2
+        version: 21.3.3
       image-js:
         specifier: ^1.3.0
         version: 1.4.0
@@ -819,7 +819,7 @@ importers:
         version: link:../../core/infra-kit
       file-type:
         specifier: ^21.3.0
-        version: 21.3.2
+        version: 21.3.3
       image-js:
         specifier: ^1.3.0
         version: 1.4.0
@@ -856,7 +856,7 @@ importers:
         version: link:../../core/runtime-kit
       file-type:
         specifier: ^21.3.0
-        version: 21.3.2
+        version: 21.3.3
       image-js:
         specifier: ^1.3.0
         version: 1.4.0
@@ -3059,8 +3059,8 @@ packages:
     resolution: {integrity: sha512-uzk64HRpUZyTGZtVuvrjP0FYxzQrBf4rojot6J65YMEbwBLB0CWm0CLojVpwpmFmxcE/lkvYICgfcGozbBq6rw==}
     engines: {node: '>=6'}
 
-  file-type@21.3.2:
-    resolution: {integrity: sha512-DLkUvGwep3poOV2wpzbHCOnSKGk1LzyXTv+aHFgN2VFl96wnp8YA9YjO2qPzg5PuL8q/SW9Pdi6WTkYOIh995w==}
+  file-type@21.3.3:
+    resolution: {integrity: sha512-pNwbwz8c3aZ+GvbJnIsCnDjKvgCZLHxkFWLEFxU3RMa+Ey++ZSEfisvsWQMcdys6PpxQjWUOIDi1fifXsW3YRg==}
     engines: {node: '>=20'}
 
   file-uri-to-path@1.0.0:
@@ -6136,7 +6136,7 @@ snapshots:
 
   file-type@10.11.0: {}
 
-  file-type@21.3.2:
+  file-type@21.3.3:
     dependencies:
       '@tokenizer/inflate': 0.4.1
       strtok3: 10.3.4
