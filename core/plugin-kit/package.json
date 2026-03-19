@@ -39,7 +39,7 @@
         "@napgram/message-kit": "workspace:*",
         "@napgram/runtime-kit": "workspace:*",
         "@napgram/sdk": "workspace:*",
-        "@sentry/node": "10.44.0",
+        "@sentry/node": "10.45.0",
         "axios": "^1.13.2",
         "semver": "^7.7.3",
         "yaml": "^2.8.2",
