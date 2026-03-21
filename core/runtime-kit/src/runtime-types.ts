@@ -69,10 +69,17 @@ export interface IPluginRuntime {
 
 export interface IInstance {
     id: number
+    name?: string
     tgBot: any // Using any to decouple for now, or import type { Telegram }
     qqClient?: any // Using any to decouple for now
     forwardPairs: any
-    owner: number
+    owner: number | string
+    ownerTgId?: string
     flags: number
+    status?: 'starting' | 'running' | 'stopping' | 'stopped' | 'error'
+    createdAt?: Date
+    starting?: boolean
+    stopping?: boolean
+    stopped?: boolean
     // Add other necessary properties accessed by plugin API
 }

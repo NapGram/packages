@@ -26,7 +26,6 @@
     "author": "NapGram Team",
     "license": "MIT",
     "devDependencies": {
-        "@napgram/request-kit": "workspace:*",
         "@napgram/sdk": "workspace:*",
         "@types/node": "25.5.0",
         "typescript": "5.9.3"
@@ -42,5 +41,13 @@
             },
             "./package.json": "./package.json"
         }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "dependencies": {
+        "@napgram/request-kit": "workspace:*"
     }
 }

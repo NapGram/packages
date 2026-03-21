@@ -1,5 +1,6 @@
 import type { NapGramPlugin, PluginContext, InstanceStatusEvent } from '@napgram/sdk';
-import { Instance, RecallFeature } from '@napgram/feature-kit';
+import { RecallFeature } from '@napgram/feature-kit';
+import { InstanceRegistry } from '@napgram/runtime-kit';
 
 const plugin: NapGramPlugin = {
     id: 'recall',
@@ -13,7 +14,7 @@ const plugin: NapGramPlugin = {
     },
 
     install: async (ctx: PluginContext) => {
-        ctx.logger.info('Recall feature plugin installed');
+        ctx.logger.warn('Recall feature plugin is deprecated; prefer host-managed FeatureManager wiring.');
 
         const attach = (instance: any) => {
             if (!instance || !instance.qqClient || !instance.tgBot) return;
@@ -23,12 +24,12 @@ const plugin: NapGramPlugin = {
 
         const handleStatus = async (event: InstanceStatusEvent) => {
             if (event.status !== 'starting' && event.status !== 'running') return;
-            const instance = Instance.instances.find((i: any) => i.id === event.instanceId);
+            const instance = InstanceRegistry.getById(event.instanceId);
             if (!instance) return;
             attach(instance);
         };
 
-        Instance.instances.forEach(attach);
+        InstanceRegistry.getAll().forEach(attach);
         ctx.on('instance-status', handleStatus);
     },
 };

@@ -2,7 +2,7 @@
     "name": "@napgram/plugin-kit",
     "version": "0.1.24",
     "description": "Plugin system core for NapGram",
-    "main": "src/index.ts",
+    "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "type": "module",
     "exports": {
@@ -50,5 +50,10 @@
         "@types/semver": "^7.7.1",
         "typescript": "5.9.3",
         "vitest": "4.1.0"
-    }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ]
 }

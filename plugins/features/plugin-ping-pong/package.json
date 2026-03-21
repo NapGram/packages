@@ -40,5 +40,10 @@
             },
             "./package.json": "./package.json"
         }
-    }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ]
 }

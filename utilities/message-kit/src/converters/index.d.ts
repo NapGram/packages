@@ -1,5 +1,0 @@
-export * from './BaseConverter.js';
-export * from './NapCatConverter.js';
-export * from './TelegramConverter.js';
-export * from './UnifiedConverter.js';
-export * from './segments/index.js';

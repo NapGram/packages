@@ -119,18 +119,48 @@ export class InstanceAPIImpl implements InstanceAPI {
     return {
       id: instance.id,
       name: instance.name,
+      ownerTgId: this.extractOwnerTgId(instance),
+      status: this.extractStatus(instance),
+      hasQqClient: Boolean(instance.qqClient),
+      hasTgBot: Boolean(instance.tgBot),
       qqAccount: instance.qqClient?.uin?.toString(),
       tgAccount: instance.tgBot?.username,
       createdAt: instance.createdAt || new Date(),
     }
   }
 
+  private extractOwnerTgId(instance: any): string | undefined {
+    const rawOwner = instance.ownerTgId ?? instance.owner
+    if (rawOwner === undefined || rawOwner === null || rawOwner === '') {
+      return undefined
+    }
+
+    return String(rawOwner)
+  }
+
   /**
    * 提取实例状态
    */
   private extractStatus(instance: any): InstanceStatus {
-    // Phase 4: 根据实际的 Instance 类实现
-    // 目前返回简单的状态判断
+    if (typeof instance.status === 'string') {
+      switch (instance.status) {
+        case 'starting':
+        case 'running':
+        case 'stopping':
+        case 'stopped':
+        case 'error':
+          return instance.status
+      }
+    }
+
+    if (instance.starting) {
+      return 'starting'
+    }
+
+    if (instance.stopping) {
+      return 'stopping'
+    }
+
     if (instance.qqClient?.isConnected && instance.tgBot?.isRunning) {
       return 'running'
     }

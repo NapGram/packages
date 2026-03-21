@@ -1,5 +1,6 @@
 import type { NapGramPlugin, PluginContext, InstanceStatusEvent } from '@napgram/sdk';
-import { ForwardFeature, Instance } from '@napgram/feature-kit';
+import { ForwardFeature } from '@napgram/feature-kit';
+import { InstanceRegistry } from '@napgram/runtime-kit';
 
 const plugin: NapGramPlugin = {
     id: 'forward',
@@ -13,7 +14,7 @@ const plugin: NapGramPlugin = {
     },
 
     install: async (ctx: PluginContext) => {
-        ctx.logger.info('Forward feature plugin installed');
+        ctx.logger.warn('Forward feature plugin is deprecated; prefer host-managed FeatureManager wiring.');
 
         const attach = (instance: any) => {
             if (!instance || !instance.qqClient || !instance.tgBot) return;
@@ -29,7 +30,7 @@ const plugin: NapGramPlugin = {
         const handleStatus = async (event: InstanceStatusEvent) => {
             ctx.logger.debug(`Received instance-status event: ${event.status} for instance ${event.instanceId}`);
             if (event.status !== 'starting' && event.status !== 'running') return;
-            const instance = Instance.instances.find((i: any) => i.id === event.instanceId);
+            const instance = InstanceRegistry.getById(event.instanceId);
             if (!instance) {
                 ctx.logger.warn(`Instance ${event.instanceId} not found in registry during handleStatus`);
                 return;
@@ -37,12 +38,12 @@ const plugin: NapGramPlugin = {
             attach(instance);
         };
 
-        Instance.instances.forEach(attach);
+        InstanceRegistry.getAll().forEach(attach);
         ctx.on('instance-status', handleStatus);
     },
 
     uninstall: async () => {
-        for (const instance of Instance.instances as any[]) {
+        for (const instance of InstanceRegistry.getAll() as any[]) {
             if (instance.forwardFeature) {
                 instance.forwardFeature.destroy?.();
                 instance.forwardFeature = undefined;

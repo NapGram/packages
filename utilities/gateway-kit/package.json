@@ -18,8 +18,8 @@
         "dev": "tsc -p tsconfig.json --watch"
     },
     "dependencies": {
-        "@mtcute/core": "^0.29.0",
-        "@mtcute/node": "^0.29.0",
+        "@mtcute/core": "^0.29.1",
+        "@mtcute/node": "^0.29.1",
         "@napgram/infra-kit": "workspace:*",
         "@napgram/message-kit": "workspace:*",
         "@napgram/qq-client": "workspace:*",
@@ -48,5 +48,10 @@
             },
             "./package.json": "./package.json"
         }
-    }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ]
 }
