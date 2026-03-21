@@ -38,7 +38,7 @@ vi.mock('@napgram/infra-kit', () => ({
     trace: vi.fn(),
   })),
   configureInfraKit: vi.fn(),
-  performanceMonitor: { recordCall: vi.fn(), recordError: vi.fn() },
+  performanceMonitor: { recordCall: vi.fn(), recordError: vi.fn(), recordMessage: vi.fn() },
 }))
 
 describe('telegramMessageHandler', () => {

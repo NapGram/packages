@@ -32,7 +32,7 @@ describe('threadIdExtractor', () => {
 
     const threadId = extractor.extract(msg, ['qq', '123', '456'])
 
-    expect(threadId).toBe(456)
+    expect(threadId).toBe(456n)
   })
 
   it('extracts thread ID from raw metadata', () => {
@@ -41,7 +41,7 @@ describe('threadIdExtractor', () => {
 
     const threadId = extractor.extract(msg, [])
 
-    expect(threadId).toBe(789)
+    expect(threadId).toBe(789n)
   })
 
   it('returns undefined when no thread ID exists', () => {
@@ -63,7 +63,7 @@ describe('threadIdExtractor', () => {
 
     const threadId = extractor.extract(msg, [])
 
-    expect(threadId).toBe(999)
+    expect(threadId).toBe(999n)
   })
 
   it('extracts thread ID from raw.raw topicId', () => {
@@ -76,6 +76,6 @@ describe('threadIdExtractor', () => {
 
     const threadId = extractor.extract(msg, [])
 
-    expect(threadId).toBe(888)
+    expect(threadId).toBe(888n)
   })
 })
