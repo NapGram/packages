@@ -1,6 +1,6 @@
 {
     "name": "@napgram/plugin-admin-pairs",
-    "version": "0.1.9",
+    "version": "0.1.10",
     "description": "NapGram admin pairs API routes",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
