@@ -134,8 +134,6 @@ export class ActionExecutor {
       const chat = await this.tgBot.getChat(chatIdNum)
 
       const params: any = {}
-      if (threadId)
-        params.messageThreadId = threadId
 
       // reply：优先使用 segments 中的 reply
       const replySeg = segments.find(s => s?.type === 'reply')

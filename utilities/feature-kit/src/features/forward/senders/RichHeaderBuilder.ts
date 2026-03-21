@@ -54,11 +54,24 @@ export class RichHeaderBuilder {
   /**
    * Build reply parameters for message
    */
-  buildReplyTo(pair?: any, replyToMsgId?: number): number | undefined {
-    void pair
-    if (!replyToMsgId)
+  buildReplyTo(pair?: any, replyToMsgId?: number | bigint): number | undefined {
+    const normalizedReplyToMsgId = this.normalizePositiveMessageId(replyToMsgId)
+    if (normalizedReplyToMsgId)
+      return normalizedReplyToMsgId
+
+    // mtcute routes forum topic sends through replyTo using the topic's top message ID.
+    return this.normalizePositiveMessageId(pair?.tgThreadId)
+  }
+
+  private normalizePositiveMessageId(value: unknown): number | undefined {
+    if (value === undefined || value === null)
       return undefined
-    return replyToMsgId
+
+    const normalized = Number(value)
+    if (!Number.isFinite(normalized) || normalized <= 0)
+      return undefined
+
+    return normalized
   }
 
   /**

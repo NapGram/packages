@@ -388,8 +388,8 @@ describe('commandsFeature', () => {
       await capturedEvent.send('plain')
       await capturedEvent.recall()
 
-      expect(sendMessage).toHaveBeenCalledWith('@hi', expect.objectContaining({ replyTo: 99999, messageThreadId: 888 }))
-      expect(sendMessage).toHaveBeenCalledWith('plain', expect.objectContaining({ messageThreadId: 888 }))
+      expect(sendMessage).toHaveBeenCalledWith('@hi', expect.objectContaining({ replyTo: 99999 }))
+      expect(sendMessage).toHaveBeenCalledWith('plain', expect.objectContaining({ replyTo: 888 }))
       expect(deleteMessages).toHaveBeenCalledWith([99999])
     })
 

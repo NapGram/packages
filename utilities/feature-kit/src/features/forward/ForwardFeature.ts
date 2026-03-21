@@ -380,8 +380,6 @@ export class ForwardFeature {
           const chat = await this.tgBot.getChat(Number(tgMsg.chat.id))
           const replyText = this.contentToText(content)
           const params: any = { replyTo: tgMsg.id }
-          if (threadId)
-            params.messageThreadId = threadId
           const sent = await chat.sendMessage(replyText, params)
           return { messageId: `tg:${String(tgMsg.chat.id)}:${String((sent as any)?.id ?? '')}`, timestamp: Date.now() }
         },
@@ -390,7 +388,7 @@ export class ForwardFeature {
           const sendText = this.contentToText(content)
           const params: any = {}
           if (threadId)
-            params.messageThreadId = threadId
+            params.replyTo = Number(threadId)
           const sent = await chat.sendMessage(sendText, params)
           return { messageId: `tg:${String(tgMsg.chat.id)}:${String((sent as any)?.id ?? '')}`, timestamp: Date.now() }
         },

@@ -124,7 +124,7 @@ describe('mediaSender', () => {
     expect(chat.client.sendMedia).not.toHaveBeenCalled()
   })
 
-  it('adds messageThreadId for unsupported dice emoji', async () => {
+  it('keeps explicit replyTo for unsupported dice emoji', async () => {
     const sender = new MediaSender(fileNormalizer as any, richHeaderBuilder as any)
     const chat = {
       id: 300,
@@ -140,7 +140,7 @@ describe('mediaSender', () => {
     await sender.sendDiceToTG(chat as any, content as any, 11, 9, 'User:')
 
     const params = vi.mocked(chat.sendMessage).mock.calls[0][1]
-    expect(params.messageThreadId).toBe(9)
+    expect(params.replyTo).toBe(11)
   })
 
   it('sends dice media for supported emoji', async () => {
@@ -187,7 +187,7 @@ describe('mediaSender', () => {
       'qq3',
     )
 
-    expect(chat.sendMessage).toHaveBeenCalledWith('rich header', expect.objectContaining({ replyTo: 77, messageThreadId: 1 }))
+    expect(chat.sendMessage).toHaveBeenCalledWith('rich header', expect.objectContaining({ replyTo: 77 }))
     expect(chat.client.sendMediaGroup).toHaveBeenCalled()
   })
 
@@ -399,7 +399,7 @@ describe('mediaSender', () => {
     expect(chat.client.sendMedia).not.toHaveBeenCalled()
   })
 
-  it('handles location with header and thread', async () => {
+  it('handles location with header and topic fallback', async () => {
     const sender = new MediaSender(fileNormalizer as any, richHeaderBuilder as any)
     const chat = {
       id: 200,
@@ -411,7 +411,6 @@ describe('mediaSender', () => {
 
     const sendParams = vi.mocked(chat.client.sendMedia).mock.calls[0][2]
     expect(sendParams.caption).toBe('User: ')
-    expect(sendParams.messageThreadId).toBe(5)
     expect(sendParams.replyTo).toBe(10)
   })
 
@@ -434,7 +433,7 @@ describe('mediaSender', () => {
     expect(chat.sendMessage).toHaveBeenCalledTimes(3)
   })
 
-  it('handles dice with messageThreadId', async () => {
+  it('routes dice to topic via replyTo fallback', async () => {
     const sender = new MediaSender(fileNormalizer as any, richHeaderBuilder as any)
     const chat = {
       id: 400,
@@ -445,6 +444,6 @@ describe('mediaSender', () => {
     await sender.sendDiceToTG(chat as any, content as any, undefined, 7)
 
     const sendParams = vi.mocked(chat.client.sendMedia).mock.calls[0][2]
-    expect(sendParams.messageThreadId).toBe(7)
+    expect(sendParams.replyTo).toBe(7)
   })
 })

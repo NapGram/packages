@@ -97,8 +97,6 @@ export class MessageUtils {
         const normalizedReplyTo = Number(replyTo)
         if (Number.isFinite(normalizedReplyTo) && normalizedReplyTo > 0) {
           params.replyTo = normalizedReplyTo
-          // Force implicit thread routing if replyTo is treated as threadId
-          params.messageThreadId = normalizedReplyTo
         }
       }
       await chat.sendMessage(text, params)

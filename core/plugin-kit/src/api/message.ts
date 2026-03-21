@@ -332,8 +332,8 @@ export class MessageAPIImpl implements MessageAPI {
           sendParams.replyTo = Number(messageId)
         }
       }
-      if (params.threadId)
-        sendParams.messageThreadId = params.threadId
+      else if (params.threadId)
+        sendParams.replyTo = params.threadId
       const sent = await chat.sendMessage(text, sendParams)
       const messageId = `tg:${target.channelId}:${String((sent as any)?.id ?? '')}`
       return { messageId, timestamp }

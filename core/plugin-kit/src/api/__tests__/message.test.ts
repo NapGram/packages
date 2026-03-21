@@ -327,7 +327,7 @@ describe('messageAPIImpl', () => {
     })).rejects.toThrow('replyTo platform mismatch')
   })
 
-  it('should keep replyTo messageId when chatId mismatches and include threadId', async () => {
+  it('should keep replyTo messageId when chatId mismatches and ignore thread fallback', async () => {
     const sendMessage = vi.fn().mockResolvedValue({ id: 444 })
     messageAPI = new (MessageAPIImpl as any)(() => ({
       tgBot: {
@@ -343,7 +343,25 @@ describe('messageAPIImpl', () => {
       threadId: 77,
     })
 
-    expect(sendMessage).toHaveBeenCalledWith('hi', { replyTo: 456, messageThreadId: 77 })
+    expect(sendMessage).toHaveBeenCalledWith('hi', { replyTo: 456 })
+  })
+
+  it('should fall back to threadId as reply target for tg topics', async () => {
+    const sendMessage = vi.fn().mockResolvedValue({ id: 445 })
+    messageAPI = new (MessageAPIImpl as any)(() => ({
+      tgBot: {
+        getChat: vi.fn().mockResolvedValue({ sendMessage }),
+      },
+    }))
+
+    await messageAPI.send({
+      instanceId: 1,
+      channelId: 'tg:100',
+      content: 'hi',
+      threadId: 77,
+    })
+
+    expect(sendMessage).toHaveBeenCalledWith('hi', { replyTo: 77 })
   })
 
   it('should reject when TG bot is missing', async () => {

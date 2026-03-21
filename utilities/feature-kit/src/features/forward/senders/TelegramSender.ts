@@ -55,9 +55,9 @@ export class TelegramSender {
     }
 
     const replyTo = this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId)
-    const messageThreadId = pair?.tgThreadId ? Number(pair.tgThreadId) : undefined
-    if (messageThreadId) {
-      this.logger.info(`[Forward][QQ->TG] Sending to thread: ${messageThreadId}`)
+    const topicId = pair?.tgThreadId ? Number(pair.tgThreadId) : undefined
+    if (topicId) {
+      this.logger.info(`[Forward][QQ->TG] Sending to thread: ${topicId}`)
     }
     else {
       this.logger.info('[Forward][QQ->TG] Sending to General (no thread ID)')
@@ -124,9 +124,6 @@ export class TelegramSender {
           if (textParts.length > 0) {
             const { text, params } = this.richHeaderBuilder.applyRichHeader(header + textParts.join(' '), richHeaderUsed ? richHeaderUrl : undefined)
             params.replyTo = replyTo
-            if (messageThreadId)
-              params.messageThreadId = messageThreadId
-
             await chat.sendMessage(text, params)
             textParts = []
             richHeaderUsed = false
@@ -145,9 +142,6 @@ export class TelegramSender {
           if (textParts.length > 0) {
             const { text, params } = this.richHeaderBuilder.applyRichHeader(header + textParts.join(' '), richHeaderUsed ? richHeaderUrl : undefined)
             params.replyTo = replyTo
-            if (messageThreadId)
-              params.messageThreadId = messageThreadId
-
             await chat.sendMessage(text, params)
             textParts = []
             richHeaderUsed = false
@@ -172,9 +166,6 @@ export class TelegramSender {
 
             const { text, params } = this.richHeaderBuilder.applyRichHeader(headerText, richHeaderUrl)
             params.replyTo = replyTo
-            if (messageThreadId)
-              params.messageThreadId = messageThreadId
-
             try {
               await chat.sendMessage(text, params)
             }
@@ -195,9 +186,6 @@ export class TelegramSender {
           if (textParts.length > 0) {
             const { text, params } = this.richHeaderBuilder.applyRichHeader(header + textParts.join(' '), richHeaderUsed ? richHeaderUrl : undefined)
             params.replyTo = replyTo
-            if (messageThreadId)
-              params.messageThreadId = messageThreadId
-
             await chat.sendMessage(text, params)
             textParts = []
             richHeaderUsed = false
@@ -212,16 +200,13 @@ export class TelegramSender {
           if (textParts.length > 0) {
             const { text, params } = this.richHeaderBuilder.applyRichHeader(header + textParts.join(' '), richHeaderUsed ? richHeaderUrl : undefined)
             params.replyTo = replyTo
-            if (messageThreadId)
-              params.messageThreadId = messageThreadId
-
             await chat.sendMessage(text, params)
             textParts = []
             richHeaderUsed = false
             header = ''
           }
 
-          lastSent = await this.mediaSender.sendLocationToTG(chat, content, replyTo, messageThreadId, header, richHeaderUsed, richHeaderUrl) || lastSent
+          lastSent = await this.mediaSender.sendLocationToTG(chat, content, replyTo, topicId, header, richHeaderUsed, richHeaderUrl) || lastSent
           richHeaderUsed = false
           header = ''
           break
@@ -232,16 +217,13 @@ export class TelegramSender {
           if (textParts.length > 0) {
             const { text, params } = this.richHeaderBuilder.applyRichHeader(header + textParts.join(' '), richHeaderUsed ? richHeaderUrl : undefined)
             params.replyTo = replyTo
-            if (messageThreadId)
-              params.messageThreadId = messageThreadId
-
             await chat.sendMessage(text, params)
             textParts = []
             richHeaderUsed = false
             header = ''
           }
 
-          lastSent = await this.mediaSender.sendDiceToTG(chat, content, replyTo, messageThreadId, header, richHeaderUsed, richHeaderUrl, pair) || lastSent
+          lastSent = await this.mediaSender.sendDiceToTG(chat, content, replyTo, topicId, header, richHeaderUsed, richHeaderUrl, pair) || lastSent
           richHeaderUsed = false
           header = ''
           break
@@ -259,9 +241,6 @@ export class TelegramSender {
       const { text, params } = this.richHeaderBuilder.applyRichHeader(header + textParts.join(' '), richHeaderUsed ? richHeaderUrl : undefined)
       if (replyTo)
         params.replyTo = replyTo
-      if (messageThreadId)
-        params.messageThreadId = messageThreadId
-
       lastSent = await chat.sendMessage(text, params)
       return lastSent
     }
@@ -287,9 +266,6 @@ export class TelegramSender {
 
     const commonParams: any = {
       replyTo: this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId),
-    }
-    if (pair?.tgThreadId) {
-      commonParams.messageThreadId = Number(pair.tgThreadId)
     }
 
     // 准备 caption - 将 header（昵称/头像）作为媒体说明
@@ -389,8 +365,6 @@ export class TelegramSender {
           // 不支持的 emoji，退回文本
           const { text, params } = this.richHeaderBuilder.applyRichHeader(`${header}${emoji}${value ? ` ${value}` : ''}`, richHeaderUsed ? richHeaderUrl : undefined)
           params.replyTo = this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId)
-          if (pair?.tgThreadId)
-            params.messageThreadId = Number(pair.tgThreadId)
           try {
             return await chat.sendMessage(text, params)
           }
@@ -419,8 +393,6 @@ export class TelegramSender {
         }
         if (!params.replyTo)
           delete params.replyTo
-        if (!params.messageThreadId)
-          delete params.messageThreadId
 
         // mtcute handles string (path) and Buffer automatically
         let sentMsg: any
@@ -451,7 +423,6 @@ export class TelegramSender {
     if (content.type !== 'forward' || !content.data.id) {
       return await chat.sendMessage(this.contentRenderer(content).replace(/\\n/g, '\n'), {
         replyTo: this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId),
-        ...(pair?.tgThreadId ? { messageThreadId: Number(pair.tgThreadId) } : {}),
       })
     }
 
@@ -473,7 +444,6 @@ export class TelegramSender {
         return await chat.sendMessage(messageText, {
           replyMarkup: { type: 'inline', buttons },
           replyTo: this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId),
-          ...(pair?.tgThreadId ? { messageThreadId: Number(pair.tgThreadId) } : {}),
           disableWebPreview: true,
         })
       }
@@ -482,7 +452,6 @@ export class TelegramSender {
         messageText += '\n(未配置 WEB_ENDPOINT，无法生成查看按钮)'
         return await chat.sendMessage(messageText, {
           replyTo: this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId),
-          ...(pair?.tgThreadId ? { messageThreadId: Number(pair.tgThreadId) } : {}),
           disableWebPreview: true,
         })
       }
@@ -491,7 +460,6 @@ export class TelegramSender {
       this.logger.error(e, 'Failed to send forward message:')
       return await chat.sendMessage(this.contentRenderer(content).replace(/\\n/g, '\n'), {
         replyTo: this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId),
-        ...(pair?.tgThreadId ? { messageThreadId: Number(pair.tgThreadId) } : {}),
       })
     }
   }

@@ -280,7 +280,6 @@ describe('messageUtils', () => {
       expect(mockChat.sendMessage).toHaveBeenCalledWith('Reply message', {
         linkPreview: { disable: true },
         replyTo: 789,
-        messageThreadId: 789,
       })
     })
 

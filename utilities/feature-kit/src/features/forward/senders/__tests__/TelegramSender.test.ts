@@ -354,7 +354,7 @@ describe('telegramSender', () => {
     expect(mockChat.client.sendMedia).not.toHaveBeenCalled()
   })
 
-  it('sends to specific thread when tgThreadId provided', async () => {
+  it('routes to specific topic via replyTo when tgThreadId provided', async () => {
     const sender = new TelegramSender(mockInstance)
     const msg: any = {
       sender: { id: 'q1', name: 'QQUser' },
@@ -366,15 +366,11 @@ describe('telegramSender', () => {
 
     expect(mockChat.sendMessage).toHaveBeenCalledWith(
       'threaded',
-      expect.objectContaining({ messageThreadId: 999 }),
-    )
-    expect(mockChat.sendMessage).toHaveBeenCalledWith(
-      'threaded',
-      expect.not.objectContaining({ replyTo: expect.anything() }),
+      expect.objectContaining({ replyTo: 999 }),
     )
   })
 
-  it('does not pass bigint tgThreadId as replyTo for Telegram topic sends', async () => {
+  it('normalizes bigint tgThreadId for Telegram topic sends', async () => {
     const sender = new TelegramSender(mockInstance)
     const msg: any = {
       sender: { id: 'q1', name: 'QQUser' },
@@ -386,7 +382,7 @@ describe('telegramSender', () => {
 
     expect(mockChat.sendMessage).toHaveBeenCalledWith(
       'topic message',
-      expect.objectContaining({ messageThreadId: 363 }),
+      expect.objectContaining({ replyTo: 363 }),
     )
     expect(mockChat.sendMessage).toHaveBeenCalledWith(
       'topic message',

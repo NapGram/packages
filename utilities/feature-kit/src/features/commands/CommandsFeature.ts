@@ -908,8 +908,6 @@ export class CommandsFeature {
             const chat = await this.tgBot.getChat(Number(tgMsg.chat.id))
             const textContent = contentToText(content)
             const params: any = { replyTo: Number(tgMsg.id) }
-            if (threadId)
-              params.messageThreadId = Number(threadId)
             const sent = await chat.sendMessage(textContent, params)
             return { messageId: `tg:${String(tgMsg.chat.id)}:${String((sent as any)?.id ?? '')}`, timestamp: Date.now() }
           },
@@ -918,7 +916,7 @@ export class CommandsFeature {
             const textContent = contentToText(content)
             const params: any = {}
             if (threadId)
-              params.messageThreadId = Number(threadId)
+              params.replyTo = Number(threadId)
             const sent = await chat.sendMessage(textContent, params)
             return { messageId: `tg:${String(tgMsg.chat.id)}:${String((sent as any)?.id ?? '')}`, timestamp: Date.now() }
           },
@@ -1060,7 +1058,6 @@ export class CommandsFeature {
         const normalizedThreadId = Number(threadId)
         if (Number.isFinite(normalizedThreadId) && normalizedThreadId > 0) {
           params.replyTo = normalizedThreadId
-          params.messageThreadId = normalizedThreadId
         }
       }
 

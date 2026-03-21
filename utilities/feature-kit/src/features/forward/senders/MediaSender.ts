@@ -68,9 +68,6 @@ export class MediaSender {
       const actionText = '发来一组图文消息：'
       const { text, params } = this.richHeaderBuilder.applyRichHeader(actionText, richHeaderUrl)
       params.replyTo = this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId)
-      if (pair?.tgThreadId) {
-        params.messageThreadId = Number(pair.tgThreadId)
-      }
 
       try {
         await chat.sendMessage(text, params)
@@ -150,9 +147,6 @@ export class MediaSender {
     const sendParams: any = {
       replyTo: this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId),
     }
-    if (pair?.tgThreadId) {
-      sendParams.messageThreadId = Number(pair.tgThreadId)
-    }
     if (!sendParams.replyTo)
       delete sendParams.replyTo
 
@@ -210,11 +204,9 @@ export class MediaSender {
 
     const captionText = header && header.trim() ? header : undefined
     const sendParams: any = {
-      replyTo,
+      replyTo: replyTo ?? messageThreadId,
       caption: captionText,
     }
-    if (messageThreadId)
-      sendParams.messageThreadId = messageThreadId
     if (!sendParams.replyTo)
       delete sendParams.replyTo
     if (!captionText)
@@ -242,17 +234,13 @@ export class MediaSender {
       const choice = value && rpsMap[value] ? rpsMap[value] : `${emoji}`
       const text = `发来一个石头剪刀布：${choice}`
       const { text: msgText, params } = this.richHeaderBuilder.applyRichHeader(header ? `${header}${text}` : text, richHeaderUsed ? richHeaderUrl : undefined)
-      params.replyTo = replyTo
-      if (messageThreadId)
-        params.messageThreadId = messageThreadId
+      params.replyTo = replyTo ?? messageThreadId
       return await chat.sendMessage(msgText, params)
     }
 
     const params: any = {
-      replyTo,
+      replyTo: replyTo ?? messageThreadId,
     }
-    if (messageThreadId)
-      params.messageThreadId = messageThreadId
     if (!params.replyTo)
       delete params.replyTo
 

@@ -60,7 +60,6 @@ export class TelegramReply {
       const params: any = { linkPreview: { disable: true } }
       if (effectiveThread) {
         params.replyTo = effectiveThread
-        params.replyToTopId = effectiveThread
       }
       await chat.sendMessage(text, params)
     }
