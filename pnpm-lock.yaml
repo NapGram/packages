@@ -998,12 +998,18 @@ importers:
       '@napgram/auth-kit':
         specifier: workspace:*
         version: link:../auth-kit
+      '@napgram/infra-kit':
+        specifier: workspace:*
+        version: link:../../core/infra-kit
       '@napgram/message-kit':
         specifier: workspace:*
         version: link:../message-kit
       '@napgram/plugin-kit':
         specifier: workspace:*
         version: link:../../core/plugin-kit
+      '@napgram/runtime-kit':
+        specifier: workspace:*
+        version: link:../../core/runtime-kit
       '@napgram/telegram-client':
         specifier: workspace:*
         version: link:../../clients/telegram-client
@@ -1020,12 +1026,6 @@ importers:
       '@kitajs/ts-html-plugin':
         specifier: ^4.1.3
         version: 4.1.4(@kitajs/html@4.2.13)(typescript@5.9.3)
-      '@napgram/infra-kit':
-        specifier: workspace:*
-        version: link:../../core/infra-kit
-      '@napgram/runtime-kit':
-        specifier: workspace:*
-        version: link:../../core/runtime-kit
       '@types/node':
         specifier: 25.5.0
         version: 25.5.0

@@ -3,7 +3,6 @@ import {
   db,
   ErrorResponses,
   getLogger,
-  Instance,
   TTLCache,
   schema,
   eq,
@@ -14,6 +13,7 @@ import {
   count,
   like,
 } from '@napgram/runtime-kit/legacy'
+import { InstanceRegistry } from '@napgram/runtime-kit'
 import { authMiddleware } from '@napgram/auth-kit'
 import { processNestedForward } from '@napgram/message-kit'
 
@@ -33,6 +33,8 @@ const normalizeTgSenderName = (chat: any): string | null => {
   return name || null
 }
 
+const getInstanceById = (instanceId: number) => InstanceRegistry.getById(instanceId) as any
+
 const resolveTgSenderName = async (instanceId: number, senderId: string): Promise<string | null> => {
   const cacheKey = `${instanceId}:${senderId}`
   const cached = tgSenderNameCache.get(cacheKey)
@@ -44,7 +46,7 @@ const resolveTgSenderName = async (instanceId: number, senderId: string): Promis
     return inflight
 
   const task = (async () => {
-    const instance = Instance.instances.find((inst: any) => inst.id === instanceId)
+    const instance = getInstanceById(instanceId)
     const bot = (instance as any)?.tgBot
     if (!bot?.getChat) {
       tgSenderNameCache.set(cacheKey, null, 60000)
@@ -80,7 +82,7 @@ const resolveTgSenderName = async (instanceId: number, senderId: string): Promis
 }
 
 const resolveQqBotIdentity = (instanceId: number): { id: string | null, name: string | null } => {
-  const instance = Instance.instances.find((inst: any) => inst.id === instanceId)
+  const instance = getInstanceById(instanceId)
   const qqClient = (instance as any)?.qqClient
   const rawId = qqClient?.uin
   const id = rawId !== undefined && rawId !== null ? String(rawId) : null

@@ -3,7 +3,7 @@
 import type { FastifyInstance } from 'fastify'
 import Html from '@kitajs/html'
 import { env, formatDate, getLogger, sentry } from '@napgram/infra-kit'
-import { Instance } from '@napgram/runtime-kit'
+import { InstanceRegistry } from '@napgram/runtime-kit'
 
 const logger = getLogger('Rich Header')
 void Html // Keep Html in scope for JSX factory
@@ -42,7 +42,7 @@ async function handler(request: any, reply: any) {
     let instance: any
 
     // Find pair by apiKey across all instances
-    for (const inst of Instance.instances) {
+    for (const inst of InstanceRegistry.getAll()) {
       if (inst.forwardPairs) {
         const pairs = inst.forwardPairs.getAll()
         const found = pairs.find((p: any) => p.apiKey === params.apiKey)
