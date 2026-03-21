@@ -4,6 +4,9 @@ import { InstanceRegistry } from '@napgram/runtime-kit';
 
 const createdInstances = new Set<number>();
 
+/**
+ * @deprecated Prefer the host-managed FeatureManager wiring in NapGram.
+ */
 const plugin: NapGramPlugin = {
     id: 'commands',
     name: 'Commands Feature',

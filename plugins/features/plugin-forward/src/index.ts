@@ -2,6 +2,9 @@ import type { NapGramPlugin, PluginContext, InstanceStatusEvent } from '@napgram
 import { ForwardFeature } from '@napgram/feature-kit';
 import { InstanceRegistry } from '@napgram/runtime-kit';
 
+/**
+ * @deprecated Prefer the host-managed FeatureManager wiring in NapGram.
+ */
 const plugin: NapGramPlugin = {
     id: 'forward',
     name: 'Forward Feature',

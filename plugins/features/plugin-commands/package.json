@@ -1,7 +1,7 @@
 {
     "name": "@napgram/plugin-commands",
     "version": "0.1.5",
-    "description": "NapGram commands feature plugin",
+    "description": "Deprecated compatibility wrapper for the NapGram commands feature",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "type": "module",
