@@ -1,6 +1,6 @@
 {
     "name": "@napgram/plugin-statistics",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "description": "NapGram statistics admin endpoints",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
