@@ -1,5 +1,6 @@
 import type { NapGramPlugin, PluginContext, InstanceStatusEvent } from '@napgram/sdk';
-import { CommandsFeature, Instance } from '@napgram/feature-kit';
+import { CommandsFeature } from '@napgram/feature-kit';
+import { InstanceRegistry } from '@napgram/runtime-kit';
 
 const createdInstances = new Set<number>();
 
@@ -15,7 +16,7 @@ const plugin: NapGramPlugin = {
     },
 
     install: async (ctx: PluginContext) => {
-        ctx.logger.info('Commands feature plugin installed');
+        ctx.logger.warn('Commands feature plugin is deprecated; prefer host-managed FeatureManager wiring.');
 
         const attach = (instance: any) => {
             if (!instance || !instance.qqClient || !instance.tgBot) return;
@@ -26,17 +27,17 @@ const plugin: NapGramPlugin = {
 
         const handleStatus = async (event: InstanceStatusEvent) => {
             if (event.status !== 'starting' && event.status !== 'running') return;
-            const instance = Instance.instances.find((i: any) => i.id === event.instanceId);
+            const instance = InstanceRegistry.getById(event.instanceId);
             if (!instance) return;
             attach(instance);
         };
 
-        Instance.instances.forEach(attach);
+        InstanceRegistry.getAll().forEach(attach);
         ctx.on('instance-status', handleStatus);
     },
 
     uninstall: async () => {
-        for (const instance of Instance.instances as any[]) {
+        for (const instance of InstanceRegistry.getAll() as any[]) {
             if (!createdInstances.has(instance.id)) continue;
             if (instance.commandsFeature) {
                 instance.commandsFeature.destroy?.();

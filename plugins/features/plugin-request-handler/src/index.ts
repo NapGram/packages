@@ -1,5 +1,6 @@
-import type { FriendRequestEvent, GroupRequestEvent, InstanceStatusEvent, NapGramPlugin, PluginContext } from '@napgram/sdk';
-import { db, schema, eq, Instance, RequestAutomationService } from '@napgram/request-kit';
+import type { FriendRequestEvent, GroupRequestEvent, InstanceInfo, InstanceStatusEvent, NapGramPlugin, PluginContext } from '@napgram/sdk';
+import { db, schema, eq, RequestAutomationService } from '@napgram/request-kit';
+import type { RequestActionGateway } from '@napgram/request-kit';
 
 const automationServices = new Map<number, RequestAutomationService>();
 
@@ -17,16 +18,19 @@ const plugin: NapGramPlugin = {
     install: async (ctx: PluginContext) => {
         ctx.logger.info('Request handler plugin installed');
 
-        const resolveInstance = (instanceId: number) => {
-            return Instance.instances.find((i: any) => i.id === instanceId);
-        };
-
-        const ensureAutomationService = (instance: Instance | undefined) => {
-            if (!instance || !instance.qqClient) return;
+        const ensureAutomationService = (instance: InstanceInfo | null) => {
+            if (!instance || !instance.hasQqClient) return;
             if (automationServices.has(instance.id)) return automationServices.get(instance.id);
-            const service = new RequestAutomationService(instance, instance.qqClient);
+            const service = new RequestAutomationService(instance.id);
             automationServices.set(instance.id, service);
             return service;
+        };
+
+        const destroyAutomationService = (instanceId: number) => {
+            const service = automationServices.get(instanceId);
+            if (!service) return;
+            service.destroy();
+            automationServices.delete(instanceId);
         };
 
         const parseBigInt = (value: string | number | undefined | null) => {
@@ -68,32 +72,70 @@ const plugin: NapGramPlugin = {
             return `🤖 ${typeText}申请已${actionText}\n━━━━━━━━━━━━━━━━\n👤 用户：${request.userId}${groupLine}\n💬 验证消息：${request.comment || '(无)'}${reasonText}\n⏰ 时间：${time}`;
         };
 
-        const sendTelegramNotification = async (instance: Instance | undefined, message: string) => {
+        const sendTelegramNotification = async (instance: InstanceInfo | null, message: string) => {
             if (!instance) {
                 ctx.logger.warn('Instance not found for request notification');
                 return;
             }
 
-            const ownerTgId = instance.owner;
+            const ownerTgId = instance.ownerTgId;
             if (!ownerTgId) {
                 ctx.logger.warn({ instanceId: instance.id }, 'Instance owner not set, cannot send request notification');
                 return;
             }
 
-            if (!instance.tgBot) {
+            if (!instance.hasTgBot) {
                 ctx.logger.warn({ instanceId: instance.id }, 'Telegram bot not available for request notification');
                 return;
             }
 
-            const chat = await instance.tgBot.getChat(Number(ownerTgId));
-            await chat.sendMessage(message, { disableWebPreview: true });
+            await ctx.message.send({
+                instanceId: instance.id,
+                channelId: `tg:${ownerTgId}`,
+                content: message,
+            });
             ctx.logger.info({ instanceId: instance.id }, 'Request notification sent');
         };
+
+        const createActionGateway = (
+            event: FriendRequestEvent | GroupRequestEvent,
+        ): RequestActionGateway => ({
+            approveFriendRequest: async (requestId: string) => {
+                if (requestId !== event.requestId) {
+                    throw new Error(`Mismatched request id: ${requestId}`);
+                }
+                await event.approve();
+            },
+            rejectFriendRequest: async (requestId: string, reason?: string) => {
+                if (requestId !== event.requestId) {
+                    throw new Error(`Mismatched request id: ${requestId}`);
+                }
+                await event.reject(reason);
+            },
+            approveGroupRequest: async (requestId: string, subType: 'add' | 'invite') => {
+                if (requestId !== event.requestId) {
+                    throw new Error(`Mismatched request id: ${requestId}`);
+                }
+                if ('subType' in event && event.subType && event.subType !== subType) {
+                    ctx.logger.warn({ requestId, expected: subType, actual: event.subType }, 'Group request subType mismatch');
+                }
+                await event.approve();
+            },
+            rejectGroupRequest: async (requestId: string, subType: 'add' | 'invite', reason?: string) => {
+                if (requestId !== event.requestId) {
+                    throw new Error(`Mismatched request id: ${requestId}`);
+                }
+                if ('subType' in event && event.subType && event.subType !== subType) {
+                    ctx.logger.warn({ requestId, expected: subType, actual: event.subType }, 'Group request subType mismatch');
+                }
+                await event.reject(reason);
+            },
+        });
 
         const handleRequest = async (event: FriendRequestEvent | GroupRequestEvent, type: 'friend' | 'group') => {
             if (event.platform !== 'qq') return;
 
-            const instance = resolveInstance(event.instanceId);
+            const instance = await ctx.instance.get(event.instanceId);
 
             try {
                 const requestArr = await db.insert(schema.qqRequest).values({
@@ -110,7 +152,7 @@ const plugin: NapGramPlugin = {
 
                 const automation = ensureAutomationService(instance);
                 if (automation) {
-                    const autoHandled = await automation.applyAutomationRules(request);
+                    const autoHandled = await automation.applyAutomationRules(request, createActionGateway(event));
                     if (autoHandled) {
                         const updated = await db.query.qqRequest.findFirst({ where: eq(schema.qqRequest.id, request.id) });
                         if (updated) {
@@ -129,13 +171,19 @@ const plugin: NapGramPlugin = {
             }
         };
 
-        const attachAutomation = (event: InstanceStatusEvent) => {
+        const attachAutomation = async (event: InstanceStatusEvent) => {
+            if (event.status === 'stopping' || event.status === 'stopped' || event.status === 'error') {
+                destroyAutomationService(event.instanceId);
+                return;
+            }
+
             if (event.status !== 'starting' && event.status !== 'running') return;
-            const instance = resolveInstance(event.instanceId);
+            const instance = await ctx.instance.get(event.instanceId);
             ensureAutomationService(instance);
         };
 
-        Instance.instances.forEach((instance: any) => {
+        const instances = await ctx.instance.list();
+        instances.forEach((instance) => {
             ensureAutomationService(instance);
         });
 
@@ -147,7 +195,9 @@ const plugin: NapGramPlugin = {
             await handleRequest(event, 'group');
         });
 
-        ctx.on('instance-status', attachAutomation);
+        ctx.on('instance-status', async (event: InstanceStatusEvent) => {
+            await attachAutomation(event);
+        });
     },
 
     uninstall: async () => {

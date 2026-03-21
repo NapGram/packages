@@ -1,7 +1,30 @@
-import type { IQQClient, Instance } from './runtime.js'
 import { db, schema, eq, and, or, lt, desc, sql, getLogger } from './runtime.js'
 
 const logger = getLogger('RequestAutomationService')
+
+export interface RequestActionGateway {
+  approveFriendRequest: (requestId: string) => Promise<void>
+  rejectFriendRequest: (requestId: string, reason?: string) => Promise<void>
+  approveGroupRequest: (requestId: string, subType: 'add' | 'invite') => Promise<void>
+  rejectGroupRequest: (requestId: string, subType: 'add' | 'invite', reason?: string) => Promise<void>
+}
+
+function getUnavailableGateway(): RequestActionGateway {
+  return {
+    async approveFriendRequest() {
+      throw new Error('RequestActionGateway is not available for friend approvals')
+    },
+    async rejectFriendRequest() {
+      throw new Error('RequestActionGateway is not available for friend rejections')
+    },
+    async approveGroupRequest() {
+      throw new Error('RequestActionGateway is not available for group approvals')
+    },
+    async rejectGroupRequest() {
+      throw new Error('RequestActionGateway is not available for group rejections')
+    },
+  }
+}
 
 /**
  * 请求自动化服务
@@ -13,8 +36,8 @@ export class RequestAutomationService {
   private readonly EXPIRY_DAYS = 7 // 7天过期
 
   constructor(
-    private readonly instance: Instance,
-    private readonly qqClient: IQQClient,
+    private readonly instanceId: number,
+    private readonly gateway: RequestActionGateway = getUnavailableGateway(),
   ) {
     this.startCleanupSchedule()
     logger.info('RequestAutomationService ✓ 初始化完成')
@@ -48,7 +71,7 @@ export class RequestAutomationService {
 
       const result = await db.delete(schema.qqRequest)
         .where(and(
-          eq(schema.qqRequest.instanceId, this.instance.id),
+          eq(schema.qqRequest.instanceId, this.instanceId),
           eq(schema.qqRequest.status, 'pending'),
           lt(schema.qqRequest.createdAt, expiryDate),
         ))
@@ -70,11 +93,14 @@ export class RequestAutomationService {
    * 应用自动化规则到新请求
    * @returns true 如果有规则匹配并执行
    */
-  async applyAutomationRules(request: any): Promise<boolean> {
+  async applyAutomationRules(
+    request: any,
+    gateway: RequestActionGateway = this.gateway,
+  ): Promise<boolean> {
     try {
       // 查询启用的规则，按优先级排序
       const rules = await db.select().from(schema.automationRule).where(and(
-        eq(schema.automationRule.instanceId, this.instance.id),
+        eq(schema.automationRule.instanceId, this.instanceId),
         eq(schema.automationRule.enabled, true),
         or(
           eq(schema.automationRule.target, request.type),
@@ -85,7 +111,7 @@ export class RequestAutomationService {
       // 遍历规则，找到第一个匹配的
       for (const rule of rules) {
         if (await this.matchRule(rule, request)) {
-          await this.executeRule(rule, request)
+          await this.executeRule(rule, request, gateway)
           return true
         }
       }
@@ -130,16 +156,20 @@ export class RequestAutomationService {
   /**
    * 执行规则动作
    */
-  private async executeRule(rule: any, request: any): Promise<void> {
+  private async executeRule(
+    rule: any,
+    request: any,
+    gateway: RequestActionGateway,
+  ): Promise<void> {
     try {
       logger.info(`Executing automation rule #${rule.id} (${rule.type}) for request ${request.flag}`)
 
       // 执行自动审批
       if (rule.action === 'approve') {
-        await this.autoApprove(request)
+        await this.autoApprove(request, gateway)
       }
       else if (rule.action === 'reject') {
-        await this.autoReject(request, rule.reason || '自动拒绝')
+        await this.autoReject(request, rule.reason || '自动拒绝', gateway)
       }
 
       // 更新规则匹配计数
@@ -158,23 +188,15 @@ export class RequestAutomationService {
   /**
    * 自动批准请求
    */
-  private async autoApprove(request: any): Promise<void> {
+  private async autoApprove(request: any, gateway: RequestActionGateway): Promise<void> {
     if (request.type === 'friend') {
-      const handleFriendRequest = this.qqClient.handleFriendRequest
-      if (handleFriendRequest) {
-        await handleFriendRequest.call(this.qqClient, request.flag, true)
-      }
+      await gateway.approveFriendRequest(request.flag)
     }
     else if (request.type === 'group') {
-      const handleGroupRequest = this.qqClient.handleGroupRequest
-      if (handleGroupRequest) {
-        await handleGroupRequest.call(
-          this.qqClient,
-          request.flag,
-          request.subType,
-          true,
-        )
+      if (!request.subType) {
+        throw new Error('Group request is missing subType')
       }
+      await gateway.approveGroupRequest(request.flag, request.subType)
     }
 
     // 更新数据库状态
@@ -190,24 +212,19 @@ export class RequestAutomationService {
   /**
    * 自动拒绝请求
    */
-  private async autoReject(request: any, reason: string): Promise<void> {
+  private async autoReject(
+    request: any,
+    reason: string,
+    gateway: RequestActionGateway,
+  ): Promise<void> {
     if (request.type === 'friend') {
-      const handleFriendRequest = this.qqClient.handleFriendRequest
-      if (handleFriendRequest) {
-        await handleFriendRequest.call(this.qqClient, request.flag, false, reason)
-      }
+      await gateway.rejectFriendRequest(request.flag, reason)
     }
     else if (request.type === 'group') {
-      const handleGroupRequest = this.qqClient.handleGroupRequest
-      if (handleGroupRequest) {
-        await handleGroupRequest.call(
-          this.qqClient,
-          request.flag,
-          request.subType,
-          false,
-          reason,
-        )
+      if (!request.subType) {
+        throw new Error('Group request is missing subType')
       }
+      await gateway.rejectGroupRequest(request.flag, request.subType, reason)
     }
 
     // 更新数据库状态
@@ -233,7 +250,7 @@ export class RequestAutomationService {
         count: sql<number>`count(${schema.qqRequest.id})`,
       })
         .from(schema.qqRequest)
-        .where(eq(schema.qqRequest.instanceId, this.instance.id))
+        .where(eq(schema.qqRequest.instanceId, this.instanceId))
         .groupBy(schema.qqRequest.type, schema.qqRequest.status)
 
       // 准备更新数据
@@ -273,17 +290,17 @@ export class RequestAutomationService {
 
       // Upsert统计数据
       const existing = await db.select().from(schema.requestStatistics)
-        .where(eq(schema.requestStatistics.instanceId, this.instance.id))
+        .where(eq(schema.requestStatistics.instanceId, this.instanceId))
         .limit(1)
 
       if (existing[0]) {
         await db.update(schema.requestStatistics)
           .set(updateData)
-          .where(eq(schema.requestStatistics.instanceId, this.instance.id))
+          .where(eq(schema.requestStatistics.instanceId, this.instanceId))
       } else {
         await db.insert(schema.requestStatistics)
           .values({
-            instanceId: this.instance.id,
+            instanceId: this.instanceId,
             ...updateData,
           })
       }

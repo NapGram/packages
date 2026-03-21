@@ -6,6 +6,7 @@ describe('mediaSender', () => {
   const fileNormalizer = {
     normalizeInputFile: vi.fn(),
     isGifMedia: vi.fn(),
+    ensureTelegramPhotoCompatible: vi.fn(async input => input),
   }
   const richHeaderBuilder = {
     applyRichHeader: vi.fn(),
@@ -173,7 +174,10 @@ describe('mediaSender', () => {
 
     await sender.sendMediaGroup(
       chat,
-      [{ type: 'image', data: { file: 'file-a' } }] as any,
+      [
+        { type: 'image', data: { file: 'file-a' } },
+        { type: 'image', data: { file: 'file-b' } },
+      ] as any,
       'caption',
       55,
       { tgThreadId: 1 },
@@ -202,7 +206,10 @@ describe('mediaSender', () => {
 
     await sender.sendMediaGroup(
       chat,
-      [{ type: 'image', data: { file: 'file-a' } }] as any,
+      [
+        { type: 'image', data: { file: 'file-a' } },
+        { type: 'image', data: { file: 'file-b' } },
+      ] as any,
       'caption',
       55,
       {},
@@ -318,7 +325,10 @@ describe('mediaSender', () => {
 
       const result = await sender.sendMediaGroup(
         chat,
-        [{ type: 'image', data: { file: 'file-a' } }] as any,
+        [
+          { type: 'image', data: { file: 'file-a' } },
+          { type: 'image', data: { file: 'file-b' } },
+        ] as any,
         '',
       )
 
@@ -344,7 +354,10 @@ describe('mediaSender', () => {
 
     const result = await sender.sendMediaGroup(
       chat,
-      [{ type: 'image', data: { file: 'file-a' } }] as any,
+      [
+        { type: 'image', data: { file: 'file-a' } },
+        { type: 'image', data: { file: 'file-b' } },
+      ] as any,
       '',
     )
 
@@ -364,7 +377,10 @@ describe('mediaSender', () => {
 
     await sender.sendMediaGroup(
       chat,
-      [{ type: 'image', data: { file: 'file-a.gif' } }] as any,
+      [
+        { type: 'image', data: { file: 'file-a.gif' } },
+        { type: 'image', data: { file: 'file-b.gif' } },
+      ] as any,
       '',
     )
 

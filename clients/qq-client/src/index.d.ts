@@ -1,8 +1,0 @@
-export { configureQQClient, getQQClientDependencies } from './deps.js';
-export * from './message.js';
-export * from './interface.js';
-export * from './factory.js';
-export * from './types/index.js';
-export * from './types/onebot-types.js';
-export * from './napcatConvert.js';
-export * from './NapCatAdapter.js';

@@ -34,7 +34,7 @@ describe('modeCommandHandler', () => {
     expect(replyTG).toHaveBeenCalledWith(
       '200',
       expect.stringContaining('/mode'),
-      123,
+      123n,
     )
     expect(modeService.setNicknameMode).not.toHaveBeenCalled()
     expect(modeService.setForwardMode).not.toHaveBeenCalled()

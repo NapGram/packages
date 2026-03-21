@@ -254,12 +254,13 @@ describe('commandsFeature', () => {
     const msgWithRaw: any = { metadata: { raw: { replyTo: { replyToTopId: 99 } } } }
 
     const fromArgs = (commandsFeature as any).extractThreadId(msgWithRaw, ['cmd', '123'])
-    expect(fromArgs).toBe(123)
+    expect(fromArgs).toBe(123n)
 
     const { ThreadIdExtractor } = await import('../services/ThreadIdExtractor.js')
     vi.mocked(ThreadIdExtractor).mockImplementationOnce(function ThreadIdExtractorMock() {
       return {
         extractFromRaw: vi.fn().mockReturnValue(456),
+        extract: vi.fn().mockReturnValue(456n),
       } as any
     })
     const fromRaw = (commandsFeature as any).extractThreadId(msgWithRaw, ['cmd'])

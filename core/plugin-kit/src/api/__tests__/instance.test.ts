@@ -33,12 +33,15 @@ describe('instanceAPI', () => {
       {
         id: 1,
         name: 'A',
+        owner: 456,
+        status: 'running',
         qqClient: { uin: 123 },
         tgBot: { username: 'tg' },
       },
       {
         id: 2,
         name: 'B',
+        status: 'stopped',
         createdAt: new Date('2020-01-02T00:00:00Z'),
       },
     ])
@@ -49,6 +52,10 @@ describe('instanceAPI', () => {
       {
         id: 1,
         name: 'A',
+        ownerTgId: '456',
+        status: 'running',
+        hasQqClient: true,
+        hasTgBot: true,
         qqAccount: '123',
         tgAccount: 'tg',
         createdAt: new Date('2020-01-01T00:00:00Z'),
@@ -56,6 +63,10 @@ describe('instanceAPI', () => {
       {
         id: 2,
         name: 'B',
+        ownerTgId: undefined,
+        status: 'stopped',
+        hasQqClient: false,
+        hasTgBot: false,
         qqAccount: undefined,
         tgAccount: undefined,
         createdAt: new Date('2020-01-02T00:00:00Z'),

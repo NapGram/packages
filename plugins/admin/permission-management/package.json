@@ -26,9 +26,6 @@
     "author": "NapGram Team",
     "license": "MIT",
     "devDependencies": {
-        "@napgram/infra-kit": "workspace:*",
-        "@napgram/runtime-kit": "workspace:*",
-        "@napgram/sdk": "workspace:*",
         "@types/node": "25.5.0",
         "drizzle-orm": "^0.45.1",
         "typescript": "5.9.3"
@@ -44,5 +41,15 @@
             },
             "./package.json": "./package.json"
         }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "dependencies": {
+        "@napgram/sdk": "workspace:*",
+        "@napgram/infra-kit": "workspace:*",
+        "@napgram/runtime-kit": "workspace:*"
     }
 }

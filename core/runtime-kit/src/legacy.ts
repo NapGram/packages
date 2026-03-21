@@ -2,6 +2,9 @@ export { env, db, schema, eq, and, or, lt, desc, count, like } from '@napgram/in
 import { InstanceRegistry } from './runtime-holder.js'
 import type { IInstance } from './runtime-types.js'
 
+/**
+ * @deprecated Use the plugin InstanceAPI instead of reaching into legacy.Instance.instances.
+ */
 export const Instance = {
     get instances(): IInstance[] {
         return InstanceRegistry.getAll()

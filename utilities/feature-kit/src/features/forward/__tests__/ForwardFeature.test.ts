@@ -123,11 +123,13 @@ function createFeature() {
 }
 
 let publishMessage: ReturnType<typeof vi.fn>
+let publishMessageCreated: ReturnType<typeof vi.fn>
 
 beforeEach(() => {
   vi.clearAllMocks()
   publishMessage = vi.fn()
-  vi.mocked(getEventPublisher).mockReturnValue({ publishMessage } as any)
+  publishMessageCreated = vi.fn().mockResolvedValue(undefined)
+  vi.mocked(getEventPublisher).mockReturnValue({ publishMessage, publishMessageCreated } as any)
   vi.mocked(db.update).mockReturnValue({
     set: vi.fn(() => ({
       where: vi.fn().mockResolvedValue({
@@ -330,7 +332,7 @@ describe('forwardFeature', () => {
     expect(qqClient.getGroupMemberInfo).not.toHaveBeenCalled()
     expect(replySpy).toHaveBeenCalledWith(
       tgBot,
-      1001,
+      1001n,
       'User 111 poked themselves',
       undefined,
     )
@@ -408,7 +410,7 @@ describe('forwardFeature', () => {
     await (feature as any).handleQQMessage(msg)
 
     expect(publishMessage).toHaveBeenCalled()
-    expect(instance.eventPublisher.publishMessageCreated).not.toHaveBeenCalled()
+    expect(publishMessageCreated).not.toHaveBeenCalled()
     expect((feature as any).telegramSender.sendToTelegram).not.toHaveBeenCalled()
   })
 
@@ -450,7 +452,7 @@ describe('forwardFeature', () => {
 
     await (feature as any).handleQQMessage(msg)
 
-    expect(instance.eventPublisher.publishMessageCreated).toHaveBeenCalled()
+    expect(publishMessageCreated).toHaveBeenCalled()
     expect((feature as any).telegramSender.sendToTelegram).toHaveBeenCalled()
     expect((feature as any).mapper.saveMessage).toHaveBeenCalled()
   })

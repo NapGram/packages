@@ -599,6 +599,10 @@ export interface InstanceAPI {
 export interface InstanceInfo {
   id: number
   name?: string
+  ownerTgId?: string
+  status: InstanceStatus
+  hasQqClient: boolean
+  hasTgBot: boolean
   qqAccount?: string
   tgAccount?: string
   createdAt: Date
