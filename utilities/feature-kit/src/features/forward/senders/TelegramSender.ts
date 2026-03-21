@@ -54,8 +54,7 @@ export class TelegramSender {
       header = ''
     }
 
-    const effectiveReplyTo = replyToMsgId || pair?.tgThreadId
-    const replyTo = this.richHeaderBuilder.buildReplyTo(pair, effectiveReplyTo)
+    const replyTo = this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId)
     const messageThreadId = pair?.tgThreadId ? Number(pair.tgThreadId) : undefined
     if (messageThreadId) {
       this.logger.info(`[Forward][QQ->TG] Sending to thread: ${messageThreadId}`)
@@ -451,7 +450,8 @@ export class TelegramSender {
   private async sendForwardToTG(chat: any, content: MessageContent, pair: any, replyToMsgId?: number, header: string = '', richHeaderUsed?: boolean) {
     if (content.type !== 'forward' || !content.data.id) {
       return await chat.sendMessage(this.contentRenderer(content).replace(/\\n/g, '\n'), {
-        replyTo: this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId || pair?.tgThreadId),
+        replyTo: this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId),
+        ...(pair?.tgThreadId ? { messageThreadId: Number(pair.tgThreadId) } : {}),
       })
     }
 
@@ -472,7 +472,8 @@ export class TelegramSender {
         const buttons = [[{ _: 'keyboardButtonUrl', text: '查看合并转发', url: webAppUrl }]]
         return await chat.sendMessage(messageText, {
           replyMarkup: { type: 'inline', buttons },
-          replyTo: this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId || pair?.tgThreadId),
+          replyTo: this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId),
+          ...(pair?.tgThreadId ? { messageThreadId: Number(pair.tgThreadId) } : {}),
           disableWebPreview: true,
         })
       }
@@ -480,7 +481,8 @@ export class TelegramSender {
         this.logger.warn('WEB_ENDPOINT is not set, sending forward link as plain text.')
         messageText += '\n(未配置 WEB_ENDPOINT，无法生成查看按钮)'
         return await chat.sendMessage(messageText, {
-          replyTo: this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId || pair?.tgThreadId),
+          replyTo: this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId),
+          ...(pair?.tgThreadId ? { messageThreadId: Number(pair.tgThreadId) } : {}),
           disableWebPreview: true,
         })
       }
@@ -488,7 +490,8 @@ export class TelegramSender {
     catch (e) {
       this.logger.error(e, 'Failed to send forward message:')
       return await chat.sendMessage(this.contentRenderer(content).replace(/\\n/g, '\n'), {
-        replyTo: this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId || pair?.tgThreadId),
+        replyTo: this.richHeaderBuilder.buildReplyTo(pair, replyToMsgId),
+        ...(pair?.tgThreadId ? { messageThreadId: Number(pair.tgThreadId) } : {}),
       })
     }
   }

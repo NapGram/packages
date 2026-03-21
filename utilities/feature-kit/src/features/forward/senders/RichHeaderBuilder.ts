@@ -55,11 +55,10 @@ export class RichHeaderBuilder {
    * Build reply parameters for message
    */
   buildReplyTo(pair?: any, replyToMsgId?: number): number | undefined {
-    const topId = pair?.tgThreadId
-    const replyId = replyToMsgId || topId
-    if (!replyId)
+    void pair
+    if (!replyToMsgId)
       return undefined
-    return replyId
+    return replyToMsgId
   }
 
   /**

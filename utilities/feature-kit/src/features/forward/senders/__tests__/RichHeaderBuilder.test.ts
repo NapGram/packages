@@ -82,10 +82,10 @@ describe('richHeaderBuilder', () => {
       expect(result).toBe(200)
     })
 
-    it('returns tgThreadId when replyToMsgId is not provided', () => {
+    it('does not fall back to tgThreadId when replyToMsgId is not provided', () => {
       const result = builder.buildReplyTo({ tgThreadId: 100 })
 
-      expect(result).toBe(100)
+      expect(result).toBeUndefined()
     })
 
     it('returns undefined when no IDs are provided', () => {

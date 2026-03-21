@@ -364,7 +364,34 @@ describe('telegramSender', () => {
 
     await sender.sendToTelegram(mockChat, msg, pair, undefined, '00')
 
-    expect(mockChat.sendMessage).toHaveBeenCalledWith('threaded', expect.objectContaining({ messageThreadId: 999 }))
+    expect(mockChat.sendMessage).toHaveBeenCalledWith(
+      'threaded',
+      expect.objectContaining({ messageThreadId: 999 }),
+    )
+    expect(mockChat.sendMessage).toHaveBeenCalledWith(
+      'threaded',
+      expect.not.objectContaining({ replyTo: expect.anything() }),
+    )
+  })
+
+  it('does not pass bigint tgThreadId as replyTo for Telegram topic sends', async () => {
+    const sender = new TelegramSender(mockInstance)
+    const msg: any = {
+      sender: { id: 'q1', name: 'QQUser' },
+      content: [{ type: 'text', data: { text: 'topic message' } }],
+    }
+    const pair = { tgThreadId: 363n }
+
+    await sender.sendToTelegram(mockChat, msg, pair, undefined, '00')
+
+    expect(mockChat.sendMessage).toHaveBeenCalledWith(
+      'topic message',
+      expect.objectContaining({ messageThreadId: 363 }),
+    )
+    expect(mockChat.sendMessage).toHaveBeenCalledWith(
+      'topic message',
+      expect.not.objectContaining({ replyTo: 363n }),
+    )
   })
   it('handles dice fallback failure', async () => {
     const sender = new TelegramSender(mockInstance)
