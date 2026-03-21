@@ -1,6 +1,6 @@
 {
     "name": "@napgram/plugin-notifications",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "NapGram notification plugin",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",

@@ -1,6 +1,6 @@
 {
     "name": "@napgram/logger-kit",
-  "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Logger and Sentry primitives for NapGram",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
