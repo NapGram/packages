@@ -1,6 +1,6 @@
 {
     "name": "@napgram/plugin-admin-suite",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "NapGram admin API bundle plugin",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
