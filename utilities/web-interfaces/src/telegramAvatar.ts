@@ -5,9 +5,9 @@ import {
   convert,
   ErrorResponses,
   getLogger,
-  Instance,
   registerDualRoute,
 } from '@napgram/runtime-kit/legacy'
+import { InstanceRegistry } from '@napgram/runtime-kit'
 
 const log = getLogger('telegramAvatar')
 
@@ -29,7 +29,7 @@ export default async function (fastify: FastifyInstance) {
     const { instanceId, userId } = request.params
     log.debug('请求头像', userId)
 
-    const instance = Instance.instances.find((it: any) => it.id.toString() === instanceId)
+    const instance = InstanceRegistry.getById(Number(instanceId)) as any
     if (!instance) {
       return ErrorResponses.notFound(reply, 'Instance not found')
     }

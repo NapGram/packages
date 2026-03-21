@@ -1,6 +1,6 @@
 import type { FastifyInstance } from 'fastify'
 import { db, getGlobalRuntime, schema, eq, and, or, gte, lte, count, sql, desc } from '@napgram/runtime-kit'
-import { Instance } from '@napgram/runtime-kit'
+import { InstanceRegistry } from '@napgram/runtime-kit'
 import { authMiddleware } from '@napgram/auth-kit'
 /**
  * 统计分析 API
@@ -64,7 +64,7 @@ export default async function (fastify: FastifyInstance) {
     }
 
     try {
-      const instances = Instance.instances || []
+      const instances = InstanceRegistry.getAll()
       health.instances.total = instances.length
       for (const inst of instances) {
         const tgOk = Boolean((inst as any).tgBot?.isOnline)

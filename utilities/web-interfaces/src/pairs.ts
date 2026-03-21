@@ -1,10 +1,11 @@
 import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { ApiResponse, db, getLogger, groupInfoCache, schema, eq, and, or, count, desc, inArray } from '@napgram/infra-kit'
-import { Instance } from '@napgram/runtime-kit'
+import { InstanceRegistry } from '@napgram/runtime-kit'
 import { authMiddleware } from '@napgram/auth-kit'
 
 const log = getLogger('PairsApi')
+const getInstanceById = (instanceId: number) => InstanceRegistry.getById(instanceId) as any
 
 /**
  * 配对管理 API
@@ -139,7 +140,7 @@ export default async function (fastify: FastifyInstance) {
   })
 
   const refreshInstanceForwardMap = async (instanceId: number) => {
-    const inst = Instance.instances.find((it: any) => it.id === instanceId)
+    const inst = getInstanceById(instanceId)
     const map = inst?.forwardPairs as any
     if (map && typeof map.reload === 'function') {
       await map.reload()
@@ -525,7 +526,7 @@ export default async function (fastify: FastifyInstance) {
     if (!options.notifyTelegram && !options.notifyQQ)
       return
 
-    const instance = Instance.instances.find((it: any) => it.id === pair.instanceId)
+    const instance = getInstanceById(pair.instanceId)
     if (!instance) {
       log.warn({ instanceId: pair.instanceId }, 'Instance not available for pair notification')
       return
@@ -628,7 +629,7 @@ async function resolveQqGroupName(instanceId: number, qqRoomId: string) {
   if (cached)
     return cached as string
 
-  const instance = Instance.instances.find((it: any) => it.id === instanceId)
+  const instance = getInstanceById(instanceId)
   if (!instance?.qqClient)
     return null
   try {
@@ -651,7 +652,7 @@ async function resolveTgChatName(instanceId: number, tgChatId: string) {
   if (cached)
     return cached as string
 
-  const instance = Instance.instances.find((it: any) => it.id === instanceId)
+  const instance = getInstanceById(instanceId)
   const chatIdNum = Number(tgChatId)
   if (!instance?.tgBot || Number.isNaN(chatIdNum))
     return null
