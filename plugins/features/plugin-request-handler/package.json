@@ -1,6 +1,6 @@
 {
     "name": "@napgram/plugin-request-handler",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "description": "NapGram request intake and automation plugin",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
