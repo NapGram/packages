@@ -1,6 +1,6 @@
 {
     "name": "@napgram/plugin-admin-plugins",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "description": "NapGram admin plugin management API routes",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
