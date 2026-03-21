@@ -13,18 +13,6 @@ export * from './config-store.js'
 export * from './runtime-holder.js'
 export { InstanceRegistry } from './runtime-holder.js'
 export { PermissionChecker } from './permission-checker.js'
-import { InstanceRegistry } from './runtime-holder.js'
-import type { IInstance } from './runtime-types.js'
-
-/**
- * @deprecated Use InstanceRegistry or the plugin InstanceAPI instead of reaching into Instance.instances.
- */
-export const Instance = {
-    get instances(): IInstance[] {
-        return InstanceRegistry.getAll()
-    },
-}
-export interface Instance extends IInstance {}
 
 // Re-exports of key store utilities that are safe to use
 // (We might want to move these fully to runtime-kit later)

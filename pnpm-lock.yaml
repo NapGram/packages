@@ -459,45 +459,7 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
 
-  plugins/features/plugin-commands:
-    dependencies:
-      '@napgram/feature-kit':
-        specifier: workspace:*
-        version: link:../../../utilities/feature-kit
-      '@napgram/runtime-kit':
-        specifier: workspace:*
-        version: link:../../../core/runtime-kit
-    devDependencies:
-      '@napgram/sdk':
-        specifier: workspace:*
-        version: link:../../../sdk
-      '@types/node':
-        specifier: 25.5.0
-        version: 25.5.0
-      typescript:
-        specifier: 5.9.3
-        version: 5.9.3
-
   plugins/features/plugin-flags:
-    devDependencies:
-      '@napgram/sdk':
-        specifier: workspace:*
-        version: link:../../../sdk
-      '@types/node':
-        specifier: 25.5.0
-        version: 25.5.0
-      typescript:
-        specifier: 5.9.3
-        version: 5.9.3
-
-  plugins/features/plugin-forward:
-    dependencies:
-      '@napgram/feature-kit':
-        specifier: workspace:*
-        version: link:../../../utilities/feature-kit
-      '@napgram/runtime-kit':
-        specifier: workspace:*
-        version: link:../../../core/runtime-kit
     devDependencies:
       '@napgram/sdk':
         specifier: workspace:*
@@ -526,25 +488,6 @@ importers:
         version: 5.9.3
 
   plugins/features/plugin-group-management:
-    devDependencies:
-      '@napgram/sdk':
-        specifier: workspace:*
-        version: link:../../../sdk
-      '@types/node':
-        specifier: 25.5.0
-        version: 25.5.0
-      typescript:
-        specifier: 5.9.3
-        version: 5.9.3
-
-  plugins/features/plugin-media:
-    dependencies:
-      '@napgram/feature-kit':
-        specifier: workspace:*
-        version: link:../../../utilities/feature-kit
-      '@napgram/runtime-kit':
-        specifier: workspace:*
-        version: link:../../../core/runtime-kit
     devDependencies:
       '@napgram/sdk':
         specifier: workspace:*
@@ -610,25 +553,6 @@ importers:
         version: 5.9.3
 
   plugins/features/plugin-qq-interaction:
-    devDependencies:
-      '@napgram/sdk':
-        specifier: workspace:*
-        version: link:../../../sdk
-      '@types/node':
-        specifier: 25.5.0
-        version: 25.5.0
-      typescript:
-        specifier: 5.9.3
-        version: 5.9.3
-
-  plugins/features/plugin-recall:
-    dependencies:
-      '@napgram/feature-kit':
-        specifier: workspace:*
-        version: link:../../../utilities/feature-kit
-      '@napgram/runtime-kit':
-        specifier: workspace:*
-        version: link:../../../core/runtime-kit
     devDependencies:
       '@napgram/sdk':
         specifier: workspace:*
@@ -973,9 +897,6 @@ importers:
       '@napgram/qq-client':
         specifier: workspace:*
         version: link:../../clients/qq-client
-      '@napgram/runtime-kit':
-        specifier: workspace:*
-        version: link:../../core/runtime-kit
       drizzle-orm:
         specifier: ^0.45.1
         version: 0.45.1(@opentelemetry/api@1.9.0)(@types/pg@8.20.0)(better-sqlite3@12.6.2)(pg@8.20.0)

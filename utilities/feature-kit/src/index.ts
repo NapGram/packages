@@ -1,7 +1,6 @@
 export {
   CommandsFeature,
   ForwardFeature,
-  Instance,
   MediaFeature,
   RecallFeature,
   ThreadIdExtractor,

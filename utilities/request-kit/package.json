@@ -27,7 +27,6 @@
     "dependencies": {
         "@napgram/infra-kit": "workspace:*",
         "@napgram/qq-client": "workspace:*",
-        "@napgram/runtime-kit": "workspace:*",
         "drizzle-orm": "^0.45.1"
     },
     "devDependencies": {

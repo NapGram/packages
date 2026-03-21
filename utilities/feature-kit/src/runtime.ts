@@ -1,4 +1,3 @@
-export { Instance } from '@napgram/runtime-kit'
 export { CommandsFeature } from './features/commands/CommandsFeature.js'
 export { ForwardFeature } from './features/forward/ForwardFeature.js'
 export { MediaFeature } from './features/MediaFeature.js'
