@@ -1,6 +1,6 @@
 {
     "name": "@napgram/plugin-request-management",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "description": "NapGram request management plugin: pending/approve/reject/stats",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
