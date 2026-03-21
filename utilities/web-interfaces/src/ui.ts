@@ -3,7 +3,7 @@ import { Buffer } from 'node:buffer'
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { env, ErrorResponses, getMimeType } from '@napgram/infra-kit'
+import { env, ErrorResponses, getMimeType } from './shared-host.js'
 
 export default async function (fastify: FastifyInstance) {
   if (env.UI_PROXY) {

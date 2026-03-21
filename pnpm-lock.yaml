@@ -192,9 +192,15 @@ importers:
 
   core/plugin-kit:
     dependencies:
-      '@napgram/infra-kit':
+      '@napgram/db-kit':
         specifier: workspace:*
-        version: link:../infra-kit
+        version: link:../db-kit
+      '@napgram/env-kit':
+        specifier: workspace:*
+        version: link:../env-kit
+      '@napgram/logger-kit':
+        specifier: workspace:*
+        version: link:../logger-kit
       '@napgram/marketplace-kit':
         specifier: workspace:^
         version: link:../../utilities/marketplace-kit
@@ -238,9 +244,15 @@ importers:
 
   core/runtime-kit:
     dependencies:
-      '@napgram/infra-kit':
+      '@napgram/db-kit':
         specifier: workspace:*
-        version: link:../infra-kit
+        version: link:../db-kit
+      '@napgram/env-kit':
+        specifier: workspace:*
+        version: link:../env-kit
+      '@napgram/logger-kit':
+        specifier: workspace:*
+        version: link:../logger-kit
       '@napgram/media-kit':
         specifier: workspace:*
         version: link:../../utilities/media-kit
@@ -295,9 +307,18 @@ importers:
 
   plugins/admin/permission-management:
     dependencies:
+      '@napgram/db-kit':
+        specifier: workspace:*
+        version: link:../../../core/db-kit
+      '@napgram/env-kit':
+        specifier: workspace:*
+        version: link:../../../core/env-kit
       '@napgram/infra-kit':
         specifier: workspace:*
         version: link:../../../core/infra-kit
+      '@napgram/logger-kit':
+        specifier: workspace:*
+        version: link:../../../core/logger-kit
       '@napgram/runtime-kit':
         specifier: workspace:*
         version: link:../../../core/runtime-kit
@@ -696,9 +717,15 @@ importers:
 
   utilities/auth-kit:
     dependencies:
+      '@napgram/db-kit':
+        specifier: workspace:*
+        version: link:../../core/db-kit
       '@napgram/infra-kit':
         specifier: workspace:*
         version: link:../../core/infra-kit
+      '@napgram/logger-kit':
+        specifier: workspace:*
+        version: link:../../core/logger-kit
       '@napgram/qq-client':
         specifier: workspace:*
         version: link:../../clients/qq-client
@@ -730,9 +757,18 @@ importers:
       '@napgram/auth-kit':
         specifier: workspace:*
         version: link:../auth-kit
+      '@napgram/db-kit':
+        specifier: workspace:*
+        version: link:../../core/db-kit
+      '@napgram/env-kit':
+        specifier: workspace:*
+        version: link:../../core/env-kit
       '@napgram/infra-kit':
         specifier: workspace:*
         version: link:../../core/infra-kit
+      '@napgram/logger-kit':
+        specifier: workspace:*
+        version: link:../../core/logger-kit
       '@napgram/media-kit':
         specifier: workspace:*
         version: link:../media-kit
@@ -776,9 +812,6 @@ importers:
       '@mtcute/node':
         specifier: ^0.29.1
         version: 0.29.1(ws@8.19.0)
-      '@napgram/infra-kit':
-        specifier: workspace:*
-        version: link:../../core/infra-kit
       '@napgram/message-kit':
         specifier: workspace:*
         version: link:../message-kit
@@ -807,9 +840,15 @@ importers:
       '@napgram/database':
         specifier: workspace:*
         version: link:../../clients/database
+      '@napgram/env-kit':
+        specifier: workspace:*
+        version: link:../../core/env-kit
       '@napgram/infra-kit':
         specifier: workspace:*
         version: link:../../core/infra-kit
+      '@napgram/logger-kit':
+        specifier: workspace:*
+        version: link:../../core/logger-kit
       '@napgram/runtime-kit':
         specifier: workspace:*
         version: link:../../core/runtime-kit
@@ -829,9 +868,15 @@ importers:
 
   utilities/media-kit:
     dependencies:
+      '@napgram/env-kit':
+        specifier: workspace:*
+        version: link:../../core/env-kit
       '@napgram/infra-kit':
         specifier: workspace:*
         version: link:../../core/infra-kit
+      '@napgram/logger-kit':
+        specifier: workspace:*
+        version: link:../../core/logger-kit
       file-type:
         specifier: ^21.3.0
         version: 21.3.3
@@ -857,9 +902,18 @@ importers:
       '@mtcute/core':
         specifier: ^0.29.1
         version: 0.29.1
+      '@napgram/db-kit':
+        specifier: workspace:*
+        version: link:../../core/db-kit
+      '@napgram/env-kit':
+        specifier: workspace:*
+        version: link:../../core/env-kit
       '@napgram/infra-kit':
         specifier: workspace:*
         version: link:../../core/infra-kit
+      '@napgram/logger-kit':
+        specifier: workspace:*
+        version: link:../../core/logger-kit
       '@napgram/media-kit':
         specifier: workspace:*
         version: link:../media-kit
@@ -891,9 +945,12 @@ importers:
 
   utilities/request-kit:
     dependencies:
-      '@napgram/infra-kit':
+      '@napgram/db-kit':
         specifier: workspace:*
-        version: link:../../core/infra-kit
+        version: link:../../core/db-kit
+      '@napgram/logger-kit':
+        specifier: workspace:*
+        version: link:../../core/logger-kit
       '@napgram/qq-client':
         specifier: workspace:*
         version: link:../../clients/qq-client
@@ -919,9 +976,18 @@ importers:
       '@napgram/auth-kit':
         specifier: workspace:*
         version: link:../auth-kit
+      '@napgram/db-kit':
+        specifier: workspace:*
+        version: link:../../core/db-kit
+      '@napgram/env-kit':
+        specifier: workspace:*
+        version: link:../../core/env-kit
       '@napgram/infra-kit':
         specifier: workspace:*
         version: link:../../core/infra-kit
+      '@napgram/logger-kit':
+        specifier: workspace:*
+        version: link:../../core/logger-kit
       '@napgram/message-kit':
         specifier: workspace:*
         version: link:../message-kit

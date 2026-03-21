@@ -1,7 +1,6 @@
 import type { FastifyInstance } from 'fastify'
-import { db, getGlobalRuntime, schema, eq, and, or, gte, lte, count, sql, desc } from '@napgram/runtime-kit'
-import { InstanceRegistry } from '@napgram/runtime-kit'
 import { authMiddleware } from '@napgram/auth-kit'
+import { and, count, db, desc, eq, getGlobalRuntime, gte, InstanceRegistry, lte, or, schema, sql } from './shared-host.js'
 /**
  * 统计分析 API
  */

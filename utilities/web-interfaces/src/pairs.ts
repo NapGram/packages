@@ -1,8 +1,7 @@
 import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { ApiResponse, db, getLogger, groupInfoCache, schema, eq, and, or, count, desc, inArray } from '@napgram/infra-kit'
-import { InstanceRegistry } from '@napgram/runtime-kit'
 import { authMiddleware } from '@napgram/auth-kit'
+import { and, ApiResponse, count, db, desc, eq, getLogger, groupInfoCache, inArray, InstanceRegistry, or, schema } from './shared-host.js'
 
 const log = getLogger('PairsApi')
 const getInstanceById = (instanceId: number) => InstanceRegistry.getById(instanceId) as any

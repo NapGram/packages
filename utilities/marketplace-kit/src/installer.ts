@@ -7,15 +7,7 @@ import process from 'node:process'
 import { pathToFileURL } from 'node:url'
 import { promisify } from 'node:util'
 import { unzipSync } from 'fflate'
-import { env } from '@napgram/infra-kit'
-import { getLogger } from '@napgram/infra-kit'
-import {
-  getGlobalRuntime,
-  patchPluginConfig,
-  readPluginsConfig,
-  removePluginConfig,
-  upsertPluginConfig,
-} from '@napgram/runtime-kit'
+import { env, getGlobalRuntime, getLogger, patchPluginConfig, readPluginsConfig, removePluginConfig, upsertPluginConfig } from './shared-runtime.js'
 import { readMarketplaceCache } from './marketplace.js'
 
 const execFileAsync = promisify(execFile)

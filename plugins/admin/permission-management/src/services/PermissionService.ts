@@ -1,5 +1,5 @@
-import { getLogger, drizzleDb, eq, and, env } from '@napgram/infra-kit'
-import type { IInstance } from '@napgram/runtime-kit'
+import { and, drizzleDb, env, eq, getLogger } from '../shared-runtime.js'
+import type { IInstance } from '../shared-runtime.js'
 import { userPermissions, commandPermissions, permissionAuditLogs } from '../database/schema.js'
 import { PermissionLevel } from '../types/index.js'
 import type { UserPermission, PermissionCheckResult } from '../types/index.js'

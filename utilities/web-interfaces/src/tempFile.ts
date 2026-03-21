@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify'
 import fs from 'node:fs'
 import path from 'node:path'
-import { ErrorResponses, getMimeType, TEMP_PATH } from '@napgram/infra-kit'
+import { ErrorResponses, getMimeType, TEMP_PATH } from './shared-host.js'
 
 export default async function (fastify: FastifyInstance) {
   fastify.get('/temp/:filename', async (request: any, reply: any) => {

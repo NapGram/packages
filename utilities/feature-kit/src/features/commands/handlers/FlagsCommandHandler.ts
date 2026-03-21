@@ -1,7 +1,6 @@
 import type { UnifiedMessage } from '@napgram/message-kit'
 import type { CommandContext } from './CommandContext.js'
-import { db, sql } from '@napgram/infra-kit'
-import { getLogger } from '@napgram/infra-kit'
+import { db, getLogger, sql } from '../../../shared-types.js'
 
 const logger = getLogger('FlagsCommandHandler')
 
@@ -83,7 +82,7 @@ export class FlagsCommandHandler {
       // 这里使用一个简单的键值对方案
       const flags = await db.execute(sql`
                 SELECT key, value FROM instance_flags WHERE instance_id = ${instanceId}
-            `).then(res => res.rows as unknown as Array<{ key: string, value: boolean }>).catch(() => [] as Array<{ key: string, value: boolean }>)
+            `).then((res: any) => res.rows as unknown as Array<{ key: string, value: boolean }>).catch(() => [] as Array<{ key: string, value: boolean }>)
 
       let message = `⚙️ **实验性功能标志**\n\n`
 

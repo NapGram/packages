@@ -1,5 +1,4 @@
 import type { Message } from '@mtcute/core'
-import type { IInstance as Instance } from '@napgram/runtime-kit'
 import type { MessageContent, UnifiedMessage } from './types.js'
 export type { UnifiedMessage }
 
@@ -9,8 +8,8 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { fileTypeFromBuffer } from 'file-type'
 import { decode, encode } from 'image-js'
-import { getLogger, env } from '@napgram/infra-kit'
-import convert from '@napgram/runtime-kit'
+import { convert, env, getLogger } from './shared-runtime.js'
+import type { Instance } from './shared-runtime.js'
 
 import { NapCatConverter } from './converters/index.js'
 

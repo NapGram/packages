@@ -1,6 +1,6 @@
 import { randomBytes, scryptSync } from 'node:crypto'
 import process from 'node:process'
-import { db, schema, eq, and, or, gt, isNull, lt } from '@napgram/infra-kit'
+import { and, db, eq, gt, isNull, lt, or, schema } from './shared-runtime.js'
 
 /**
  * Token 管理器

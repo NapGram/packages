@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { ApiResponse, db, schema, eq, count, desc, sql, env } from '@napgram/infra-kit'
 import { authMiddleware } from '@napgram/auth-kit'
+import { ApiResponse, count, db, desc, env, eq, schema, sql } from './shared-host.js'
 
 /**
  * 实例管理 API

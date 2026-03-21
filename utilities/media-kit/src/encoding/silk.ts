@@ -3,7 +3,7 @@ import { execFile } from 'node:child_process'
 import fsP from 'node:fs/promises'
 import { promisify } from 'node:util'
 import { decode, encode } from 'silk-wasm'
-import { temp } from '@napgram/infra-kit'
+import { temp } from '../shared-runtime.js'
 
 const execFileAsync = promisify(execFile)
 async function runFfmpeg(args: string[]) {

@@ -6,7 +6,7 @@
 
 import type { NapGramPlugin } from './interfaces.js'
 import type { PluginContextImpl } from './plugin-context.js'
-import { getLogger } from '@napgram/infra-kit'
+import { getLogger } from '@napgram/logger-kit'
 
 const logger = getLogger('PluginLifecycle')
 

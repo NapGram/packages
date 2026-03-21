@@ -1,7 +1,6 @@
 import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { ApiResponse, drizzleDb, sql } from '@napgram/infra-kit'
-import { getLogger } from '@napgram/infra-kit'
+import { ApiResponse, drizzleDb, getLogger, sql } from './shared-host.js'
 
 const logger = getLogger('PermissionAdmin')
 

@@ -8,7 +8,7 @@ import type { PluginStorage } from '../core/interfaces.js'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
-import { getLogger } from '@napgram/infra-kit'
+import { getLogger } from '@napgram/logger-kit'
 
 const logger = getLogger('PluginStorage')
 

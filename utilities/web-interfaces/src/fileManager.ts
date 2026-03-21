@@ -3,8 +3,8 @@ import fs from 'node:fs/promises'
 import { createWriteStream, unlink } from 'node:fs'
 import path from 'node:path'
 import { pipeline } from 'node:stream/promises'
-import { getLogger } from '@napgram/infra-kit'
 import { authMiddleware } from '@napgram/auth-kit'
+import { getLogger } from './shared-host.js'
 
 const logger = getLogger('FileAPI')
 

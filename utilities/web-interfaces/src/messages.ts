@@ -1,19 +1,19 @@
 import type { FastifyInstance, FastifyRequest } from 'fastify'
 import {
-  db,
   ErrorResponses,
   getLogger,
+  InstanceRegistry,
   TTLCache,
-  schema,
-  eq,
   and,
-  or,
-  lt,
-  desc,
   count,
+  db,
+  desc,
+  eq,
   like,
-} from '@napgram/infra-kit'
-import { InstanceRegistry } from '@napgram/runtime-kit'
+  lt,
+  or,
+  schema,
+} from './shared-host.js'
 import { authMiddleware } from '@napgram/auth-kit'
 import { processNestedForward } from '@napgram/message-kit'
 

@@ -6,7 +6,7 @@
 
 import type { PluginSpec } from './interfaces.js'
 import type { PluginInstance } from './lifecycle.js'
-import { getLogger } from '@napgram/infra-kit'
+import { getLogger } from '@napgram/logger-kit'
 import { IPluginRuntime, setGlobalRuntime as setKitRuntime } from '@napgram/runtime-kit'
 import { EventBus, globalEventBus } from './event-bus.js'
 import { PluginLifecycleManager, PluginState } from './lifecycle.js'

@@ -24,7 +24,9 @@
     "author": "NapGram Team",
     "license": "MIT",
     "dependencies": {
+        "@napgram/db-kit": "workspace:*",
         "@napgram/infra-kit": "workspace:*",
+        "@napgram/logger-kit": "workspace:*",
         "@napgram/qq-client": "workspace:*",
         "fastify": "5.8.2"
     },

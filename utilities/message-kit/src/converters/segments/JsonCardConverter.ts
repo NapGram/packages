@@ -1,5 +1,5 @@
 import type { MessageContent } from '../../types.js'
-import { getLogger } from '@napgram/infra-kit'
+import { getLogger } from '../../shared-runtime.js'
 
 const logger = getLogger('JsonCardConverter')
 

@@ -11,15 +11,16 @@ const loggerMock = vi.hoisted(() => ({
   warn: vi.fn(),
 }))
 
-vi.mock('@napgram/infra-kit', () => ({
+vi.mock('@napgram/env-kit', () => ({
   env: {
     DATA_DIR: '/app/data',
     CACHE_DIR: '/app/data/cache',
     LOG_FILE: '/app/data/logs/napgram.log',
   },
+}))
+
+vi.mock('@napgram/logger-kit', () => ({
   getLogger: vi.fn(() => loggerMock),
-  temp: { TEMP_PATH: '/tmp/napgram', file: vi.fn(), createTempFile: vi.fn() },
-  hashing: { md5Hex: vi.fn((value: string) => value) },
 }))
 
 vi.mock('../../../../packages/plugin-ping-pong/src/index', () => ({

@@ -1,6 +1,6 @@
 import type { FastifyInstance } from 'fastify'
 import { Buffer } from 'node:buffer'
-import { ErrorResponses, getLogger, registerDualRoute } from '@napgram/infra-kit'
+import { ErrorResponses, getLogger, registerDualRoute } from './shared-host.js'
 
 const logger = getLogger('QQAvatar')
 

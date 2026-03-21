@@ -5,7 +5,7 @@ import {
   mediaCache,
   performanceMonitor,
   userInfoCache,
-} from '@napgram/infra-kit'
+} from './shared-host.js'
 import { authMiddleware } from '@napgram/auth-kit'
 
 /**

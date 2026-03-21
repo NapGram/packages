@@ -1,17 +1,14 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { getLogger } from '@napgram/infra-kit'
+import { getLogger } from '@napgram/logger-kit'
 import { EventBus } from '../event-bus.js'
 
-vi.mock('@napgram/infra-kit', () => ({
+vi.mock('@napgram/logger-kit', () => ({
   getLogger: vi.fn(() => ({
     debug: vi.fn(),
     info: vi.fn(),
     error: vi.fn(),
     warn: vi.fn(),
   })),
-  env: { DATA_DIR: '/tmp', CACHE_DIR: '/tmp/cache' },
-  temp: { TEMP_PATH: '/tmp/napgram', file: vi.fn(), createTempFile: vi.fn() },
-  hashing: { md5Hex: vi.fn((value: string) => value) },
 }))
 
 describe('eventBus', () => {

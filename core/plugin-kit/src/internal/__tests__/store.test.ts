@@ -12,25 +12,38 @@ vi.mock('node:process', () => ({
   default: {
     env: { DATA_DIR: '/test/data' },
     exit: vi.fn(),
+    memoryUsage: vi.fn(() => ({
+      rss: 0,
+      heapTotal: 0,
+      heapUsed: 0,
+      external: 0,
+      arrayBuffers: 0,
+    })),
     stdout: { write: vi.fn() },
   },
 }))
 
-vi.mock('@napgram/infra-kit', () => ({
+vi.mock('@napgram/env-kit', () => ({
   env: {
     DATA_DIR: '/test/data',
     LOG_FILE: '/test/data/logs/app.log',
     LOG_LEVEL: 'info',
     LOG_FILE_LEVEL: 'debug',
   },
+}))
+
+vi.mock('@napgram/logger-kit', () => ({
   getLogger: vi.fn(() => ({
     info: vi.fn(),
     warn: vi.fn(),
     error: vi.fn(),
     debug: vi.fn(),
   })),
-  temp: { TEMP_PATH: '/tmp/napgram', file: vi.fn(), createTempFile: vi.fn() },
-  hashing: { md5Hex: vi.fn((value: string) => value) },
+}))
+
+vi.mock('@napgram/media-kit', () => ({
+  convert: {},
+  default: {},
 }))
 
 vi.mock('../env', () => ({
@@ -705,7 +718,7 @@ describe('store.ts', () => {
 
   describe('internal helpers', () => {
     it('resolveDataDir should use process.env when env is empty', async () => {
-      const envModule = await import('@napgram/infra-kit')
+      const envModule = await import('@napgram/env-kit')
 
       envModule.env.DATA_DIR = ''
       process.env.DATA_DIR = '/env/data'
@@ -717,7 +730,7 @@ describe('store.ts', () => {
     })
 
     it('resolveDataDir should fall back to default when env and process missing', async () => {
-      const envModule = await import('@napgram/infra-kit')
+      const envModule = await import('@napgram/env-kit')
 
       envModule.env.DATA_DIR = ''
       delete process.env.DATA_DIR

@@ -48,8 +48,11 @@
         "LICENSE"
     ],
     "dependencies": {
+        "@napgram/db-kit": "workspace:*",
+        "@napgram/env-kit": "workspace:*",
         "@napgram/sdk": "workspace:*",
         "@napgram/infra-kit": "workspace:*",
+        "@napgram/logger-kit": "workspace:*",
         "@napgram/runtime-kit": "workspace:*"
     }
 }

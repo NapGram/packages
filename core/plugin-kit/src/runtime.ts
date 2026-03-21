@@ -4,7 +4,8 @@
  * 原生插件系统的统一入口
  */
 
-import { getLogger, drizzleDb } from '@napgram/infra-kit'
+import { drizzleDb } from '@napgram/db-kit'
+import { getLogger } from '@napgram/logger-kit'
 import { IPluginRuntime, setGlobalRuntime, IInstance } from '@napgram/runtime-kit'
 import { createGroupAPI } from './api/group.js'
 import { createInstanceAPI } from './api/instance.js'

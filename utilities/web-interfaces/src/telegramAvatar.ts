@@ -3,10 +3,11 @@ import type { default as TelegramClient } from '@napgram/telegram-client'
 import fs from 'node:fs'
 import {
   ErrorResponses,
+  convert,
   getLogger,
+  InstanceRegistry,
   registerDualRoute,
-} from '@napgram/infra-kit'
-import { convert, InstanceRegistry } from '@napgram/runtime-kit'
+} from './shared-host.js'
 
 const log = getLogger('telegramAvatar')
 

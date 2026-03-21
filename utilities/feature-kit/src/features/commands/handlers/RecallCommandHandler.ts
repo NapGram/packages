@@ -1,6 +1,6 @@
 import type { UnifiedMessage } from '@napgram/message-kit'
 import type { CommandContext } from './CommandContext.js'
-import { db, schema, eq, and, lt, desc, getLogger, env } from '@napgram/infra-kit'
+import { and, db, desc, env, eq, getLogger, lt, schema } from '../../../shared-types.js'
 
 const logger = getLogger('RecallCommandHandler')
 
@@ -68,7 +68,7 @@ export class RecallCommandHandler {
         limit: count,
       })
 
-      logger.info(`查询到 ${records.length} 条记录, tgMsgIds: ${records.map(r => r.tgMsgId).join(', ')}`)
+      logger.info(`查询到 ${records.length} 条记录, tgMsgIds: ${records.map((r: any) => r.tgMsgId).join(', ')}`)
 
       if (records.length === 0) {
         await this.context.replyTG(chatId, '没有找到可撤回的消息')

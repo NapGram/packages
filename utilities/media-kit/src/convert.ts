@@ -4,11 +4,9 @@ import fsP from 'node:fs/promises'
 import path from 'node:path'
 import { fileTypeFromBuffer } from 'file-type'
 import { decode, write } from 'image-js'
-import { env } from '@napgram/infra-kit'
-import { getLogger } from '@napgram/infra-kit'
 import convertWithFfmpeg from './encoding/convertWithFfmpeg.js'
+import { env, getLogger, temp } from './shared-runtime.js'
 import tgsToGif from './encoding/tgsToGif.js'
-import { temp } from '@napgram/infra-kit'
 
 const CACHE_PATH = env.CACHE_DIR
 let cacheDirInitialized = false

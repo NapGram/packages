@@ -2,8 +2,8 @@ import type { FastifyInstance } from 'fastify'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { z } from 'zod'
-import { env } from '@napgram/infra-kit'
 import { authMiddleware } from '@napgram/auth-kit'
+import { env } from './shared-host.js'
 
 /**
  * 系统配置 API

@@ -2,8 +2,8 @@ import type { FastifyInstance } from 'fastify'
 import process from 'node:process'
 import '@fastify/cookie'
 import { z } from 'zod'
-import { ApiResponse } from '@napgram/infra-kit'
 import { AuthService } from '@napgram/auth-kit'
+import { ApiResponse, db, eq, schema } from './shared-host.js'
 
 /**
  * 认证 API 路由
@@ -156,7 +156,6 @@ export default async function (fastify: FastifyInstance) {
     }
 
     if (auth.userId) {
-      const { db, schema, eq } = await import('@napgram/infra-kit')
       const user = await db.query.adminUser.findFirst({
         where: eq(schema.adminUser.id, auth.userId),
         columns: {

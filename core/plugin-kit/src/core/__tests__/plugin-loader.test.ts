@@ -5,16 +5,13 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { PluginLoader, PluginType } from '../plugin-loader.js'
 
 // Mock logger
-vi.mock('@napgram/infra-kit', () => ({
+vi.mock('@napgram/logger-kit', () => ({
   getLogger: () => ({
     info: vi.fn(),
     debug: vi.fn(),
     warn: vi.fn(),
     error: vi.fn(),
   }),
-  env: { DATA_DIR: '/tmp', CACHE_DIR: '/tmp/cache' },
-  temp: { TEMP_PATH: '/tmp/napgram', file: vi.fn(), createTempFile: vi.fn() },
-  hashing: { md5Hex: vi.fn((value: string) => value) },
 }))
 
 // Mock fs

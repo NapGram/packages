@@ -20,7 +20,6 @@
     "dependencies": {
         "@mtcute/core": "^0.29.1",
         "@mtcute/node": "^0.29.1",
-        "@napgram/infra-kit": "workspace:*",
         "@napgram/message-kit": "workspace:*",
         "@napgram/qq-client": "workspace:*",
         "@napgram/telegram-client": "workspace:*",

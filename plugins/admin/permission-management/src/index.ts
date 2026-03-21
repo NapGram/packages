@@ -1,6 +1,5 @@
 import { definePlugin } from '@napgram/sdk'
-import { drizzleDb, getLogger, sql } from '@napgram/infra-kit'
-import { InstanceRegistry } from '@napgram/runtime-kit'
+import { drizzleDb, getLogger, InstanceRegistry, sql } from './shared-runtime.js'
 import { PermissionService } from './services/PermissionService.js'
 import { PermissionCommands } from './commands/PermissionCommands.js'
 import { PermissionLevel } from './types/index.js'

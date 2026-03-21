@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { ApiResponse, db, schema, eq, desc } from '@napgram/infra-kit'
 import { authMiddleware, TokenManager } from '@napgram/auth-kit'
+import { ApiResponse, db, desc, eq, schema } from './shared-host.js'
 
 function maskToken(token: string) {
   if (!token)

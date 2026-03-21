@@ -2,8 +2,7 @@
 /** @jsxFrag Html.Fragment */
 import type { FastifyInstance } from 'fastify'
 import Html from '@kitajs/html'
-import { env, formatDate, getLogger, sentry } from '@napgram/infra-kit'
-import { InstanceRegistry } from '@napgram/runtime-kit'
+import { env, formatDate, getLogger, InstanceRegistry, sentry } from './shared-host.js'
 
 const logger = getLogger('Rich Header')
 void Html // Keep Html in scope for JSX factory

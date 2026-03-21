@@ -2,16 +2,13 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { GroupAPIImpl } from '../../api/group.js'
 
 // Mock logger
-vi.mock('@napgram/infra-kit', () => ({
+vi.mock('@napgram/logger-kit', () => ({
   getLogger: vi.fn(() => ({
     info: vi.fn(),
     debug: vi.fn(),
     error: vi.fn(),
     warn: vi.fn(),
   })),
-  env: { DATA_DIR: '/tmp', CACHE_DIR: '/tmp/cache' },
-  temp: { TEMP_PATH: '/tmp/napgram', file: vi.fn(), createTempFile: vi.fn() },
-  hashing: { md5Hex: vi.fn((value: string) => value) },
 }))
 
 describe('groupAPIImpl', () => {

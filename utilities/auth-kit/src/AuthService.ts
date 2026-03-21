@@ -1,5 +1,5 @@
 import process from 'node:process'
-import { db, getLogger, schema, eq, sql, count, stringifyBigInts } from '@napgram/infra-kit'
+import { count, db, eq, getLogger, schema, stringifyBigInts } from './shared-runtime.js'
 import { PasswordUtil, TokenManager } from './TokenManager.js'
 
 const logger = getLogger('AuthService')

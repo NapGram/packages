@@ -8,7 +8,7 @@ import {
   ApiResponse,
   env,
   getLogger,
-} from '@napgram/infra-kit'
+} from './shared-host.js'
 import {
   getPluginVersions,
   installFromMarketplace,

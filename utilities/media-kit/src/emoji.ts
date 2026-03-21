@@ -1,4 +1,4 @@
-import { random } from '@napgram/infra-kit'
+import { random } from './shared-runtime.js'
 
 export default {
   picture: () => random.pick('🎆', '🌃', '🌇', '🎇', '🌌', '🌠', '🌅', '🌉', '🏞', '🌆', '🌄', '🖼', '🗾', '🎑', '🏙', '🌁'),

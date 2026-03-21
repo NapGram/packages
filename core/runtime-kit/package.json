@@ -36,7 +36,9 @@
     "author": "NapGram Team",
     "license": "MIT",
     "dependencies": {
-        "@napgram/infra-kit": "workspace:*",
+        "@napgram/db-kit": "workspace:*",
+        "@napgram/env-kit": "workspace:*",
+        "@napgram/logger-kit": "workspace:*",
         "@napgram/media-kit": "workspace:*",
         "@napgram/qq-client": "workspace:*",
         "@napgram/telegram-client": "workspace:*",

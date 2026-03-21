@@ -1,7 +1,7 @@
 import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { ApiResponse, db, getLogger, schema, eq, and, sql, count, desc, stringifyBigInts } from '@napgram/infra-kit'
 import { authMiddleware } from '@napgram/auth-kit'
+import { ApiResponse, and, count, db, desc, eq, getLogger, schema, sql, stringifyBigInts } from './shared-host.js'
 
 const logger = getLogger('database')
 

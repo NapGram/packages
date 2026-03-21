@@ -1,5 +1,5 @@
 import type { MessageContent } from '../../types.js'
-import { qface } from '@napgram/infra-kit'
+import { qface } from '../../shared-runtime.js'
 
 /**
  * 交互类型消息段转换器（@、表情、骰子等）
