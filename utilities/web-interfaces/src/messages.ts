@@ -12,7 +12,7 @@ import {
   desc,
   count,
   like,
-} from '@napgram/runtime-kit/legacy'
+} from '@napgram/infra-kit'
 import { InstanceRegistry } from '@napgram/runtime-kit'
 import { authMiddleware } from '@napgram/auth-kit'
 import { processNestedForward } from '@napgram/message-kit'

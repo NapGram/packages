@@ -2,12 +2,11 @@ import type { FastifyInstance } from 'fastify'
 import type { default as TelegramClient } from '@napgram/telegram-client'
 import fs from 'node:fs'
 import {
-  convert,
   ErrorResponses,
   getLogger,
   registerDualRoute,
-} from '@napgram/runtime-kit/legacy'
-import { InstanceRegistry } from '@napgram/runtime-kit'
+} from '@napgram/infra-kit'
+import { convert, InstanceRegistry } from '@napgram/runtime-kit'
 
 const log = getLogger('telegramAvatar')
 

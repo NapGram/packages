@@ -21,13 +21,6 @@ export default defineConfig({
             '@napgram/marketplace-kit': utilitySrc('marketplace-kit'),
             '@napgram/request-kit': utilitySrc('request-kit'),
             '@napgram/runtime-kit': coreSrc('runtime-kit'),
-            '@napgram/runtime-kit/legacy': path.resolve(
-                rootDir,
-                'core',
-                'runtime-kit',
-                'src',
-                'legacy.ts',
-            ),
             '@napgram/qq-client': clientSrc('qq-client'),
             '@napgram/telegram-client': clientSrc('telegram-client'),
             '@napgram/database': clientSrc('database'),
