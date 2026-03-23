@@ -33,7 +33,7 @@
     "devDependencies": {
         "@fastify/cookie": "^11.0.2",
         "@types/node": "25.5.0",
-        "typescript": "5.9.3"
+        "typescript": "6.0.2"
     },
     "publishConfig": {
         "main": "./dist/index.js",
