@@ -31,7 +31,7 @@ importers:
     dependencies:
       drizzle-orm:
         specifier: ^0.45.1
-        version: 0.45.1(@opentelemetry/api@1.9.0)(@types/pg@8.20.0)(better-sqlite3@12.6.2)(pg@8.20.0)
+        version: 0.45.1(@opentelemetry/api@1.9.0)(@types/pg@8.20.0)(better-sqlite3@12.8.0)(pg@8.20.0)
       pg:
         specifier: ^8.16.3
         version: 8.20.0
@@ -58,8 +58,8 @@ importers:
   clients/qq-client:
     dependencies:
       '@naplink/naplink':
-        specifier: ^0.0.7
-        version: 0.0.7
+        specifier: ^0.0.10
+        version: 0.0.10
     devDependencies:
       '@types/node':
         specifier: 25.5.0
@@ -75,13 +75,13 @@ importers:
     dependencies:
       '@mtcute/core':
         specifier: ^0.29.1
-        version: 0.29.1
+        version: 0.29.4
       '@mtcute/dispatcher':
         specifier: ^0.29.1
-        version: 0.29.1
+        version: 0.29.4
       '@mtcute/node':
         specifier: ^0.29.1
-        version: 0.29.1(ws@8.20.0)
+        version: 0.29.4(ws@8.20.0)
     devDependencies:
       '@types/node':
         specifier: 25.5.0
@@ -109,7 +109,7 @@ importers:
         version: link:../../clients/telegram-client
       drizzle-orm:
         specifier: ^0.45.1
-        version: 0.45.1(@opentelemetry/api@1.9.0)(@types/pg@8.20.0)(better-sqlite3@12.6.2)(pg@8.20.0)
+        version: 0.45.1(@opentelemetry/api@1.9.0)(@types/pg@8.20.0)(better-sqlite3@12.8.0)(pg@8.20.0)
     devDependencies:
       '@types/node':
         specifier: 25.5.0
@@ -152,8 +152,8 @@ importers:
         specifier: workspace:^
         version: link:../../clients/telegram-client
       fastify:
-        specifier: 5.8.2
-        version: 5.8.2
+        specifier: 5.8.4
+        version: 5.8.4
     devDependencies:
       '@types/node':
         specifier: 25.5.0
@@ -331,7 +331,7 @@ importers:
         version: 25.5.0
       drizzle-orm:
         specifier: ^0.45.1
-        version: 0.45.1(@opentelemetry/api@1.9.0)(@types/pg@8.20.0)(better-sqlite3@12.6.2)(pg@8.20.0)
+        version: 0.45.1(@opentelemetry/api@1.9.0)(@types/pg@8.20.0)(better-sqlite3@12.8.0)(pg@8.20.0)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -730,8 +730,8 @@ importers:
         specifier: workspace:*
         version: link:../../clients/qq-client
       fastify:
-        specifier: 5.8.2
-        version: 5.8.2
+        specifier: 5.8.4
+        version: 5.8.4
     devDependencies:
       '@fastify/cookie':
         specifier: ^11.0.2
@@ -747,13 +747,13 @@ importers:
     dependencies:
       '@mtcute/core':
         specifier: ^0.29.1
-        version: 0.29.1
+        version: 0.29.4
       '@mtcute/markdown-parser':
         specifier: ^0.29.1
-        version: 0.29.1
+        version: 0.29.4
       '@mtcute/node':
         specifier: ^0.29.1
-        version: 0.29.1(ws@8.20.0)
+        version: 0.29.4(ws@8.20.0)
       '@napgram/auth-kit':
         specifier: workspace:*
         version: link:../auth-kit
@@ -808,10 +808,10 @@ importers:
     dependencies:
       '@mtcute/core':
         specifier: ^0.29.1
-        version: 0.29.1
+        version: 0.29.4
       '@mtcute/node':
         specifier: ^0.29.1
-        version: 0.29.1(ws@8.20.0)
+        version: 0.29.4(ws@8.20.0)
       '@napgram/message-kit':
         specifier: workspace:*
         version: link:../message-kit
@@ -901,7 +901,7 @@ importers:
     dependencies:
       '@mtcute/core':
         specifier: ^0.29.1
-        version: 0.29.1
+        version: 0.29.4
       '@napgram/db-kit':
         specifier: workspace:*
         version: link:../../core/db-kit
@@ -956,7 +956,7 @@ importers:
         version: link:../../clients/qq-client
       drizzle-orm:
         specifier: ^0.45.1
-        version: 0.45.1(@opentelemetry/api@1.9.0)(@types/pg@8.20.0)(better-sqlite3@12.6.2)(pg@8.20.0)
+        version: 0.45.1(@opentelemetry/api@1.9.0)(@types/pg@8.20.0)(better-sqlite3@12.8.0)(pg@8.20.0)
     devDependencies:
       '@types/node':
         specifier: 25.5.0
@@ -1001,8 +1001,8 @@ importers:
         specifier: workspace:*
         version: link:../../clients/telegram-client
       fastify:
-        specifier: 5.8.2
-        version: 5.8.2
+        specifier: 5.8.4
+        version: 5.8.4
       zod:
         specifier: 4.3.6
         version: 4.3.6
@@ -1853,23 +1853,23 @@ packages:
   '@manypkg/get-packages@1.1.3':
     resolution: {integrity: sha512-fo+QhuU3qE/2TQMQmbVMqaQ6EWbMhi4ABWP+O4AM1NqPBuy0OrApV5LO6BrrgnhtAHS2NH6RrVk9OL181tTi8A==}
 
-  '@mtcute/core@0.29.1':
-    resolution: {integrity: sha512-QUtPtMsyI6XB5CrjTK5GfL7AnQAF0y8XVQ9xyv74gG57DK2sI9B9H5jcx2iah5N1EWz73L8C0SE39f+dyz6QZA==}
+  '@mtcute/core@0.29.4':
+    resolution: {integrity: sha512-dEbuKvJp53jy533lXICd3c93IbL5iM5gi70lqzPtnS75MpBmufmMeKJqUEWsTXUmps3U6epmczCCbVz4+uweEA==}
 
-  '@mtcute/dispatcher@0.29.1':
-    resolution: {integrity: sha512-ln0yzZNBCQ8oWbcUhQS3fyXTKIiYrqaa2wL9TZfo3vImh36DdewdlOknzTMxqi1J1w8R0w2GwkL8gKtv2lP+hA==}
+  '@mtcute/dispatcher@0.29.4':
+    resolution: {integrity: sha512-/zLfjSzXt95ls1xdhVvxWswQh14S8xi4I8/P9+jBMQhflCaArR5K4dXaBPll3rjwg68LDT4Hiwkd921gdV7ELA==}
 
   '@mtcute/file-id@0.29.0':
     resolution: {integrity: sha512-kfNFKjdfFoo9YIl823EJ068u0djgK6MsqfIHIcb6iwmKOxnCFTLRvBGnJUaO+SbOejg63Tz5lzQxKnt03kEV6A==}
 
-  '@mtcute/html-parser@0.29.1':
-    resolution: {integrity: sha512-NaDjwRLYoKRgJ3mo8Er6MElzofcx0bMzSny538hcYFJj0V+Iu8Pt4w/JOsSnC8PazuYAvkPn0cjt39zU63mOdA==}
+  '@mtcute/html-parser@0.29.4':
+    resolution: {integrity: sha512-dW3vIoUqeUJuKnCLDjNnmEiXREATtduv7l03p3tddlNS+bzDRmNDKFt+tB5uFqpeg11TX83M51Rz0TURjzOf+g==}
 
-  '@mtcute/markdown-parser@0.29.1':
-    resolution: {integrity: sha512-zCSvAOYtZRGzgyBS5+IDKmhg6R6zb+ted3kjRbXjWcwLJ87LzKJvjcjnOy+rsOo8EJI6F+OdldQNYuqxlxNnhA==}
+  '@mtcute/markdown-parser@0.29.4':
+    resolution: {integrity: sha512-jORffOdQaiFyS+HtQymlgIPP7agCSW6RPH+k2O9obvRv4zUHx68I9AYLfoMGHA54rbIWkMWuBdaV3SD8MAv5CQ==}
 
-  '@mtcute/node@0.29.1':
-    resolution: {integrity: sha512-sT9Oi4dQT15RPPXCkBK6nirk4CNfqIN6Yf/HdN8xAvEKwnPQum3iFpUjdfJeBNlBXmUzCYJHm0WKxZb1GYpuTQ==}
+  '@mtcute/node@0.29.4':
+    resolution: {integrity: sha512-jCgPqfVJHG2Px0uQH7mZJWwL+OQRZ6hyK2IFh/mUyzbnk/5bL/qzebPu4oprqXCxxCK/4ngW4twD4G9LBrVv3w==}
 
   '@mtcute/tl-runtime@0.29.0':
     resolution: {integrity: sha512-VhDVYKYeC5TypdgzJ/6CtoZgwlR3h1xKatVTnuVcAe1sXrbIwju0EzZlPbUCjH6vgoOXyrJvkhUXdax/oSSjpg==}
@@ -1877,8 +1877,8 @@ packages:
   '@mtcute/wasm@0.29.0':
     resolution: {integrity: sha512-PFZ60ufUIt3BW1FFkCqcaEvEcezaTK+KyMVs3A/aXA19aFhDpu6HCSI8FJ6iOfGsIMGaNGYrwH3CZ7XxLn24XA==}
 
-  '@naplink/naplink@0.0.7':
-    resolution: {integrity: sha512-ndZqUVrUf3OVS+DhQB44bIt6Azx1peC1CTmolxu3j5BWtJbfOrHq/NTwQY5u5frGp+CTa06CUJLfrXkPd8aAyg==}
+  '@naplink/naplink@0.0.10':
+    resolution: {integrity: sha512-+ygiV1NblKxfBOc/8rDv7UH28WVT1PiBZ1KEJZeKlt9kpb2v/ooGosdf9MKLHDBmZcoKAykD6ydRd/A5tJ40dQ==}
     engines: {node: '>=18.0.0'}
 
   '@nodelib/fs.scandir@2.1.5':
@@ -2677,8 +2677,8 @@ packages:
     resolution: {integrity: sha512-pbnl5XzGBdrFU/wT4jqmJVPn2B6UHPBOhzMQkY/SPUPB6QtUXtmBHBIwCbXJol93mOpGMnQyP/+BB19q04xj7g==}
     engines: {node: '>=4'}
 
-  better-sqlite3@12.6.2:
-    resolution: {integrity: sha512-8VYKM3MjCa9WcaSAI3hzwhmyHVlH8tiGFwf0RlTsZPWJ1I5MkzjiudCo4KC4DxOaL/53A5B1sI/IbldNFDbsKA==}
+  better-sqlite3@12.8.0:
+    resolution: {integrity: sha512-RxD2Vd96sQDjQr20kdP+F+dK/1OUNiVOl200vKBZY8u0vTwysfolF6Hq+3ZK2+h8My9YvZhHsF+RSGZW2VYrPQ==}
     engines: {node: 20.x || 22.x || 23.x || 24.x || 25.x}
 
   binary-search@1.3.6:
@@ -3097,8 +3097,8 @@ packages:
   fastify-plugin@5.1.0:
     resolution: {integrity: sha512-FAIDA8eovSt5qcDgcBvDuX/v0Cjz0ohGhENZ/wpc3y+oZCY2afZ9Baqql3g/lC+OHRnciQol4ww7tuthOb9idw==}
 
-  fastify@5.8.2:
-    resolution: {integrity: sha512-lZmt3navvZG915IE+f7/TIVamxIwmBd+OMB+O9WBzcpIwOo6F0LTh0sluoMFk5VkrKTvvrwIaoJPkir4Z+jtAg==}
+  fastify@5.8.4:
+    resolution: {integrity: sha512-sa42J1xylbBAYUWALSBoyXKPDUvM3OoNOibIefA+Oha57FryXKKCZarA1iDntOCWp3O35voZLuDg2mdODXtPzQ==}
 
   fastq@1.20.1:
     resolution: {integrity: sha512-GGToxJ/w1x32s/D2EKND7kTil4n8OVk/9mycTc4VDza13lOvpUZTGX3mFSCtV9ksdGBVzvsyAVLM6mHFThxXxw==}
@@ -3550,8 +3550,8 @@ packages:
   next-power-of-two@1.0.0:
     resolution: {integrity: sha512-+z6QY1SxkDk6CQJAeaIZKmcNubBCRP7J8DMQUBglz/sSkNsZoJ1kULjqk9skNPPplzs4i9PFhYrvNDdtQleF/A==}
 
-  node-abi@3.87.0:
-    resolution: {integrity: sha512-+CGM1L1CgmtheLcBuleyYOn7NWPVu0s0EJH2C4puxgEZb9h8QpR9G2dBfZJOAUhi7VQxuBPMd0hiISWcTyiYyQ==}
+  node-abi@3.89.0:
+    resolution: {integrity: sha512-6u9UwL0HlAl21+agMN3YAMXcKByMqwGx+pq+P76vii5f7hTPtKDp08/H9py6DY+cfDw7kQNTGEj/rly3IgbNQA==}
     engines: {node: '>=10'}
 
   object-assign@4.1.1:
@@ -4207,18 +4207,6 @@ packages:
 
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
-
-  ws@8.19.0:
-    resolution: {integrity: sha512-blAT2mjOEIi0ZzruJfIhb3nps74PRWTCz1IjglWEEpQl5XS/UNama6u2/rjFkDDouqr4L67ry+1aGIALViWjDg==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
 
   ws@8.20.0:
     resolution: {integrity: sha512-sAt8BhgNbzCtgGbt2OxmpuryO63ZoDk/sqaB/znQm94T4fCEsy/yV+7CdC1kJhOU9lboAEU7R3kquuycDoibVA==}
@@ -4895,7 +4883,7 @@ snapshots:
       globby: 11.1.0
       read-yaml-file: 1.1.0
 
-  '@mtcute/core@0.29.1':
+  '@mtcute/core@0.29.4':
     dependencies:
       '@fuman/io': 0.0.19
       '@fuman/net': 0.0.19
@@ -4905,10 +4893,10 @@ snapshots:
       '@types/events': 3.0.0
       long: 5.3.2
 
-  '@mtcute/dispatcher@0.29.1':
+  '@mtcute/dispatcher@0.29.4':
     dependencies:
       '@fuman/utils': 0.0.19
-      '@mtcute/core': 0.29.1
+      '@mtcute/core': 0.29.4
 
   '@mtcute/file-id@0.29.0':
     dependencies:
@@ -4916,27 +4904,27 @@ snapshots:
       '@mtcute/tl-runtime': 0.29.0
       long: 5.3.2
 
-  '@mtcute/html-parser@0.29.1':
+  '@mtcute/html-parser@0.29.4':
     dependencies:
-      '@mtcute/core': 0.29.1
+      '@mtcute/core': 0.29.4
       htmlparser2: 10.1.0
       long: 5.3.2
 
-  '@mtcute/markdown-parser@0.29.1':
+  '@mtcute/markdown-parser@0.29.4':
     dependencies:
-      '@mtcute/core': 0.29.1
+      '@mtcute/core': 0.29.4
       long: 5.3.2
 
-  '@mtcute/node@0.29.1(ws@8.20.0)':
+  '@mtcute/node@0.29.4(ws@8.20.0)':
     dependencies:
       '@fuman/net': 0.0.19
       '@fuman/node': 0.0.19(ws@8.20.0)
       '@fuman/utils': 0.0.19
-      '@mtcute/core': 0.29.1
-      '@mtcute/html-parser': 0.29.1
-      '@mtcute/markdown-parser': 0.29.1
+      '@mtcute/core': 0.29.4
+      '@mtcute/html-parser': 0.29.4
+      '@mtcute/markdown-parser': 0.29.4
       '@mtcute/wasm': 0.29.0
-      better-sqlite3: 12.6.2
+      better-sqlite3: 12.8.0
     transitivePeerDependencies:
       - ws
 
@@ -4947,10 +4935,10 @@ snapshots:
 
   '@mtcute/wasm@0.29.0': {}
 
-  '@naplink/naplink@0.0.7':
+  '@naplink/naplink@0.0.10':
     dependencies:
-      isomorphic-ws: 5.0.0(ws@8.19.0)
-      ws: 8.19.0
+      isomorphic-ws: 5.0.0(ws@8.20.0)
+      ws: 8.20.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -5749,7 +5737,7 @@ snapshots:
     dependencies:
       is-windows: 1.0.2
 
-  better-sqlite3@12.6.2:
+  better-sqlite3@12.8.0:
     dependencies:
       bindings: 1.5.0
       prebuild-install: 7.1.3
@@ -5890,11 +5878,11 @@ snapshots:
       esbuild: 0.25.12
       tsx: 4.21.0
 
-  drizzle-orm@0.45.1(@opentelemetry/api@1.9.0)(@types/pg@8.20.0)(better-sqlite3@12.6.2)(pg@8.20.0):
+  drizzle-orm@0.45.1(@opentelemetry/api@1.9.0)(@types/pg@8.20.0)(better-sqlite3@12.8.0)(pg@8.20.0):
     optionalDependencies:
       '@opentelemetry/api': 1.9.0
       '@types/pg': 8.20.0
-      better-sqlite3: 12.6.2
+      better-sqlite3: 12.8.0
       pg: 8.20.0
 
   dunder-proto@1.0.1:
@@ -6174,7 +6162,7 @@ snapshots:
 
   fastify-plugin@5.1.0: {}
 
-  fastify@5.8.2:
+  fastify@5.8.4:
     dependencies:
       '@fastify/ajv-compiler': 4.0.5
       '@fastify/error': 4.2.0
@@ -6448,9 +6436,9 @@ snapshots:
 
   isexe@2.0.0: {}
 
-  isomorphic-ws@5.0.0(ws@8.19.0):
+  isomorphic-ws@5.0.0(ws@8.20.0):
     dependencies:
-      ws: 8.19.0
+      ws: 8.20.0
 
   istanbul-lib-coverage@3.2.2: {}
 
@@ -6671,7 +6659,7 @@ snapshots:
 
   next-power-of-two@1.0.0: {}
 
-  node-abi@3.87.0:
+  node-abi@3.89.0:
     dependencies:
       semver: 7.7.4
 
@@ -6837,7 +6825,7 @@ snapshots:
       minimist: 1.2.8
       mkdirp-classic: 0.5.3
       napi-build-utils: 2.0.0
-      node-abi: 3.87.0
+      node-abi: 3.89.0
       pump: 3.0.4
       rc: 1.2.8
       simple-get: 4.0.1
@@ -7314,8 +7302,6 @@ snapshots:
       strip-ansi: 7.2.0
 
   wrappy@1.0.2: {}
-
-  ws@8.19.0: {}
 
   ws@8.20.0: {}
 
