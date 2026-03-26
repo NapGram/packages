@@ -39,7 +39,7 @@
         "@napgram/qq-client": "workspace:*",
         "@napgram/runtime-kit": "workspace:*",
         "@napgram/telegram-client": "workspace:*",
-        "file-type": "^21.3.0",
+        "file-type": "^22.0.0",
         "image-js": "^1.3.0"
     },
     "devDependencies": {
