@@ -26,8 +26,8 @@
         }
     },
     "scripts": {
-        "build": "tsc -b",
-        "dev": "tsc -b -w",
+        "build": "tsc -p tsconfig.json",
+        "dev": "tsc -p tsconfig.json --watch",
         "test": "vitest run"
     },
     "keywords": [],
