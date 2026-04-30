@@ -786,7 +786,7 @@ importers:
         version: 22.0.1
       image-js:
         specifier: ^1.3.0
-        version: 1.5.0
+        version: 1.6.0
     devDependencies:
       '@types/node':
         specifier: 25.6.0
@@ -876,7 +876,7 @@ importers:
         version: 22.0.1
       image-js:
         specifier: ^1.3.0
-        version: 1.5.0
+        version: 1.6.0
       silk-wasm:
         specifier: ^3.7.1
         version: 3.7.1
@@ -922,7 +922,7 @@ importers:
         version: 22.0.1
       image-js:
         specifier: ^1.3.0
-        version: 1.5.0
+        version: 1.6.0
     devDependencies:
       '@types/node':
         specifier: 25.6.0
@@ -2554,8 +2554,8 @@ packages:
   chardet@2.1.1:
     resolution: {integrity: sha512-PsezH1rqdV9VvyNhxxOW32/d75r01NY7TQCmOqomRo15ZSOKbpTFVsfjghxo6JloQUCGnH4k1LGu0R4yCLlWQQ==}
 
-  cheminfo-types@1.12.0:
-    resolution: {integrity: sha512-3UEtlEmx921+tC/OsS2VmPYIMl8uhC/N9er3uXnFDGBlzKSjSNLniAATDawvQD4kZ1o8hiEMJc0EVoOtS+gK9w==}
+  cheminfo-types@1.15.0:
+    resolution: {integrity: sha512-shv45WN2u0yN9EHH1bisNrv+fy4Cw+eLM5lOoriP67mePrwbHZ1kJqg90C8GEU7K1A8gJsicEoVZHcuBbuul/w==}
 
   chownr@1.1.4:
     resolution: {integrity: sha512-jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg==}
@@ -3084,8 +3084,8 @@ packages:
     resolution: {integrity: sha512-Hs59xBNfUIunMFgWAbGX5cq6893IbWg4KnrjbYwX3tx0ztorVgTDA6B2sxf8ejHJ4wz8BqGUMYlnzNBer5NvGg==}
     engines: {node: '>= 4'}
 
-  image-js@1.5.0:
-    resolution: {integrity: sha512-ZE/e7wlb5732r3wHXcPtRiirODk/YKYBKzpffd3qfYD1wUA0PrYewYOHLOJGQoi1vj6G9TAQpHIkxV91qm5FBQ==}
+  image-js@1.6.0:
+    resolution: {integrity: sha512-v9/cvtQnkhRO1pxharqncRy2UaBHii/JC48I3BT7VX/7pjedP00xLeFIPzLYCYSG9SPeve4uEHHE0phpQDPLjg==}
 
   image-type@4.1.0:
     resolution: {integrity: sha512-CFJMJ8QK8lJvRlTCEgarL4ro6hfDQKif2HjSvYCdQZESaIPV4v9imrf7BQHK+sQeTeNeMpWciR9hyC/g8ybXEg==}
@@ -3117,6 +3117,9 @@ packages:
 
   is-any-array@2.0.1:
     resolution: {integrity: sha512-UtilS7hLRu++wb/WBAw9bNuP1Eg04Ivn1vERJck8zJthEvXCBEBpGR/33u/xLKWEQf95803oalHrVDptcAvFdQ==}
+
+  is-any-array@3.0.0:
+    resolution: {integrity: sha512-o4h+tylWykC4BD1vaejp6gDxoM13bwW8FGuNs4yIKpj8xbBJcRxJx8vZpq0dCr7ZDEfeKjmsi/euolKhX6f/ww==}
 
   is-extglob@2.1.1:
     resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
@@ -3267,23 +3270,23 @@ packages:
   ml-affine-transform@1.0.3:
     resolution: {integrity: sha512-uv13li9HOGuMdSKL+QEdaV25emO9kt17LzGCD+FLQrBsrU8p/r/3kS/GJ7xI+f3/aWghkBK733x0yBG6EwKFJA==}
 
-  ml-array-max@1.2.4:
-    resolution: {integrity: sha512-BlEeg80jI0tW6WaPyGxf5Sa4sqvcyY6lbSn5Vcv44lp1I2GR6AWojfUvLnGTNsIXrZ8uqWmo8VcG1WpkI2ONMQ==}
+  ml-array-max@2.0.0:
+    resolution: {integrity: sha512-QQZ4kENwpWmyNb98UXRDFXrmtIXuXtt1+bSbda/2KA85+F+rrJP8hZk6QOkCQXM2Th9mUDYdq/PNByPdT9ID4A==}
 
   ml-array-median@1.1.6:
     resolution: {integrity: sha512-V6bV6bTPFRX8v5CaAx/7fuRXC39LLTHfPSVZZafdNaqNz2PFL5zEA7gesjv8dMXh+gwPeUMtB5QPovlTBaa4sw==}
 
-  ml-array-min@1.2.3:
-    resolution: {integrity: sha512-VcZ5f3VZ1iihtrGvgfh/q0XlMobG6GQ8FsNyQXD3T+IlstDv85g8kfV0xUG1QPRO/t21aukaJowDzMTc7j5V6Q==}
+  ml-array-min@2.0.0:
+    resolution: {integrity: sha512-GRj6Ky6sW9vGL6yIjgsHmXZ9YgrdmcQ8nCxPqEGeKc6dkfYg1XDYxGFxADUjNuZyoCd5PUscWAS4N+cFaX6hFg==}
 
-  ml-array-rescale@1.3.7:
-    resolution: {integrity: sha512-48NGChTouvEo9KBctDfHC3udWnQKNKEWN0ziELvY3KG25GR5cA8K8wNVzracsqSW1QEkAXjTNx+ycgAv06/1mQ==}
+  ml-array-rescale@2.0.0:
+    resolution: {integrity: sha512-2GGtKfSno94/kIloWGvpp/U5Q5vLvLrza+SAaGsLeo6Xj4mEbA6Gqx+oTfZFkxnd1grT2X007HfJNs3T5BsiVg==}
 
   ml-convolution@2.0.0:
     resolution: {integrity: sha512-ExW6zVmN2YGuyO3aBiS1ymybme3nVgv2ccCfynSdgtW5sNp4DOHnfow4K/ErTDMQ1s9tINjv7kvzjnVhQHXJBA==}
 
-  ml-matrix@6.12.1:
-    resolution: {integrity: sha512-TJ+8eOFdp+INvzR4zAuwBQJznDUfktMtOB6g/hUcGh3rcyjxbz4Te57Pgri8Q9bhSQ7Zys4IYOGhFdnlgeB6Lw==}
+  ml-matrix@6.12.2:
+    resolution: {integrity: sha512-GC+BnW+pBh8Auap8goAxY0senAmF0IEoc3HNVSfnfbvGw0buuDIYb9kAKMS1l+GiwJ1rfK2bzJ8IHhwjzATSFA==}
 
   ml-random@0.5.0:
     resolution: {integrity: sha512-zLJBmNb34LOz+vN6BD8l3aYm/VWYWbmAunrLMPs4dHf4gTl8BWlhil72j56HubPg86zrXioIs4qoHq7Topy6tw==}
@@ -3291,8 +3294,8 @@ packages:
   ml-ransac@1.0.0:
     resolution: {integrity: sha512-fGi45s7T5+BEqdb5JqZC699w2riy6j0tzuZ2ZP63xavRa/yVKQIbUbj4XiE4XMr9T7HSiq1D9y0uybiyikDPvA==}
 
-  ml-regression-base@4.0.0:
-    resolution: {integrity: sha512-V2VjB+K/BcgXaX450xvYw36TLOB+piD9G1pHU3VE+ggQUApsVGkYco6UMQykFOwBydHnDTbOiybH/lwrkqFT4g==}
+  ml-regression-base@4.0.1:
+    resolution: {integrity: sha512-kYJWRIfB88JDUN+QWBsOlI0dP5tMo/XPxqVU0Xjn6B0rfzPptUnON9xPNnMVEm43DkM621j9v6+Ln9vCk3N93A==}
 
   ml-regression-multivariate-linear@2.0.4:
     resolution: {integrity: sha512-/vShPAlP+mB7P2mC5TuXwObSJNl/UBI71/bszt9ilTg6yLKy6btDLpAYyJNa6t+JnL5a7q+Yy4dCltfpvqXRIw==}
@@ -3300,8 +3303,8 @@ packages:
   ml-regression-polynomial-2d@1.0.0:
     resolution: {integrity: sha512-r34kaawZKMwjORIdzpa/o5fnjlTXkkaLJ3B4vvFNeKlvEGPtApqFxbDRmw07e2CjUH2MhGIChpMeXp/XB3Iogg==}
 
-  ml-spectra-processing@14.22.0:
-    resolution: {integrity: sha512-rafMp7ny4J96mMM7AUmRKKXYhNw7J4keolHaYZjiQbqSqknlAntHlng1H0O30KpsOnqHH2XBPFIlGAaQruQAxw==}
+  ml-spectra-processing@14.28.1:
+    resolution: {integrity: sha512-/0fjo5jwrIWbMC5G925IWaxpoSXalG+dHGXQVfOUjyzw2gC0YC2+fHATLYmRmyaa5hyhE+Mobk6AMGhz61M73Q==}
 
   ml-xsadd@2.0.0:
     resolution: {integrity: sha512-VoAYUqmPRmzKbbqRejjqceGFp3VF81Qe8XXFGU0UXLxB7Mf4GGvyGq5Qn3k4AiQgDEV6WzobqlPOd+j0+m6IrA==}
@@ -5382,7 +5385,7 @@ snapshots:
 
   chardet@2.1.1: {}
 
-  cheminfo-types@1.12.0: {}
+  cheminfo-types@1.15.0: {}
 
   chownr@1.1.4: {}
 
@@ -5940,7 +5943,7 @@ snapshots:
 
   ignore@7.0.5: {}
 
-  image-js@1.5.0:
+  image-js@1.6.0:
     dependencies:
       bresenham-zingl: 0.2.5
       colord: 2.9.3
@@ -5953,11 +5956,11 @@ snapshots:
       median-quickselect: 1.0.1
       ml-affine-transform: 1.0.3
       ml-convolution: 2.0.0
-      ml-matrix: 6.12.1
+      ml-matrix: 6.12.2
       ml-ransac: 1.0.0
       ml-regression-multivariate-linear: 2.0.4
       ml-regression-polynomial-2d: 1.0.0
-      ml-spectra-processing: 14.22.0
+      ml-spectra-processing: 14.28.1
       robust-point-in-polygon: 1.0.3
       ssim.js: 3.5.0
       tiff: 7.1.3
@@ -5998,6 +6001,8 @@ snapshots:
   ipaddr.js@2.3.0: {}
 
   is-any-array@2.0.1: {}
+
+  is-any-array@3.0.0: {}
 
   is-extglob@2.1.1: {}
 
@@ -6133,36 +6138,36 @@ snapshots:
 
   ml-affine-transform@1.0.3:
     dependencies:
-      ml-matrix: 6.12.1
+      ml-matrix: 6.12.2
 
-  ml-array-max@1.2.4:
+  ml-array-max@2.0.0:
     dependencies:
-      is-any-array: 2.0.1
+      is-any-array: 3.0.0
 
   ml-array-median@1.1.6:
     dependencies:
       is-any-array: 2.0.1
       median-quickselect: 1.0.1
 
-  ml-array-min@1.2.3:
+  ml-array-min@2.0.0:
     dependencies:
-      is-any-array: 2.0.1
+      is-any-array: 3.0.0
 
-  ml-array-rescale@1.3.7:
+  ml-array-rescale@2.0.0:
     dependencies:
-      is-any-array: 2.0.1
-      ml-array-max: 1.2.4
-      ml-array-min: 1.2.3
+      is-any-array: 3.0.0
+      ml-array-max: 2.0.0
+      ml-array-min: 2.0.0
 
   ml-convolution@2.0.0:
     dependencies:
       fft.js: 4.0.4
       next-power-of-two: 1.0.0
 
-  ml-matrix@6.12.1:
+  ml-matrix@6.12.2:
     dependencies:
-      is-any-array: 2.0.1
-      ml-array-rescale: 1.3.7
+      is-any-array: 3.0.0
+      ml-array-rescale: 2.0.0
 
   ml-random@0.5.0:
     dependencies:
@@ -6171,32 +6176,32 @@ snapshots:
   ml-ransac@1.0.0:
     dependencies:
       ml-array-median: 1.1.6
-      ml-matrix: 6.12.1
+      ml-matrix: 6.12.2
       ml-random: 0.5.0
 
-  ml-regression-base@4.0.0:
+  ml-regression-base@4.0.1:
     dependencies:
-      cheminfo-types: 1.12.0
-      is-any-array: 2.0.1
+      cheminfo-types: 1.15.0
+      is-any-array: 3.0.0
 
   ml-regression-multivariate-linear@2.0.4:
     dependencies:
-      ml-matrix: 6.12.1
+      ml-matrix: 6.12.2
 
   ml-regression-polynomial-2d@1.0.0:
     dependencies:
-      cheminfo-types: 1.12.0
+      cheminfo-types: 1.15.0
       is-any-array: 2.0.1
-      ml-matrix: 6.12.1
-      ml-regression-base: 4.0.0
+      ml-matrix: 6.12.2
+      ml-regression-base: 4.0.1
 
-  ml-spectra-processing@14.22.0:
+  ml-spectra-processing@14.28.1:
     dependencies:
       binary-search: 1.3.6
-      cheminfo-types: 1.12.0
+      cheminfo-types: 1.15.0
       fft.js: 4.0.4
-      is-any-array: 2.0.1
-      ml-matrix: 6.12.1
+      is-any-array: 3.0.0
+      ml-matrix: 6.12.2
       ml-xsadd: 3.0.1
 
   ml-xsadd@2.0.0: {}
