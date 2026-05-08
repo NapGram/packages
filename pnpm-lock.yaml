@@ -28,7 +28,7 @@ importers:
     dependencies:
       drizzle-orm:
         specifier: ^0.45.1
-        version: 0.45.2(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(better-sqlite3@12.8.0)(pg@8.20.0)
+        version: 0.45.2(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(better-sqlite3@12.9.0)(pg@8.20.0)
       pg:
         specifier: ^8.16.3
         version: 8.20.0
@@ -69,13 +69,13 @@ importers:
     dependencies:
       '@mtcute/core':
         specifier: ^0.29.1
-        version: 0.29.6
+        version: 0.29.7
       '@mtcute/dispatcher':
         specifier: ^0.29.1
-        version: 0.29.6
+        version: 0.29.7
       '@mtcute/node':
         specifier: ^0.29.1
-        version: 0.29.6(ws@8.20.0)
+        version: 0.29.7(ws@8.20.0)
     devDependencies:
       '@types/node':
         specifier: 25.6.2
@@ -103,7 +103,7 @@ importers:
         version: link:../../clients/telegram-client
       drizzle-orm:
         specifier: ^0.45.1
-        version: 0.45.2(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(better-sqlite3@12.8.0)(pg@8.20.0)
+        version: 0.45.2(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(better-sqlite3@12.9.0)(pg@8.20.0)
     devDependencies:
       '@types/node':
         specifier: 25.6.2
@@ -215,7 +215,7 @@ importers:
         version: 1.16.0
       semver:
         specifier: ^7.7.3
-        version: 7.7.4
+        version: 7.8.0
       yaml:
         specifier: ^2.8.2
         version: 2.8.4
@@ -325,7 +325,7 @@ importers:
         version: 25.6.2
       drizzle-orm:
         specifier: ^0.45.1
-        version: 0.45.2(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(better-sqlite3@12.8.0)(pg@8.20.0)
+        version: 0.45.2(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(better-sqlite3@12.9.0)(pg@8.20.0)
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -741,13 +741,13 @@ importers:
     dependencies:
       '@mtcute/core':
         specifier: ^0.29.1
-        version: 0.29.6
+        version: 0.29.7
       '@mtcute/markdown-parser':
         specifier: ^0.29.1
-        version: 0.29.6
+        version: 0.29.7
       '@mtcute/node':
         specifier: ^0.29.1
-        version: 0.29.6(ws@8.20.0)
+        version: 0.29.7(ws@8.20.0)
       '@napgram/auth-kit':
         specifier: workspace:*
         version: link:../auth-kit
@@ -802,10 +802,10 @@ importers:
     dependencies:
       '@mtcute/core':
         specifier: ^0.29.1
-        version: 0.29.6
+        version: 0.29.7
       '@mtcute/node':
         specifier: ^0.29.1
-        version: 0.29.6(ws@8.20.0)
+        version: 0.29.7(ws@8.20.0)
       '@napgram/message-kit':
         specifier: workspace:*
         version: link:../message-kit
@@ -895,7 +895,7 @@ importers:
     dependencies:
       '@mtcute/core':
         specifier: ^0.29.1
-        version: 0.29.6
+        version: 0.29.7
       '@napgram/db-kit':
         specifier: workspace:*
         version: link:../../core/db-kit
@@ -950,7 +950,7 @@ importers:
         version: link:../../clients/qq-client
       drizzle-orm:
         specifier: ^0.45.1
-        version: 0.45.2(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(better-sqlite3@12.8.0)(pg@8.20.0)
+        version: 0.45.2(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(better-sqlite3@12.9.0)(pg@8.20.0)
     devDependencies:
       '@types/node':
         specifier: 25.6.2
@@ -1848,23 +1848,23 @@ packages:
   '@manypkg/get-packages@1.1.3':
     resolution: {integrity: sha512-fo+QhuU3qE/2TQMQmbVMqaQ6EWbMhi4ABWP+O4AM1NqPBuy0OrApV5LO6BrrgnhtAHS2NH6RrVk9OL181tTi8A==}
 
-  '@mtcute/core@0.29.6':
-    resolution: {integrity: sha512-CYSruSaVOeFvTj51TphoNRyyJAXFsrXH/cYAsTzJx6/m4Ql0rGLfJ0ozOt6c4QVp8ro7v/gCu8bnnnA9UfbUOg==}
+  '@mtcute/core@0.29.7':
+    resolution: {integrity: sha512-wRPSl4D5JdYQ/8HuTxrQF5NnDL2tgGgVygWnaxs9qhlUwaaG69VNEJZuet2lj7P4tgnjO8K/XAABntApvcuL5w==}
 
-  '@mtcute/dispatcher@0.29.6':
-    resolution: {integrity: sha512-3fb264XVBS/2oOgVUTw35fr+enaWw3xPs4jtJvFl5VmUCbYZdBNnqE6cgTtnDzl7AZDDa3P40D4dp1YLj99Elg==}
+  '@mtcute/dispatcher@0.29.7':
+    resolution: {integrity: sha512-m8/lt9k9+G/ErOr9qUF0B4B6NeSyhC7sj3XjDMpxgBYUJdoyQfZbWo2LZCTtyCqyFGinAQbJX5ezIhLfNRU5bA==}
 
   '@mtcute/file-id@0.29.0':
     resolution: {integrity: sha512-kfNFKjdfFoo9YIl823EJ068u0djgK6MsqfIHIcb6iwmKOxnCFTLRvBGnJUaO+SbOejg63Tz5lzQxKnt03kEV6A==}
 
-  '@mtcute/html-parser@0.29.6':
-    resolution: {integrity: sha512-0ZpyQjzw6DsYr6aou8skVGT424JKJpPmXWU6+9uTuUgDQl0nV5YTYZyNEZjWw+XpW6fd8GDueVc0KpZKxOOL3A==}
+  '@mtcute/html-parser@0.29.7':
+    resolution: {integrity: sha512-9ia9ZQBuyRBUpBqMWZVzknm2aOtKHZWZKkMl3Vp+08b1hBjXnR5GvEbrCwxZFLQN/6vE3c5XozIMSqKUa695hQ==}
 
-  '@mtcute/markdown-parser@0.29.6':
-    resolution: {integrity: sha512-ORwNStlFApk5HSDvCo2XfoXmGLp/G0+1HlX1A2U3BZ1ma2RzkBEiWe8ylDWUWP0Qs2ds79H0A2XFIkr6QYSqog==}
+  '@mtcute/markdown-parser@0.29.7':
+    resolution: {integrity: sha512-V9Nut0V+y43355h3pwi4jpqXMmuqAPPVKNm0yhy4T2I08na8Lhwsem8Ppw/KD4PECkmkihwyrD4nw97whsvJ+g==}
 
-  '@mtcute/node@0.29.6':
-    resolution: {integrity: sha512-yf6gogaeltQjNQt88GwXPh+kftQgtogE6t3AvpkWVhQaRlMeBRZp56DpHbFkA6tpQKP4r6ueoAU01cLg3K/gHA==}
+  '@mtcute/node@0.29.7':
+    resolution: {integrity: sha512-lpHLwz79O4IMpCrB40IvB1LKKz959ER1ueRyXsR+FRuIupGuIMUxmlwi3pRHCYXw/fwJlgxhG/WD5o96D2PAiw==}
 
   '@mtcute/tl-runtime@0.29.0':
     resolution: {integrity: sha512-VhDVYKYeC5TypdgzJ/6CtoZgwlR3h1xKatVTnuVcAe1sXrbIwju0EzZlPbUCjH6vgoOXyrJvkhUXdax/oSSjpg==}
@@ -2496,8 +2496,8 @@ packages:
     resolution: {integrity: sha512-pbnl5XzGBdrFU/wT4jqmJVPn2B6UHPBOhzMQkY/SPUPB6QtUXtmBHBIwCbXJol93mOpGMnQyP/+BB19q04xj7g==}
     engines: {node: '>=4'}
 
-  better-sqlite3@12.8.0:
-    resolution: {integrity: sha512-RxD2Vd96sQDjQr20kdP+F+dK/1OUNiVOl200vKBZY8u0vTwysfolF6Hq+3ZK2+h8My9YvZhHsF+RSGZW2VYrPQ==}
+  better-sqlite3@12.9.0:
+    resolution: {integrity: sha512-wqUv4Gm3toFpHDQmaKD4QhZm3g1DjUBI0yzS4UBl6lElUmXFYdTQmmEDpAFa5o8FiFiymURypEnfVHzILKaxqQ==}
     engines: {node: 20.x || 22.x || 23.x || 24.x || 25.x}
 
   binary-search@1.3.6:
@@ -3323,8 +3323,8 @@ packages:
   next-power-of-two@1.0.0:
     resolution: {integrity: sha512-+z6QY1SxkDk6CQJAeaIZKmcNubBCRP7J8DMQUBglz/sSkNsZoJ1kULjqk9skNPPplzs4i9PFhYrvNDdtQleF/A==}
 
-  node-abi@3.89.0:
-    resolution: {integrity: sha512-6u9UwL0HlAl21+agMN3YAMXcKByMqwGx+pq+P76vii5f7hTPtKDp08/H9py6DY+cfDw7kQNTGEj/rly3IgbNQA==}
+  node-abi@3.92.0:
+    resolution: {integrity: sha512-KdHvFWZjEKDf0cakgFjebl371GPsISX2oZHcuyKqM7DtogIsHrqKeLTo8wBHxaXRAQlY2PsPlZmfo+9ZCxEREQ==}
     engines: {node: '>=10'}
 
   obug@2.1.1:
@@ -3596,6 +3596,11 @@ packages:
 
   semver@7.7.4:
     resolution: {integrity: sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==}
+    engines: {node: '>=10'}
+    hasBin: true
+
+  semver@7.8.0:
+    resolution: {integrity: sha512-AcM7dV/5ul4EekoQ29Agm5vri8JNqRyj39o0qpX6vDF2GZrtutZl5RwgD1XnZjiTAfncsJhMI48QQH3sN87YNA==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -4577,7 +4582,7 @@ snapshots:
       globby: 11.1.0
       read-yaml-file: 1.1.0
 
-  '@mtcute/core@0.29.6':
+  '@mtcute/core@0.29.7':
     dependencies:
       '@fuman/io': 0.0.19
       '@fuman/net': 0.0.19
@@ -4587,10 +4592,10 @@ snapshots:
       '@types/events': 3.0.0
       long: 5.3.2
 
-  '@mtcute/dispatcher@0.29.6':
+  '@mtcute/dispatcher@0.29.7':
     dependencies:
       '@fuman/utils': 0.0.19
-      '@mtcute/core': 0.29.6
+      '@mtcute/core': 0.29.7
 
   '@mtcute/file-id@0.29.0':
     dependencies:
@@ -4598,27 +4603,27 @@ snapshots:
       '@mtcute/tl-runtime': 0.29.0
       long: 5.3.2
 
-  '@mtcute/html-parser@0.29.6':
+  '@mtcute/html-parser@0.29.7':
     dependencies:
-      '@mtcute/core': 0.29.6
+      '@mtcute/core': 0.29.7
       htmlparser2: 10.1.0
       long: 5.3.2
 
-  '@mtcute/markdown-parser@0.29.6':
+  '@mtcute/markdown-parser@0.29.7':
     dependencies:
-      '@mtcute/core': 0.29.6
+      '@mtcute/core': 0.29.7
       long: 5.3.2
 
-  '@mtcute/node@0.29.6(ws@8.20.0)':
+  '@mtcute/node@0.29.7(ws@8.20.0)':
     dependencies:
       '@fuman/net': 0.0.19
       '@fuman/node': 0.0.19(ws@8.20.0)
       '@fuman/utils': 0.0.19
-      '@mtcute/core': 0.29.6
-      '@mtcute/html-parser': 0.29.6
-      '@mtcute/markdown-parser': 0.29.6
+      '@mtcute/core': 0.29.7
+      '@mtcute/html-parser': 0.29.7
+      '@mtcute/markdown-parser': 0.29.7
       '@mtcute/wasm': 0.29.0
-      better-sqlite3: 12.8.0
+      better-sqlite3: 12.9.0
     transitivePeerDependencies:
       - ws
 
@@ -5309,7 +5314,7 @@ snapshots:
     dependencies:
       is-windows: 1.0.2
 
-  better-sqlite3@12.8.0:
+  better-sqlite3@12.9.0:
     dependencies:
       bindings: 1.5.0
       prebuild-install: 7.1.3
@@ -5433,11 +5438,11 @@ snapshots:
       esbuild: 0.25.12
       tsx: 4.21.0
 
-  drizzle-orm@0.45.2(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(better-sqlite3@12.8.0)(pg@8.20.0):
+  drizzle-orm@0.45.2(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(better-sqlite3@12.9.0)(pg@8.20.0):
     optionalDependencies:
       '@opentelemetry/api': 1.9.1
       '@types/pg': 8.20.0
-      better-sqlite3: 12.8.0
+      better-sqlite3: 12.9.0
       pg: 8.20.0
 
   dunder-proto@1.0.1:
@@ -6191,7 +6196,7 @@ snapshots:
 
   next-power-of-two@1.0.0: {}
 
-  node-abi@3.89.0:
+  node-abi@3.92.0:
     dependencies:
       semver: 7.7.4
 
@@ -6340,7 +6345,7 @@ snapshots:
       minimist: 1.2.8
       mkdirp-classic: 0.5.3
       napi-build-utils: 2.0.0
-      node-abi: 3.89.0
+      node-abi: 3.92.0
       pump: 3.0.4
       rc: 1.2.8
       simple-get: 4.0.1
@@ -6479,6 +6484,8 @@ snapshots:
   secure-json-parse@4.1.0: {}
 
   semver@7.7.4: {}
+
+  semver@7.8.0: {}
 
   set-cookie-parser@2.7.2: {}
 
