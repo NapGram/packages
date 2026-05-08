@@ -10,7 +10,7 @@ importers:
     devDependencies:
       '@changesets/cli':
         specifier: ^2.27.1
-        version: 2.31.0(@types/node@25.6.1)
+        version: 2.31.0(@types/node@25.6.2)
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.52.0
         version: 8.59.2(@typescript-eslint/parser@8.59.2(eslint@10.3.0)(typescript@6.0.3))(eslint@10.3.0)(typescript@6.0.3)
@@ -34,8 +34,8 @@ importers:
         version: 8.20.0
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       '@types/pg':
         specifier: ^8.16.0
         version: 8.20.0
@@ -47,7 +47,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: 4.1.5
-        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.1)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.1)(tsx@4.21.0)(yaml@2.8.4))
+        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.2)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.2)(tsx@4.21.0)(yaml@2.8.4))
 
   clients/qq-client:
     dependencies:
@@ -56,14 +56,14 @@ importers:
         version: 0.0.10
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
       vitest:
         specifier: 4.1.5
-        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.1)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.1)(tsx@4.21.0)(yaml@2.8.4))
+        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.2)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.2)(tsx@4.21.0)(yaml@2.8.4))
 
   clients/telegram-client:
     dependencies:
@@ -78,8 +78,8 @@ importers:
         version: 0.29.6(ws@8.20.0)
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -106,8 +106,8 @@ importers:
         version: 0.45.2(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(better-sqlite3@12.8.0)(pg@8.20.0)
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -119,14 +119,14 @@ importers:
         version: 4.4.3
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
       vitest:
         specifier: 4.1.5
-        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.1)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.1)(tsx@4.21.0)(yaml@2.8.4))
+        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.2)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.2)(tsx@4.21.0)(yaml@2.8.4))
 
   core/infra-kit:
     dependencies:
@@ -150,8 +150,8 @@ importers:
         version: 5.8.5
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       '@types/pg':
         specifier: ^8.16.0
         version: 8.20.0
@@ -163,7 +163,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: 4.1.5
-        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.1)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.1)(tsx@4.21.0)(yaml@2.8.4))
+        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.2)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.2)(tsx@4.21.0)(yaml@2.8.4))
 
   core/logger-kit:
     dependencies:
@@ -175,14 +175,14 @@ importers:
         version: 10.52.0
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
       vitest:
         specifier: 4.1.5
-        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.1)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.1)(tsx@4.21.0)(yaml@2.8.4))
+        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.2)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.2)(tsx@4.21.0)(yaml@2.8.4))
 
   core/plugin-kit:
     dependencies:
@@ -224,8 +224,8 @@ importers:
         version: 4.4.3
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       '@types/semver':
         specifier: ^7.7.1
         version: 7.7.1
@@ -234,7 +234,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: 4.1.5
-        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.1)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.1)(tsx@4.21.0)(yaml@2.8.4))
+        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.2)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.2)(tsx@4.21.0)(yaml@2.8.4))
 
   core/runtime-kit:
     dependencies:
@@ -261,8 +261,8 @@ importers:
         version: 2.8.4
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -277,8 +277,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -293,8 +293,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -321,8 +321,8 @@ importers:
         version: link:../../../sdk
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       drizzle-orm:
         specifier: ^0.45.1
         version: 0.45.2(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(better-sqlite3@12.8.0)(pg@8.20.0)
@@ -340,8 +340,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -356,8 +356,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -372,8 +372,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -388,8 +388,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -404,8 +404,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -420,8 +420,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -436,8 +436,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -452,8 +452,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -468,8 +468,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -480,8 +480,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -496,8 +496,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -508,8 +508,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -521,8 +521,8 @@ importers:
         version: link:../../../sdk
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -537,8 +537,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -549,8 +549,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -561,8 +561,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -573,8 +573,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -585,8 +585,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -601,8 +601,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -617,8 +617,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -633,8 +633,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -649,8 +649,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -665,8 +665,8 @@ importers:
         specifier: workspace:*
         version: link:../../../sdk
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -681,8 +681,8 @@ importers:
         version: link:../sdk-utils
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -690,8 +690,8 @@ importers:
   sdk-core:
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -703,8 +703,8 @@ importers:
         version: link:../sdk-core
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -731,8 +731,8 @@ importers:
         specifier: ^11.0.2
         version: 11.0.2
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -789,14 +789,14 @@ importers:
         version: 1.6.0
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
       vitest:
         specifier: 4.1.5
-        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.1)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.1)(tsx@4.21.0)(yaml@2.8.4))
+        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.2)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.2)(tsx@4.21.0)(yaml@2.8.4))
 
   utilities/gateway-kit:
     dependencies:
@@ -820,8 +820,8 @@ importers:
         version: 8.20.0
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       '@types/ws':
         specifier: ^8.18.1
         version: 8.18.1
@@ -854,8 +854,8 @@ importers:
         version: 2.8.4
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -882,14 +882,14 @@ importers:
         version: 3.7.1
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
       vitest:
         specifier: 4.1.5
-        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.1)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.1)(tsx@4.21.0)(yaml@2.8.4))
+        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.2)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.2)(tsx@4.21.0)(yaml@2.8.4))
 
   utilities/message-kit:
     dependencies:
@@ -925,8 +925,8 @@ importers:
         version: 1.6.0
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       '@vitest/coverage-v8':
         specifier: 4.1.5
         version: 4.1.5(vitest@4.1.5)
@@ -935,7 +935,7 @@ importers:
         version: 6.0.3
       vitest:
         specifier: 4.1.5
-        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.1)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.1)(tsx@4.21.0)(yaml@2.8.4))
+        version: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.2)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.2)(tsx@4.21.0)(yaml@2.8.4))
 
   utilities/request-kit:
     dependencies:
@@ -953,8 +953,8 @@ importers:
         version: 0.45.2(@opentelemetry/api@1.9.1)(@types/pg@8.20.0)(better-sqlite3@12.8.0)(pg@8.20.0)
     devDependencies:
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -1008,8 +1008,8 @@ importers:
         specifier: ^4.1.3
         version: 4.1.4(@kitajs/html@4.2.13)(typescript@6.0.3)
       '@types/node':
-        specifier: 25.6.1
-        version: 25.6.1
+        specifier: 25.6.2
+        version: 25.6.2
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -2285,8 +2285,8 @@ packages:
   '@types/node@25.6.0':
     resolution: {integrity: sha512-+qIYRKdNYJwY3vRCZMdJbPLJAtGjQBudzZzdzwQYkEPQd+PJGixUL5QfvCLDaULoLv+RhT3LDkwEfKaAkgSmNQ==}
 
-  '@types/node@25.6.1':
-    resolution: {integrity: sha512-coJCN8O1q4AGyyqCAUSP06P+SrMTu18BkEj3NVAK07q6QUneD2wzj3CLv9+yP+BMeZQlMvneXqqvDe3w+xcq7g==}
+  '@types/node@25.6.2':
+    resolution: {integrity: sha512-sokuT28dxf9JT5Kady1fsXOvI4HVpjZa95NKT5y9PNTIrs2AsobR4GFAA90ZG8M+nxVRLysCXsVj6eGC7Vbrlw==}
 
   '@types/pg-pool@2.0.7':
     resolution: {integrity: sha512-U4CwmGVQcbEuqpyju8/ptOKg6gEC+Tqsvj2xS9o1g71bUh8twxnC6ZL5rZKCsGN0iyH0CwgUyc9VR5owNQF9Ng==}
@@ -3992,7 +3992,7 @@ snapshots:
     dependencies:
       '@changesets/types': 6.1.0
 
-  '@changesets/cli@2.31.0(@types/node@25.6.1)':
+  '@changesets/cli@2.31.0(@types/node@25.6.2)':
     dependencies:
       '@changesets/apply-release-plan': 7.1.1
       '@changesets/assemble-release-plan': 6.0.10
@@ -4008,7 +4008,7 @@ snapshots:
       '@changesets/should-skip-package': 0.1.2
       '@changesets/types': 6.1.0
       '@changesets/write': 0.4.0
-      '@inquirer/external-editor': 1.0.3(@types/node@25.6.1)
+      '@inquirer/external-editor': 1.0.3(@types/node@25.6.2)
       '@manypkg/get-packages': 1.1.3
       ansi-colors: 4.1.3
       enquirer: 2.4.1
@@ -4533,12 +4533,12 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.3': {}
 
-  '@inquirer/external-editor@1.0.3(@types/node@25.6.1)':
+  '@inquirer/external-editor@1.0.3(@types/node@25.6.2)':
     dependencies:
       chardet: 2.1.1
       iconv-lite: 0.7.2
     optionalDependencies:
-      '@types/node': 25.6.1
+      '@types/node': 25.6.2
 
   '@jridgewell/resolve-uri@3.1.2': {}
 
@@ -5051,7 +5051,7 @@ snapshots:
     dependencies:
       undici-types: 7.19.2
 
-  '@types/node@25.6.1':
+  '@types/node@25.6.2':
     dependencies:
       undici-types: 7.19.2
 
@@ -5184,7 +5184,7 @@ snapshots:
       obug: 2.1.1
       std-env: 4.0.0
       tinyrainbow: 3.1.0
-      vitest: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.1)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.1)(tsx@4.21.0)(yaml@2.8.4))
+      vitest: 4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.2)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.2)(tsx@4.21.0)(yaml@2.8.4))
 
   '@vitest/expect@4.1.5':
     dependencies:
@@ -5195,13 +5195,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.0
 
-  '@vitest/mocker@4.1.5(vite@7.3.0(@types/node@25.6.1)(tsx@4.21.0)(yaml@2.8.4))':
+  '@vitest/mocker@4.1.5(vite@7.3.0(@types/node@25.6.2)(tsx@4.21.0)(yaml@2.8.4))':
     dependencies:
       '@vitest/spy': 4.1.5
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 7.3.0(@types/node@25.6.1)(tsx@4.21.0)(yaml@2.8.4)
+      vite: 7.3.0(@types/node@25.6.2)(tsx@4.21.0)(yaml@2.8.4)
 
   '@vitest/pretty-format@4.1.5':
     dependencies:
@@ -6670,7 +6670,7 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vite@7.3.0(@types/node@25.6.1)(tsx@4.21.0)(yaml@2.8.4):
+  vite@7.3.0(@types/node@25.6.2)(tsx@4.21.0)(yaml@2.8.4):
     dependencies:
       esbuild: 0.27.7
       fdir: 6.5.0(picomatch@4.0.4)
@@ -6679,15 +6679,15 @@ snapshots:
       rollup: 4.60.3
       tinyglobby: 0.2.16
     optionalDependencies:
-      '@types/node': 25.6.1
+      '@types/node': 25.6.2
       fsevents: 2.3.3
       tsx: 4.21.0
       yaml: 2.8.4
 
-  vitest@4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.1)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.1)(tsx@4.21.0)(yaml@2.8.4)):
+  vitest@4.1.5(@opentelemetry/api@1.9.1)(@types/node@25.6.2)(@vitest/coverage-v8@4.1.5)(vite@7.3.0(@types/node@25.6.2)(tsx@4.21.0)(yaml@2.8.4)):
     dependencies:
       '@vitest/expect': 4.1.5
-      '@vitest/mocker': 4.1.5(vite@7.3.0(@types/node@25.6.1)(tsx@4.21.0)(yaml@2.8.4))
+      '@vitest/mocker': 4.1.5(vite@7.3.0(@types/node@25.6.2)(tsx@4.21.0)(yaml@2.8.4))
       '@vitest/pretty-format': 4.1.5
       '@vitest/runner': 4.1.5
       '@vitest/snapshot': 4.1.5
@@ -6704,11 +6704,11 @@ snapshots:
       tinyexec: 1.0.2
       tinyglobby: 0.2.16
       tinyrainbow: 3.1.0
-      vite: 7.3.0(@types/node@25.6.1)(tsx@4.21.0)(yaml@2.8.4)
+      vite: 7.3.0(@types/node@25.6.2)(tsx@4.21.0)(yaml@2.8.4)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@opentelemetry/api': 1.9.1
-      '@types/node': 25.6.1
+      '@types/node': 25.6.2
       '@vitest/coverage-v8': 4.1.5(vitest@4.1.5)
     transitivePeerDependencies:
       - msw
